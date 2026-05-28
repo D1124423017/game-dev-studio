@@ -1,3 +1,5 @@
+![Game Dev Studio Banner](assets/game-dev-studio-banner.png)
+
 # Game Dev Studio Skill
 
 一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
