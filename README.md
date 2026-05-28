@@ -1,4 +1,4 @@
-# Game Dev Assistant Skill
+# Game Dev Studio Skill
 
 一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
 
@@ -24,14 +24,14 @@
 在 Codex 中輸入：
 
 ```txt
-$game-dev-assistant
+$game-dev-studio
 我想做一款遊戲，請先從製作人、企劃、程式、UI/UX、美術、音效、QA 的角度幫我釐清方向。
 ```
 
 或：
 
 ```txt
-$game-dev-assistant
+$game-dev-studio
 請幫我把這個遊戲想法拆成 MVP、核心系統、技術架構、美術方向與第一階段開發任務。
 ```
 
