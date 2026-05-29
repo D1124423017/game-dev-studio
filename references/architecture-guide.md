@@ -1,14 +1,34 @@
-# Architecture Guide
+# 程式架構指南
 
-遊戲專案不應把所有邏輯塞進單一檔案。
+## 目錄結構建議
 
-建議基本分層：
+```
+project/
+  Assets/
+  Scenes/
+  Scripts/
+    Core/
+    Gameplay/
+    UI/
+    Data/
+    Audio/
+    Utils/
+  Prefabs/
+  Resources/
+  Settings/
+```
 
-- core：遊戲狀態、主流程
-- systems：玩法、戰鬥、輸入、生成、互動
-- ui：HUD、選單、提示、設定
-- data：關卡、敵人、道具、技能、翻譯
-- assets：圖片、音效、字型
-- tests：測試與驗收
+## 模組拆分原則
 
-小型原型可以簡化，但仍要保持責任分離。
+- Core：場景管理、遊戲狀態機、事件系統、音效管理
+- Gameplay：角色、敵人、技能、關卡邏輯
+- UI：選單、HUD、結果畫面
+- Data：數值表、存檔、設定、資源對應
+- Utils：通用工具
+
+## 禁止事項
+
+- 所有邏輯塞在單一 MonoBehaviour
+- UI、輸入、資料、邏輯、存檔全部混在一起
+- 硬編碼數值散布在程式碼各處
+- 沒有事件系統、用 FindObjectOfType 到處拉參考
