@@ -7,9 +7,23 @@ description: >
   多重角度協助使用者，把模糊想法轉化為可執行的遊戲企劃、技術架構、
   視覺方案、測試流程與開發任務。
   適用 Unity、Unreal、Godot、HTML Canvas、Web Game、2D、3D 與遊戲原型開發。
+  Use for game development, game design, Unity, Unreal, Godot, web game,
+  HTML Canvas, 2D games, 3D games, art direction, visual asset planning,
+  UI/UX review, sound design, QA, playtesting, MVP planning, and game project
+  architecture.
 ---
 
 # Game Dev Studio Skill
+
+## Reference Usage Guide
+
+Use the bundled references when the task needs more structure than the core rules below.
+
+- Read `references/workflow.md` when starting a new game idea, clarifying a vague request, planning a phase, or deciding the order of producer, design, technical, visual, UI/UX, audio, QA, and playtesting work.
+- Read `references/architecture-guide.md` before creating or restructuring a project, choosing an engine-specific layout, splitting modules, reviewing maintainability, or preventing a giant single-file implementation.
+- Read `references/visual-asset-policy.md` whenever the task involves anything visible to players: characters, enemies, environments, UI, HUD, icons, effects, menus, spritesheets, cutscenes, store art, banners, or promotional images.
+- Read `references/ruthless-playtester.md` when reviewing a game concept, prototype, UI flow, feature, level, combat loop, reward loop, or completed implementation from a player's harsh but useful perspective.
+- Read `references/output-templates.md` when the user asks for a plan, brief, review, test report, task breakdown, final report, or any structured deliverable.
 
 ## 核心定位
 
