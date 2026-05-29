@@ -1,44 +1,71 @@
 ![Game Dev Studio Banner](assets/game-dev-studio-banner.png)
 
+[繁體中文](README.zh-TW.md) | English
+
 # Game Dev Studio Skill
 
-一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
+A universal skill that enables Codex / AI Agent to assist in game development as a "complete game development team".
 
-## 特色
+## What is Game Dev Studio?
 
-- 多角色協作：製作人、企劃、程式、UI/UX、美術、音效、QA、犀利測試玩家
-- 適用 Unity、Unreal、Godot、HTML Canvas、Web Game、2D、3D 與遊戲原型
-- 可從模糊想法整理出可執行的遊戲企劃
-- 強調程式架構，避免所有邏輯塞進單一檔案
-- 只要涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案
-- 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
+Game Dev Studio is a skill for AI agents that transforms them into a full game development team. It's not just a code assistant—it's a multi-role team that helps turn vague game ideas into executable plans, technical architectures, visual solutions, and development tasks.
 
-## 適合誰使用
+## Features
 
-- 想做遊戲但還不知道怎麼開始的人
-- 遊戲企劃學生
-- 個人開發者
-- 小型遊戲團隊
-- 用 Codex / AI 輔助開發遊戲的人
+- Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, Game Artist, Sound Consultant, QA, and Ruthless Playtester
+- Supports Unity, Unreal, Godot, HTML Canvas, Web Game, 2D, 3D, and game prototypes
+- Transforms vague ideas into executable game plans
+- Emphasizes code architecture to avoid monolithic files
+- Prioritizes image generation or visual solutions for any screen-related tasks
+- Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
 
-## 建議使用方式
+## Who is this for?
 
-在 Codex 中輸入：
+- People who want to make games but don't know where to start
+- Game design students
+- Solo developers
+- Small game teams
+- Anyone using Codex / AI to assist in game development
 
-```txt
-$game-dev-studio
-我想做一款遊戲，請先從製作人、企劃、程式、UI/UX、美術、音效、QA 的角度幫我釐清方向。
-```
+## How to use
 
-或：
+In Codex, type:
 
 ```txt
 $game-dev-studio
-請幫我把這個遊戲想法拆成 MVP、核心系統、技術架構、美術方向與第一階段開發任務。
+I want to make a game. Please help me clarify the direction from the perspectives of producer, game designer, programmer, UI/UX designer, artist, sound, and QA.
 ```
 
-## 核心理念
+Or:
 
-這不是單純的程式助手。
+```txt
+$game-dev-studio
+Please break down this game idea into MVP, core systems, technical architecture, art direction, and first-phase development tasks.
+```
 
-它是一個遊戲開發團隊型 Skill，目標是讓 AI 不只寫程式，而是協助做出更完整、更可玩、更有品質的遊戲。
+## Core philosophy
+
+This is not just a code assistant.
+
+It's a game development team skill designed to help AI not just write code, but assist in creating more complete, more playable, and higher-quality games.
+
+## Repository structure
+
+```
+game-dev-studio/
+├── SKILL.md              # Core skill definition
+├── README.md             # English documentation
+├── README.zh-TW.md       # Traditional Chinese documentation
+├── references/           # Reference documents
+│   ├── workflow.md
+│   ├── architecture-guide.md
+│   ├── visual-asset-policy.md
+│   ├── ruthless-playtester.md
+│   └── output-templates.md
+└── assets/              # Image assets
+    └── game-dev-studio-banner.png
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

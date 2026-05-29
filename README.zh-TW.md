@@ -1,0 +1,67 @@
+![Game Dev Studio Banner](assets/game-dev-studio-banner.png)
+
+繁體中文 | [English](README.md)
+
+# Game Dev Studio Skill
+
+一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
+
+## 特色
+
+- 多角色協作：製作人、企劃、程式、UI/UX、美術、音效、QA、犀利測試玩家
+- 適用 Unity、Unreal、Godot、HTML Canvas、Web Game、2D、3D 與遊戲原型
+- 可從模糊想法整理出可執行的遊戲企劃
+- 強調程式架構，避免所有邏輯塞進單一檔案
+- 只要涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案
+- 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
+
+## 適合誰使用
+
+- 想做遊戲但還不知道怎麼開始的人
+- 遊戲企劃學生
+- 個人開發者
+- 小型遊戲團隊
+- 用 Codex / AI 輔助開發遊戲的人
+
+## 使用方式
+
+在 Codex 中輸入：
+
+```txt
+$game-dev-studio
+我想做一款遊戲，請先從製作人、企劃、程式、UI/UX、美術、音效、QA 的角度幫我釐清方向。
+```
+
+或：
+
+```txt
+$game-dev-studio
+請幫我把這個遊戲想法拆成 MVP、核心系統、技術架構、美術方向與第一階段開發任務。
+```
+
+## 核心理念
+
+這不是單純的程式助手。
+
+它是一個遊戲開發團隊型 Skill，目標是讓 AI 不只寫程式，而是協助做出更完整、更可玩、更有品質的遊戲。
+
+## 專案結構
+
+```
+game-dev-studio/
+├── SKILL.md              # 核心技能定義
+├── README.md             # 英文版說明
+├── README.zh-TW.md       # 繁體中文版說明
+├── references/           # 參考文件
+│   ├── workflow.md
+│   ├── architecture-guide.md
+│   ├── visual-asset-policy.md
+│   ├── ruthless-playtester.md
+│   └── output-templates.md
+└── assets/              # 圖片資源
+    └── game-dev-studio-banner.png
+```
+
+## 授權
+
+本專案採用 MIT 授權。詳見 [LICENSE](LICENSE) 檔案。
