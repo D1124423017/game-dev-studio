@@ -94,7 +94,10 @@ game-dev-studio/
 ├── SKILL.md              # 核心技能定義
 ├── README.md             # 英文版說明
 ├── README.zh-TW.md       # 繁體中文版說明
+├── CONTRIBUTING.md       # 貢獻指南
 ├── LICENSE               # MIT 授權
+├── agents/               # Skill metadata
+│   └── openai.yaml
 ├── references/           # 參考文件
 │   ├── workflow.md
 │   ├── architecture-guide.md
@@ -105,6 +108,13 @@ game-dev-studio/
     └── game-dev-studio-banner.png
 ```
 
+## 打包成 .skill 檔案
+
+這個 repo 可作為 Codex Skill 的來源資料夾。
+如果你的 Codex 環境支援 `.skill` 打包，請依照你的 Codex Skill 工具，將 `game-dev-studio/` 資料夾打包。
+
+`.skill` 檔案屬於產出物，不建議提交到原始碼倉庫，因此已被 Git 忽略。
+
 ## Release 建議
 
 公開發布時建議：
@@ -113,6 +123,21 @@ game-dev-studio/
 - Release note 說明 Skill 目的、安裝路徑與支援工作流程。
 - 如果 reference 模板或呼叫行為有破壞性變更，應在 release 中標明。
 - README 範例應和最新 `SKILL.md` 保持一致。
+
+## 版本發布
+
+建議第一個公開版本為 `v0.1.0`。
+
+建議 release 標題：
+`v0.1.0 - Initial public release`
+
+建議 release notes：
+
+- 初版 Game Dev Studio Skill
+- 完整遊戲開發團隊型工作流程
+- 支援製作人、企劃、程式、UI/UX、美術、音效、QA、測試玩家等多角色指引
+- 中英文 README
+- 包含 workflow、architecture、visual assets、output templates、playtesting 等參考文件
 
 ## 授權
 

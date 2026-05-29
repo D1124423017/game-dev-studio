@@ -98,7 +98,10 @@ game-dev-studio/
 ├── SKILL.md              # Core skill definition
 ├── README.md             # English documentation
 ├── README.zh-TW.md       # Traditional Chinese documentation
+├── CONTRIBUTING.md       # Contribution guide
 ├── LICENSE               # MIT License
+├── agents/               # Skill metadata
+│   └── openai.yaml
 ├── references/           # Reference documents
 │   ├── workflow.md
 │   ├── architecture-guide.md
@@ -109,6 +112,13 @@ game-dev-studio/
     └── game-dev-studio-banner.png
 ```
 
+## Packaging as a .skill file
+
+This repository is designed to be used as a source folder for a Codex Skill.
+If your Codex environment supports `.skill` packaging, package the `game-dev-studio/` folder according to your Codex Skill tooling.
+
+The `.skill` file itself is ignored by Git because generated packages should not be committed to the source repository.
+
 ## Release Suggestions
 
 Recommended public release flow:
@@ -117,6 +127,21 @@ Recommended public release flow:
 - Include a short release note explaining the skill purpose, installation path, and supported workflows.
 - Mention breaking changes when reference templates or invocation behavior changes.
 - Keep README examples aligned with the latest `SKILL.md`.
+
+## Releases
+
+The recommended first public release is `v0.1.0`.
+
+Suggested release title:
+`v0.1.0 - Initial public release`
+
+Suggested release notes:
+
+- Initial Game Dev Studio Skill
+- Full game development team workflow
+- Multi-role guidance for producer, designer, programmer, UI/UX, art, sound, QA, and playtesting
+- Bilingual README
+- Reference guides for workflow, architecture, visual assets, output templates, and playtesting
 
 ## License
 
