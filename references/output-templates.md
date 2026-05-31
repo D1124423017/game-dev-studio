@@ -1,6 +1,6 @@
 # Output Templates
 
-Use these templates when a user asks for a structured plan, review, brief, task, or final report. Keep the headings, but omit sections that are not relevant to the current task.
+Use these templates when a user asks for a structured plan, review, brief, task, test report, refactor plan, or final report. Keep the headings, but omit sections that are not relevant to the current task.
 
 ## Game Concept Template
 
@@ -33,19 +33,79 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Acceptance criteria
 - Biggest risks
 
+## Architecture Review Template
+
+```md
+## Architecture Review
+
+### Current Structure
+- Entry points:
+- Core files:
+- Data files:
+- UI files:
+- Asset flow:
+- Test files:
+
+### Biggest Architecture Problems
+- ...
+
+### Giant File / God Object Risks
+- File:
+- Responsibilities mixed together:
+- Why it is risky:
+
+### Recommended Module Split
+- Module:
+- Responsibility:
+- Suggested files:
+- Risk level:
+
+### High-Risk Areas
+- ...
+
+### Safe Refactor Order
+1. ...
+2. ...
+3. ...
+
+### Required Tests
+- ...
+
+### Do Not Touch Yet
+- ...
+```
+
 ## UI/UX Review Template
 
-- Screen or flow reviewed
-- Player goal on this screen
-- Information hierarchy
-- Input clarity
-- Feedback clarity
-- Navigation clarity
-- Accessibility concerns
-- Confusing elements
-- Missing states
-- Recommended fixes
-- Priority: must fix / should fix / optional
+```md
+## UI/UX Review
+
+### First Impression
+- ...
+
+### Information Hierarchy
+- Primary:
+- Secondary:
+- Missing:
+- Too noisy:
+
+### Player Flow
+- Entry:
+- Main action:
+- Failure flow:
+- Reward flow:
+
+### Readability Issues
+- ...
+
+### Interaction Issues
+- ...
+
+### Recommended Fixes
+- Must-fix:
+- Should-improve:
+- Optional:
+```
 
 ## Visual Asset Brief Template
 
@@ -60,43 +120,81 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Resolution and format
 - Animation or spritesheet needs
 - Variants needed
+- Suggested paths
+- Naming convention
 - Image generation prompt
 - Negative prompt or avoid list
 - Delivery checklist
 
 ## Sound Design Brief Template
 
-- Audio goal
-- Music mood
-- Music states
-- Sound event list
-- Player action feedback
-- Combat or interaction feedback
-- Success sound
-- Failure sound
-- UI sound
-- Ambient sound
-- Looping requirements
-- File format and loudness notes
-- Implementation notes
+```md
+## Sound Design Brief
+
+### Mood
+- ...
+
+### Music Needs
+- Main menu:
+- Gameplay:
+- Combat:
+- Victory:
+- Defeat:
+
+### SFX Needs
+- UI:
+- Player action:
+- Enemy action:
+- Hit / damage:
+- Reward:
+- Warning:
+
+### Mixing Notes
+- Volume:
+- Priority:
+- Looping:
+- Avoid:
+```
 
 ## QA Test Report Template
 
-- Build or version tested
-- Platform and device
-- Test scope
-- Smoke test results
-- Gameplay test results
-- UI/UX test results
-- Audio/visual test results
-- Edge cases tested
-- Bugs found
-- Reproduction steps
-- Severity
-- Expected result
-- Actual result
-- Suggested fix
-- Pass/fail summary
+```md
+## QA Test Report
+
+### Test Environment
+- Engine / framework:
+- Platform:
+- Build / commit:
+- Browser / device:
+- Date:
+
+### Test Results
+| Test Item | Status | Notes |
+|---|---|---|
+| Launch / boot | Passed / Failed / Not run / Blocked | |
+| Main menu | Passed / Failed / Not run / Blocked | |
+| Core gameplay | Passed / Failed / Not run / Blocked | |
+| UI flow | Passed / Failed / Not run / Blocked | |
+| Save / load | Passed / Failed / Not run / Blocked | |
+| Audio | Passed / Failed / Not run / Blocked | |
+| Asset loading | Passed / Failed / Not run / Blocked | |
+| Localization | Passed / Failed / Not run / Blocked | |
+| Build / deployment | Passed / Failed / Not run / Blocked | |
+
+### Bugs Found
+- Severity:
+- Repro steps:
+- Expected:
+- Actual:
+- Notes:
+
+### Not Run / Blocked
+- Item:
+- Reason:
+
+### Risk
+- ...
+```
 
 ## Ruthless Playtester Report Template
 
@@ -113,6 +211,71 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Must-fix issues
 - Suggested improvements
 - Optional upgrades
+
+## Refactor Plan Template
+
+```md
+## Refactor Plan
+
+### Goal
+- ...
+
+### Current Problem
+- ...
+
+### Allowed Scope
+- ...
+
+### Not Allowed
+- ...
+
+### Safe Step Order
+1. ...
+2. ...
+3. ...
+
+### Risk Areas
+- ...
+
+### Tests Required
+- ...
+
+### Rollback Plan
+- ...
+```
+
+## Engine-specific Verification Template
+
+```md
+## Engine Verification
+
+### Web / HTML Canvas
+- npm run check:
+- npm run test:
+- npm run build:
+- Browser console:
+- Network 404:
+- Local smoke test:
+
+### Unity
+- Script compile:
+- Console errors:
+- Play mode:
+- Scene references:
+- Prefab references:
+
+### Unreal
+- Blueprint compile:
+- PIE test:
+- Asset references:
+- Packaging risk:
+
+### Godot
+- Project launch:
+- Scene loading:
+- Signal connections:
+- Autoload state:
+```
 
 ## Codex Task Template
 

@@ -10,6 +10,13 @@ A universal skill that enables Codex / AI Agent to assist in game development as
 
 Game Dev Studio is a skill for AI agents that transforms them into a full game development team. It's not just a code assistant—it's a multi-role team that helps turn vague game ideas into executable plans, technical architectures, visual solutions, and development tasks.
 
+## Quick Start
+
+```txt
+$game-dev-studio
+I want to make a game. Please help me clarify the direction from producer, game design, programming, UI/UX, art, sound, QA, and playtesting perspectives before writing code.
+```
+
 ## Features
 
 - Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, Game Artist, Sound Consultant, QA, and Ruthless Playtester
@@ -26,6 +33,12 @@ Game Dev Studio is a skill for AI agents that transforms them into a full game d
 - Solo developers
 - Small game teams
 - Anyone using Codex / AI to assist in game development
+
+## When to Use / When Not to Use
+
+Use this skill for game planning, architecture review, UI/UX, visual assets, QA, playtesting, feature task breakdown, MVP planning, and player-facing game work.
+
+Do not use it for tiny typo fixes, simple Git commands, one-line README edits, general knowledge questions, or non-game tasks.
 
 ## Installation
 
@@ -65,24 +78,46 @@ Please break down this game idea into MVP, core systems, technical architecture,
 
 ## Usage Examples
 
+### Start a new game
+
 ```txt
 $game-dev-studio
 I want to make a 2D action roguelite. Give me four possible directions: easiest to finish, most distinctive, most commercial, and most experimental.
 ```
+
+### Review an existing game
 
 ```txt
 $game-dev-studio
 Review my current Godot prototype as producer, game designer, programmer, UI/UX designer, art director, sound designer, QA, and ruthless playtester.
 ```
 
+### Plan visual assets
+
 ```txt
 $game-dev-studio
 Create a visual asset brief for the main character, enemies, HUD, skill icons, hit effects, and capsule art. Include image generation prompts.
 ```
 
+### Create a safe refactor plan
+
+```txt
+$game-dev-studio
+My HTML Canvas game has all logic in main.js. Review the architecture and create a safe refactor plan before changing code.
+```
+
+### Break down a Codex task
+
 ```txt
 $game-dev-studio
 Turn this feature idea into a Codex implementation task with architecture requirements, test requirements, and acceptance criteria.
+```
+
+### Ruthless playtest review
+
+```txt
+$game-dev-studio
+Act as a ruthless playtester for this prototype. Tell me what is boring, confusing, slow, weak, or forgettable, then suggest must-fix improvements.
 ```
 
 ## Core philosophy
@@ -95,13 +130,17 @@ It's a game development team skill designed to help AI not just write code, but 
 
 ```
 game-dev-studio/
+├── .github/              # Issue and pull request templates
 ├── SKILL.md              # Core skill definition
 ├── README.md             # English documentation
 ├── README.zh-TW.md       # Traditional Chinese documentation
+├── CHANGELOG.md          # Release history
 ├── CONTRIBUTING.md       # Contribution guide
 ├── LICENSE               # MIT License
 ├── agents/               # Skill metadata
 │   └── openai.yaml
+├── prompts/              # Skill validation prompts
+│   └── test-prompts.md
 ├── references/           # Reference documents
 │   ├── workflow.md
 │   ├── architecture-guide.md
@@ -141,7 +180,13 @@ Suggested release notes:
 - Full game development team workflow
 - Multi-role guidance for producer, designer, programmer, UI/UX, art, sound, QA, and playtesting
 - Bilingual README
-- Reference guides for workflow, architecture, visual assets, output templates, and playtesting
+- Architecture guide
+- Visual asset policy
+- Output templates
+- Ruthless playtester
+- Contribution guide
+- Prompt examples
+- MIT License
 
 ## License
 

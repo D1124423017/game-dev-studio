@@ -1,33 +1,121 @@
-# 視覺資產政策
+# Visual Asset Policy
 
-## 核心原則
+Use this reference whenever a task touches anything players can see: characters, enemies, environments, UI, HUD, icons, effects, menus, spritesheets, cutscenes, store art, banners, logo, screenshots, or promotional images.
 
-只要任務涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案。
+## Core Principle
 
-## 具體產出
+Player-visible tasks should prioritize direct image generation when the environment supports it.
 
-- 角色概念圖：含前後側三視圖
-- 場景概念圖：含日夜版本
-- UI 設計稿：主選單、HUD、結果畫面
-- 圖示：技能、道具、狀態效果
-- spritesheet：含動畫格
-- 宣傳圖與 logo
+If direct image generation is not available, provide a complete image generation brief with asset specs, naming, size, style direction, and integration notes.
 
-## 生圖提示詞格式
+Do not stop at vague art direction when the user needs usable game assets or visual concepts.
 
-- 主體描述
-- 風格指定
-- 構圖描述
-- 色彩方案
-- 技術參數
-- 參考方向
+## Formal Asset vs Prototype Placeholder
 
-## 資產規格
+### Formal asset
 
-需明確提供的規格：
-- 解析度
-- 格式
-- 尺寸
-- 用途
-- 數量
-- 變體需求
+A formal asset can be used in the actual game or public presentation:
+
+- Resolution is high enough for its purpose.
+- Name and path are clear.
+- Style is consistent with the rest of the game.
+- Format is appropriate.
+- Transparent background is provided when needed.
+- Asset has been integrated or has clear integration instructions.
+
+### Prototype placeholder
+
+A prototype placeholder is only for quick testing:
+
+- It must be clearly labeled as placeholder.
+- It must not be reported as finished production art.
+- It should be replaced before public screenshots, release builds, store pages, or portfolio presentation.
+
+## Required Visual Asset Brief
+
+For visual tasks, provide:
+
+- Asset purpose
+- Asset list
+- Style direction
+- Mood and references
+- Color palette
+- Resolution
+- Format
+- Transparent background requirement
+- Animation or spritesheet requirements
+- Suggested path
+- Naming convention
+- Image generation prompt
+- Avoid list / negative prompt
+- Integration checklist
+
+## Naming and Paths
+
+- Use lowercase kebab-case unless the project already has a naming convention.
+- Do not use names such as `final-final-v2.png`.
+- Put icons, characters, backgrounds, effects, and UI in sensible folders.
+- If the project has an asset registry, update it when adding assets.
+- If the engine uses import metadata, mention required import settings.
+
+Suggested folders:
+
+```txt
+assets/
+  art/
+    characters/
+    enemies/
+    backgrounds/
+    ui/
+    icons/
+    vfx/
+  audio/
+  fonts/
+```
+
+## Suggested Sizes
+
+- README / banner: around 1600px wide
+- Background: at least 1920x1080
+- UI icon: at least 512x512
+- Detailed icon: 1024x1024
+- Character / enemy portrait: at least 1024px tall
+- Card art: at least 1024x1536
+- Spritesheet: specify rows, columns, cell size, padding, frame count, and anchor point
+
+## Style Consistency Check
+
+Before calling a visual task complete, check:
+
+- Does it look like the same game?
+- Is the main color palette consistent?
+- Is the UI visual language consistent?
+- Do effects block gameplay readability?
+- Are icons recognizable when scaled down?
+- Does anything still look like placeholder art?
+- Are player-critical elements readable against the background?
+
+## Visual Asset Report
+
+```md
+## Visual Asset Report
+
+### Generated / Required Assets
+- Asset name:
+- Type:
+- Purpose:
+- Suggested path:
+- Resolution:
+- Format:
+- Transparent background:
+- Style direction:
+- Status: generated / prompt only / integrated / not integrated
+
+### Integration Checklist
+- File added:
+- Asset registry updated:
+- Code reference updated:
+- In-game display confirmed:
+- No placeholder remains:
+- Style consistency checked:
+```

@@ -1,28 +1,79 @@
-# 犀利測試玩家準則
+# Ruthless Playtester Guide
 
-## 檢查清單
+Use this reference after a game concept, prototype, UI flow, level, combat loop, reward loop, or feature is designed or implemented.
 
-- 好不好玩？為什麼？
-- 看不懂什麼？
-- 什麼地方節奏太拖？
-- 操作回饋夠不夠？
-- UI 容不容易迷路？
-- 像作業還是像遊戲？
-- 什麼應該砍掉？
-- 什麼應該加強？
+The Ruthless Playtester should be direct, specific, and useful. Criticism must target the game, not the person.
 
-## 意見分級
+## Review Rules
 
-### 必修問題
-不修遊戲就出不了門
+- Be blunt about what is boring, unclear, slow, weak, generic, or forgettable.
+- Always explain why the issue hurts the player experience.
+- Every criticism should include an actionable improvement.
+- Split recommendations into Must-fix, Should-improve, and Optional bonus.
+- Do not force the user to accept the recommendation; the user decides what to adopt.
 
-### 建議優化
-修了明顯變好
+## Common Problem Categories
 
-### 可選加分
-修了更有價值但可以先不做
+- boring core loop
+- unclear goal
+- weak feedback
+- no tension
+- too much UI noise
+- weak reward
+- no memorable hook
+- poor readability
+- slow pacing
+- fake complexity
+- unclear failure
+- repetitive input
+- no escalation
+- no reason to replay
 
-## 態度
+## Ruthless Playtester Review
 
-直接、具體、不客氣。
-說「這很無聊」比說「可以再豐富一些」更有用。
+```md
+## Ruthless Playtester Review
+
+### First 10 Seconds
+- What the player understands:
+- What is confusing:
+- Immediate friction:
+
+### Fun Factor
+Score: /10
+Reason:
+
+### Clarity
+Score: /10
+Reason:
+
+### Feedback / Juice
+Score: /10
+Reason:
+
+### Pacing
+Score: /10
+Reason:
+
+### Visual Readability
+Score: /10
+Reason:
+
+### Replay Motivation
+Score: /10
+Reason:
+
+### Biggest Problems
+- Must-fix:
+- Should-improve:
+- Optional bonus:
+
+### What Feels Like a Student Project
+- ...
+
+### What Could Become the Hook
+- ...
+
+### Brutal Summary
+One direct paragraph explaining why a player would continue or quit.
+```

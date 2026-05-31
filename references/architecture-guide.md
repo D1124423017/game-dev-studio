@@ -1,27 +1,30 @@
 # Cross-Engine Architecture Guide
 
-Use this guide before creating a new game project, expanding a prototype, or reviewing whether the project structure can survive more features.
+Use this guide before creating a new game project, expanding a prototype, restructuring an existing project, or reviewing whether the project can survive more features.
 
 ## Core Rule
 
 Do not put every system into one giant file.
 
-Even the smallest prototype should separate the responsibilities that change for different reasons:
+Even the smallest prototype should separate responsibilities that change for different reasons. A single coordinator can exist, but it should not own gameplay rules, UI, input, audio, save data, asset loading, and tests at the same time.
 
-- Boot / app startup
-- Scene or screen flow
-- Input handling
-- Game state
-- Gameplay rules
-- Entities and components
-- UI / HUD
-- Audio
-- Data and configuration
-- Save / persistence
-- Asset loading
-- Tests or debug tools
+## Common Game Architecture Principles
 
-Small projects can use fewer folders, but they still need clear boundaries.
+Every engine has different file types, but the same responsibilities should remain separated:
+
+- `Core`: game state, initialization, boot flow, main loop ownership, scene flow, high-level app state
+- `Gameplay / Systems`: combat, interaction, spawning, quests, progression, rules, win/loss conditions
+- `Input`: keyboard, mouse, gamepad, touch, remapping, input buffering; do not mix it into gameplay core
+- `UI`: HUD, menus, tutorials, prompts, result screens, settings, accessibility states
+- `Data`: levels, enemies, items, skills, tuning values, localization, drop tables
+- `Assets`: images, audio, fonts, prefabs, blueprints, scenes, materials, shaders, animation clips
+- `Audio`: BGM, SFX, mixers, music states, volume settings, audio event mapping
+- `Save / Settings`: save files, progression, settings, language, volume, key bindings
+- `Render / Presentation`: camera, animation, effects, screen shake, transitions, visual state
+- `Debug`: debug HUD, diagnostics, cheats, test tools; debug code should not control production gameplay
+- `Tests`: unit tests, flow tests, play mode tests, smoke tests, browser checks, fixture scenes
+
+Input should describe intent, gameplay should decide outcomes, render should display state, UI should explain state, audio should respond to events, and data should tune behavior without forcing code edits.
 
 ## Shared Module Model
 
@@ -29,16 +32,18 @@ Use these conceptual modules across engines:
 
 - `Core`: bootstrapping, game loop ownership, scene flow, event bus, service registration
 - `Gameplay`: player, enemies, abilities, combat, physics rules, level logic, win/loss rules
+- `Input`: raw input, input mapping, commands, device-specific adapters
 - `UI`: menus, HUD, overlays, dialogs, results, accessibility states
 - `Data`: tuning values, item tables, level definitions, localization, save schemas
 - `Audio`: music states, sound event mapping, mixers, volume settings
 - `Assets`: art, animation, VFX, shaders, materials, sprites, models, fonts
-- `Tools`: debug panels, editor helpers, import/export utilities
+- `Save`: persistence, progression, settings, migration
+- `Debug`: diagnostics, debug UI, dev cheats, profiling helpers
 - `Tests`: unit tests, play mode tests, smoke tests, fixture scenes
 
-## Small Prototype Structure
+## Small Prototype vs Larger Project
 
-Use this when the goal is a jam game, proof of concept, or one-screen prototype:
+Small prototypes can simplify the structure, but they still need boundaries:
 
 ```txt
 project/
@@ -47,33 +52,32 @@ project/
     gameplay/
     ui/
     data/
-    audio/
   assets/
   tests/
-  README.md
 ```
 
-Keep the number of files modest, but avoid files that own unrelated systems. A single `GameManager` may coordinate systems, but it should not contain all gameplay, UI, audio, input, and save logic.
+Minimum prototype rules:
 
-## Larger Project Structure
+- Keep bootstrapping separate from gameplay rules.
+- Keep UI display separate from gameplay state changes.
+- Keep tuning values in one place.
+- Keep at least one smoke test or manual verification checklist.
+- Do not use "it is only a prototype" as an excuse to create an unchangeable giant file.
 
-Use this when the game has multiple scenes, progression, reusable content, or a team workflow:
+Larger projects need stronger ownership:
 
 ```txt
 project/
   src/
     core/
-    scenes/
     gameplay/
-      player/
-      enemies/
-      abilities/
-      levels/
+    input/
     ui/
-    audio/
     data/
+    audio/
     save/
-    tools/
+    render/
+    debug/
     tests/
   assets/
     art/
@@ -83,11 +87,15 @@ project/
   docs/
 ```
 
-Add boundaries for features, not for decoration. If a folder exists, it should reduce confusion about ownership.
+Larger project rules:
 
-## Unity
+- Define entry points and scene flow.
+- Use data/config files for balance and content.
+- Keep asset import paths and registries consistent.
+- Separate save/settings from gameplay systems.
+- Add repeatable tests or smoke checks for boot, input, win/loss, restart, and asset loading.
 
-Recommended shape:
+## Unity Suggested Structure
 
 ```txt
 Assets/
@@ -95,42 +103,47 @@ Assets/
   Scripts/
     Core/
     Gameplay/
+    Input/
     UI/
     Data/
     Audio/
+    Save/
+    Debug/
     Tools/
-    Tests/
   Prefabs/
   ScriptableObjects/
   Art/
   Audio/
   VFX/
+  Tests/
   Resources/ or Addressables/
 ```
 
-Guidelines:
+Unity guidelines:
 
-- Keep MonoBehaviours thin when possible; move reusable rules into plain C# classes or ScriptableObjects.
-- Avoid one massive `GameManager`.
-- Use ScriptableObjects for tunable data when appropriate.
+- MonoBehaviour should mostly handle Unity lifecycle glue, scene references, collisions, and engine callbacks.
+- Do not put every rule into one `GameManager`, `PlayerController`, or `LevelManager`.
+- Prefer ScriptableObjects or data configs for enemies, items, skills, levels, spawn rules, economy values, and tuning.
+- UI logic should not directly mutate gameplay core. Route player intent through controllers, commands, events, or services.
 - Avoid scattered `FindObjectOfType` calls for core dependencies.
 - Keep scene flow, gameplay state, UI presentation, and audio events separate.
+- Tests should include compile checks, play mode smoke checks, scene reference checks, and prefab reference checks when possible.
 
-## Unreal
-
-Recommended shape:
+## Unreal Suggested Structure
 
 ```txt
 Content/
-  Maps/
   Blueprints/
     Core/
     Gameplay/
     UI/
-    AI/
-  Art/
+  DataTables/
+  Levels/
+  Materials/
   Audio/
-  VFX/
+  Input/
+  Characters/
+  Effects/
 Source/
   GameName/
     Core/
@@ -139,17 +152,19 @@ Source/
     Data/
 ```
 
-Guidelines:
+Unreal guidelines:
 
-- Keep GameMode, GameState, PlayerController, Character, and UI responsibilities distinct.
-- Do not place all rules in a Level Blueprint.
-- Use Data Assets or Data Tables for tunable content.
-- Keep Blueprint logic readable; move complex or shared logic into C++ or reusable Blueprint components.
-- Separate input, camera, ability logic, UI widgets, and save systems.
+- Keep GameMode, GameInstance, PlayerController, Pawn / Character, and Widget responsibilities distinct.
+- GameMode owns match rules and high-level mode behavior.
+- GameInstance owns persistent app/session state, not moment-to-moment combat rules.
+- PlayerController translates player intent and camera/control concerns, not all progression.
+- Pawn / Character owns character behavior and presentation, not global game flow.
+- Widget Blueprint should not contain gameplay core rules.
+- Use DataTable / DataAsset for enemies, items, skills, level definitions, and tuning values.
+- Avoid putting all rules in a Level Blueprint.
+- When Blueprint graphs become large, split into function libraries, actor components, data assets, or C++ classes.
 
-## Godot
-
-Recommended shape:
+## Godot Suggested Structure
 
 ```txt
 res://
@@ -160,88 +175,144 @@ res://
   scripts/
     core/
     gameplay/
+    input/
     ui/
     data/
     audio/
-  assets/
-    art/
-    audio/
-    vfx/
+  autoload/
   resources/
+  audio/
+  art/
   tests/
 ```
 
-Guidelines:
+Godot guidelines:
 
 - Use scenes for reusable entities and UI, not one scene containing everything.
-- Keep Autoload singletons focused; avoid turning them into global dumping grounds.
-- Use Resources for tunable data.
+- Autoload should hold focused global services such as save, audio, scene routing, or settings.
+- Do not let Autoload become a dumping ground for all gameplay logic.
+- Node signals should have clear data flow. Avoid invisible signal chains that make behavior impossible to trace.
+- A scene should not mix unrelated responsibilities such as menu UI, combat state, save logic, and level generation.
+- Use Resources for tunable data and content configuration.
 - Separate input mapping, gameplay state, UI updates, and audio triggers.
-- Prefer signals for decoupling when direct references would become tangled.
 
-## Web Game
-
-Recommended shape for Phaser, PixiJS, Three.js, React, or vanilla TypeScript games:
-
-```txt
-src/
-  main.ts
-  core/
-  scenes/
-  gameplay/
-  entities/
-  ui/
-  audio/
-  data/
-  assets/
-  tests/
-public/
-  assets/
-```
-
-Guidelines:
-
-- Keep rendering, simulation, input, and UI state separate.
-- Do not put the entire game in `main.ts`, `App.tsx`, or one canvas script.
-- Use modules for scenes, entities, systems, asset manifests, and tuning data.
-- Keep DOM UI or React overlays separate from canvas/WebGL gameplay logic.
-- Add simple smoke tests or browser checks for boot, input, resize, and asset loading.
-
-## HTML Canvas
-
-Recommended shape for small canvas games:
+## HTML Canvas / Web Game Suggested Structure
 
 ```txt
 src/
   main.js
-  engine/
-    loop.js
-    input.js
-    renderer.js
-  game/
-    state.js
-    player.js
-    enemies.js
-    rules.js
+  core/
+  gameplay/
+  input/
+  render/
   ui/
-  audio/
   data/
+  audio/
   assets/
+  debug/
+tests/
 ```
 
-Guidelines:
+Web guidelines:
 
-- Keep the game loop, rendering, input, and rules in separate modules.
-- Avoid global mutable state spread across files.
-- Centralize constants and tuning data.
-- Add a clear asset preload step before gameplay starts.
-- Keep UI drawing and gameplay rules separate, even if both render to canvas.
+- `main.js` should bootstrap the game, register systems, load assets, and start the loop.
+- Do not put all gameplay, rendering, input, audio, and UI into one canvas script.
+- `render` should display game state. It should not decide gameplay results.
+- `input` should collect and normalize input. It should not directly mutate large global state everywhere.
+- `data` should centralize constants, tuning values, and tables instead of scattering magic numbers.
+- `debug` tools should not control formal game flow or ship enabled by accident.
+- Keep DOM UI or React overlays separate from canvas/WebGL gameplay logic.
+- Add browser smoke checks for boot, input, resize, asset loading, and console errors.
+
+## Safe Refactor Workflow for Giant Single-File Games
+
+Use this workflow when a game has one huge file, God object, giant manager, giant Blueprint, giant scene script, or oversized canvas file.
+
+1. Read the file first. Do not split it immediately.
+2. List every responsibility the file currently owns.
+3. Mark high-risk areas:
+   - piece lifecycle
+   - combat resolution
+   - save/load
+   - result screen
+   - asset loading
+   - input mapping
+   - audio unlock
+   - defeat / win flow
+4. Extract low-risk areas first:
+   - constants
+   - data tables
+   - debug HUD
+   - pure UI helpers
+   - formatting helpers
+   - asset path registry
+5. Extract medium-risk areas next:
+   - input adapter
+   - audio manager
+   - menu renderer
+   - settings panel
+6. Extract high-risk core last:
+   - gameplay loop
+   - player lifecycle
+   - combat turn flow
+   - save / progression
+7. Change only one architectural direction per step.
+8. Run tests or smoke checks after each extraction.
+9. If no tests exist, add a minimal smoke test or manual verification flow before touching core logic.
+10. Do not mix refactoring and new features in the same commit.
+
+Rollback should be simple: each extraction should preserve behavior and keep the previous call path understandable until verified.
+
+## Architecture Review Template
+
+```md
+## Architecture Review
+
+### Current Structure
+- Entry points:
+- Core files:
+- Data files:
+- UI files:
+- Asset flow:
+- Test files:
+
+### Biggest Architecture Problems
+- ...
+
+### Giant File / God Object Risks
+- File:
+- Responsibilities mixed together:
+- Why it is risky:
+
+### Recommended Module Split
+- Module:
+- Responsibility:
+- Suggested files:
+- Risk level:
+
+### High-Risk Areas
+- ...
+
+### Safe Refactor Order
+1. ...
+2. ...
+3. ...
+
+### Required Tests
+- ...
+
+### Do Not Touch Yet
+- ...
+```
 
 ## Architecture Review Checklist
 
 - Can a new developer find the game loop, scene flow, and main gameplay rules quickly?
 - Can gameplay values be tuned without hunting through unrelated code?
 - Can UI change without rewriting gameplay logic?
+- Can input devices or bindings change without rewriting gameplay systems?
 - Can audio events be added without editing every gameplay file?
+- Can save/load change without touching UI and combat code together?
 - Can new levels, enemies, or abilities be added without duplicating large blocks?
+- Is debug code isolated from production gameplay?
 - Is there a minimal test or manual smoke flow for boot, controls, win/loss, restart, and asset loading?

@@ -15,6 +15,34 @@ description: >
 
 # Game Dev Studio Skill
 
+## When to use this Skill
+
+Use this skill when the task benefits from game development team thinking:
+
+- Starting a new game from a vague idea
+- Reviewing or improving an existing game project
+- Adding core gameplay, systems, progression, levels, or economy
+- Changing UI, UX, HUD, menus, onboarding, or player feedback
+- Creating or planning player-visible content such as characters, enemies, environments, icons, effects, cutscenes, store art, or promotional images
+- Breaking down Codex implementation tasks for game features
+- Reviewing architecture or preventing giant single-file implementations
+- Planning QA, acceptance criteria, smoke tests, or playtest coverage
+- Running a Ruthless Playtester review
+- Planning an MVP, portfolio demo, jam build, competition demo, or Steam demo
+
+## When not to use this Skill
+
+Do not use the full game development team workflow for tiny tasks where it would add noise:
+
+- Simple Git commands
+- Small README wording edits
+- One syntax error or one-line bug fix unrelated to game design, architecture, or player experience
+- Small chores in non-game projects
+- General knowledge questions
+- Changes that do not affect gameplay, architecture, UI/UX, visuals, audio, QA, or player experience
+
+Small tasks do not need the whole game development team. Keep the response lightweight and avoid over-designing.
+
 ## Reference Usage Guide
 
 Use the bundled references when the task needs more structure than the core rules below.
@@ -100,6 +128,8 @@ Use the bundled references when the task needs more structure than the core rule
 
 任何新遊戲專案在開始實作前，都必須先規劃基本架構。
 
+修改既有遊戲專案前，必須先閱讀現有架構、入口點、資料流與測試方式。
+
 禁止把所有邏輯塞進單一巨大檔案。
 
 禁止把 UI、輸入、資料、遊戲邏輯、音效、場景流程、存檔全部混在一起。
@@ -117,6 +147,19 @@ Use the bundled references when the task needs more structure than the core rule
 
 小型專案可以簡化，但不能完全沒有結構。
 
+如果發現 giant single-file、God object、超大型 MonoBehaviour、巨型 Blueprint、巨型 scene script 或巨型 canvas script，不要直接大拆。
+
+必須先提出安全拆分計畫：
+
+- 先列出目前檔案承擔的責任
+- 標出高風險區塊，例如核心迴圈、戰鬥結算、存檔、勝敗流程、資產載入
+- 優先拆低風險模組，例如 constants、data tables、debug HUD、純 UI helper、asset path registry
+- 再拆中風險模組，例如 input adapter、audio manager、menu renderer、settings panel
+- 最後才拆核心玩法流程，例如 gameplay loop、player lifecycle、combat flow、save / progression
+- 每次只拆一個方向
+- 高風險邏輯需要先補測試、最小 smoke test，或提出 rollback 計畫
+- 不要把重構和新功能混在同一次修改
+
 ## 開發原則
 
 進入程式實作時：
@@ -129,6 +172,17 @@ Use the bundled references when the task needs more structure than the core rule
 - 不要亂改玩法核心、數值、鍵位、存檔
 - 不要留下假完成、無用 console log、測試資料或正式 placeholder
 - 修改後要提出測試與驗收方式
+
+## QA 誠實規則
+
+測試結果必須誠實回報。
+
+- 如果無法執行測試，必須明確說明原因
+- 不可以假裝測試通過
+- 不可以把「未執行」寫成「通過」
+- 測試結果必須區分 `Passed`、`Failed`、`Not run`、`Blocked`
+- 修改完成後必須回報已知風險與未驗證範圍
+- 如果測試需要使用者環境、引擎 editor、登入狀態或額外資產，必須明確標出阻塞條件
 
 ## 犀利測試玩家
 

@@ -6,6 +6,13 @@
 
 一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
 
+## 快速開始
+
+```txt
+$game-dev-studio
+我想做一款遊戲。請先從製作人、企劃、程式、UI/UX、美術、音效、QA、測試玩家的角度幫我釐清方向，不要直接寫程式。
+```
+
 ## 特色
 
 - 多角色協作：製作人、企劃、程式、UI/UX、美術、音效、QA、犀利測試玩家
@@ -22,6 +29,12 @@
 - 個人開發者
 - 小型遊戲團隊
 - 用 Codex / AI 輔助開發遊戲的人
+
+## 何時使用 / 何時不要使用
+
+適合用於遊戲規劃、架構審查、UI/UX、美術資產、QA、測試玩家檢查、功能拆任務、MVP 規劃，以及任何影響玩家體驗的遊戲工作。
+
+不適合用於小修字、簡單 Git 指令、README 一行修改、一般知識問答，或非遊戲雜務。
 
 ## 安裝方式
 
@@ -61,24 +74,46 @@ $game-dev-studio
 
 ## 使用範例
 
+### 從零開始做遊戲
+
 ```txt
 $game-dev-studio
 我想做一款 2D 動作 Roguelite，請提供最容易完成版、最有特色版、最有商業潛力版、最實驗創新版四種方向。
 ```
+
+### 分析現有遊戲
 
 ```txt
 $game-dev-studio
 請用製作人、企劃、程式、UI/UX、美術、音效、QA、犀利測試玩家的角度審查我的 Godot 原型。
 ```
 
+### 規劃視覺資產
+
 ```txt
 $game-dev-studio
 請為主角、敵人、HUD、技能圖示、命中特效與宣傳圖建立美術資產需求，並附上生圖提示詞。
 ```
 
+### 建立安全重構計畫
+
+```txt
+$game-dev-studio
+我的 HTML Canvas 遊戲所有邏輯都在 main.js，請先做架構審查並建立安全拆分計畫，不要直接大改。
+```
+
+### 拆 Codex 開發任務
+
 ```txt
 $game-dev-studio
 請把這個功能想法整理成 Codex 開發任務，包含架構要求、測試要求與驗收標準。
+```
+
+### 犀利測試玩家檢查
+
+```txt
+$game-dev-studio
+請當犀利測試玩家審查這個原型，直接指出哪裡無聊、看不懂、節奏拖、回饋弱或沒有記憶點，並列出必修改善。
 ```
 
 ## 核心理念
@@ -91,13 +126,17 @@ $game-dev-studio
 
 ```
 game-dev-studio/
+├── .github/              # Issue 與 PR 模板
 ├── SKILL.md              # 核心技能定義
 ├── README.md             # 英文版說明
 ├── README.zh-TW.md       # 繁體中文版說明
+├── CHANGELOG.md          # 版本紀錄
 ├── CONTRIBUTING.md       # 貢獻指南
 ├── LICENSE               # MIT 授權
 ├── agents/               # Skill metadata
 │   └── openai.yaml
+├── prompts/              # Skill 測試 prompt
+│   └── test-prompts.md
 ├── references/           # 參考文件
 │   ├── workflow.md
 │   ├── architecture-guide.md
@@ -137,7 +176,13 @@ game-dev-studio/
 - 完整遊戲開發團隊型工作流程
 - 支援製作人、企劃、程式、UI/UX、美術、音效、QA、測試玩家等多角色指引
 - 中英文 README
-- 包含 workflow、architecture、visual assets、output templates、playtesting 等參考文件
+- Architecture guide
+- Visual asset policy
+- Output templates
+- Ruthless playtester
+- Contribution guide
+- Prompt examples
+- MIT License
 
 ## 授權
 
