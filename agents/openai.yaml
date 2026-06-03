@@ -29,6 +29,8 @@ tags:
 interface:
   display_name: "Game Dev Studio"
   short_description: "Token-conscious full-team game development skill"
-  default_prompt: "Use $game-dev-studio to plan, review, or improve a game project. Start with Quick Check unless Focused Review or Full Studio Audit is requested."
+  default_prompt: |
+    Use $game-dev-studio to plan, review, or improve a game project.
+    Start with Quick Check unless Focused Review or Full Studio Audit is requested.
 policy:
   allow_implicit_invocation: true

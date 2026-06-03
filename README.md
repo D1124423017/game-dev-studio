@@ -262,6 +262,7 @@ Suggested release notes:
 - Polished README structure and installation guidance
 - Added `.agents/skills` installation examples
 - Updated GitHub issue and pull request templates for review modes, lazy loading, and VFX guidance
+- Normalized public Markdown and YAML formatting
 - Kept public documentation aligned with token-efficient Skill behavior
 
 See [CHANGELOG.md](CHANGELOG.md) for full release history.

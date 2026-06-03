@@ -7,6 +7,7 @@
 - Polished README structure and installation guidance.
 - Added `.agents/skills` installation examples.
 - Updated GitHub issue and pull request templates for review modes, lazy loading, and VFX guidance.
+- Normalized public Markdown and YAML formatting.
 - Updated metadata version for public documentation polish.
 
 ## v0.4.0 - 2026-06-03
