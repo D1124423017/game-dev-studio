@@ -24,6 +24,7 @@ I want to make a game. Please help me clarify the direction from producer, game 
 - Transforms vague ideas into executable game plans
 - Emphasizes code architecture to avoid monolithic files
 - Prioritizes image generation or visual solutions for any screen-related tasks
+- Beautiful game UI guidance that treats canvas-drawn rectangles and default text as placeholders, not finished UI
 - UI motion and game feel review, including GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing.
 - Reviews UI motion, HUD feedback, menu transitions, GSAP / React Bits-style motion opportunities, and game feel animation
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
@@ -115,6 +116,13 @@ $game-dev-studio
 Review this game's UI and suggest where motion design could improve game feel. Consider GSAP, React Bits-style patterns, or engine-native animation depending on the tech stack. Do not modify files yet.
 ```
 
+### Improve game UI visual design
+
+```txt
+$game-dev-studio
+Review this web game's UI and tell me how to make it look like a polished game interface instead of canvas-drawn placeholder boxes. Consider DOM / React overlay, typography, panels, icons, component states, layout, and motion. Do not modify files yet.
+```
+
 ### Create a safe refactor plan
 
 ```txt
@@ -161,6 +169,7 @@ game-dev-studio/
 │   ├── workflow.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
+│   ├── ui-visual-design-guide.md
 │   ├── ui-motion-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
@@ -188,6 +197,8 @@ Recommended public release flow:
 
 The recommended first public release is `v0.1.0`.
 
+The current recommended next documentation release is `v0.2.0`, focused on polished game UI visual design, Canvas vs DOM / React UI boundaries, UI motion, and game feel guidance.
+
 Suggested release title:
 `v0.1.0 - Initial public release`
 
@@ -199,12 +210,24 @@ Suggested release notes:
 - Bilingual README
 - Architecture guide
 - Visual asset policy
+- Game UI visual design guide
 - UI motion and game feel animation guide
 - Output templates
 - Ruthless playtester
 - Contribution guide
 - Prompt examples
 - MIT License
+
+Suggested next release title:
+`v0.2.0 - Game UI visual design and motion guidance`
+
+Suggested next release notes:
+
+- Added Game UI Visual Design guidance
+- Added Canvas UI vs DOM / React UI quality rules
+- Added Game UI Visual Design Brief template
+- Added UI Motion / Game Feel guidance
+- Added test prompts for polished UI and motion review
 
 ## License
 

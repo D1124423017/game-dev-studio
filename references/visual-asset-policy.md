@@ -10,6 +10,8 @@ Player-facing visual work may include motion, animated UI, VFX, spritesheets, tr
 
 If the task involves UI screens, cards, buttons, HUD, or result screens, check whether motion is needed.
 
+If the task involves formal game UI, also read `references/ui-visual-design-guide.md`.
+
 ## Core Principle
 
 Player-visible tasks should prioritize direct image generation when the environment supports it.
@@ -53,6 +55,7 @@ For visual tasks, provide:
 - Transparent background requirement
 - Animation or spritesheet requirements
 - Motion / interaction requirements
+- UI visual design requirements
 - Suggested path
 - Naming convention
 - Image generation prompt
@@ -102,6 +105,7 @@ Before calling a visual task complete, check:
 - Is the UI visual language consistent?
 - Do effects block gameplay readability?
 - Do UI animations communicate state, reward, danger, or navigation?
+- Does the UI look like a polished game interface rather than canvas placeholder boxes?
 - Do animations respect reduced motion and avoid blocking input?
 - Are icons recognizable when scaled down?
 - Does anything still look like placeholder art?
@@ -122,6 +126,7 @@ Before calling a visual task complete, check:
 - Transparent background:
 - Style direction:
 - Motion requirement:
+- UI visual design requirement:
 - Status: generated / prompt only / integrated / not integrated
 
 ### Integration Checklist

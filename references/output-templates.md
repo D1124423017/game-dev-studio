@@ -27,6 +27,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Core systems
 - Required screens
 - Required assets
+- Required UI visual design direction
 - Required sound
 - Required UI motion / game feel feedback
 - Technical architecture
@@ -106,6 +107,50 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Must-fix:
 - Should-improve:
 - Optional:
+```
+
+## Game UI Visual Design Brief Template
+
+```md
+## Game UI Visual Design Brief
+
+### UI Goal
+- What should this screen feel like?
+
+### Screen Type
+- Main menu / HUD / shop / upgrade / card select / result / settings:
+
+### Visual Direction
+- Theme:
+- Mood:
+- Color palette:
+- Typography:
+- Panel style:
+- Button style:
+- Icon style:
+
+### Component States
+- Default:
+- Hover:
+- Pressed:
+- Selected:
+- Disabled:
+- Error:
+- Success:
+
+### Implementation Recommendation
+- DOM / React overlay:
+- Canvas:
+- Engine-native UI:
+- Generated image assets:
+- CSS / GSAP / tween motion:
+
+### Quality Bar
+- Does not look like debug UI:
+- Does not rely on plain canvas rectangles:
+- Text hierarchy is clear:
+- UI matches game style:
+- Responsive layout checked:
 ```
 
 ## UI Motion Brief Template
@@ -374,6 +419,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Do-not-change scope
 - Functional requirements
 - Visual requirements
+- UI visual design requirements
 - UI motion requirements
 - Audio requirements
 - Architecture requirements
@@ -390,6 +436,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Feature changes
 - Architecture impact
 - UI/UX changes
+- UI visual design changes
 - UI motion / game feel changes
 - UI Motion / Game Feel:
 - 動效工具:

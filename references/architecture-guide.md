@@ -16,6 +16,7 @@ Every engine has different file types, but the same responsibilities should rema
 - `Gameplay / Systems`: combat, interaction, spawning, quests, progression, rules, win/loss conditions
 - `Input`: keyboard, mouse, gamepad, touch, remapping, input buffering; do not mix it into gameplay core
 - `UI`: HUD, menus, tutorials, prompts, result screens, settings, accessibility states
+- `UI Visual Design`: typography, themed panels, icon language, component states, responsive layout
 - `UI Motion`: button feedback, menu transitions, HUD value animation, reward motion, reduced motion fallback
 - `Data`: levels, enemies, items, skills, tuning values, localization, drop tables
 - `Assets`: images, audio, fonts, prefabs, blueprints, scenes, materials, shaders, animation clips
@@ -35,6 +36,7 @@ Use these conceptual modules across engines:
 - `Gameplay`: player, enemies, abilities, combat, physics rules, level logic, win/loss rules
 - `Input`: raw input, input mapping, commands, device-specific adapters
 - `UI`: menus, HUD, overlays, dialogs, results, accessibility states
+- `UI Visual Design`: UI art direction, component styling, layout system, fonts, icons, states
 - `UI Motion`: animation adapters, transition timelines, tween presets, reduced motion mode
 - `Data`: tuning values, item tables, level definitions, localization, save schemas
 - `Audio`: music states, sound event mapping, mixers, volume settings
@@ -184,6 +186,7 @@ res://
     gameplay/
     input/
     ui/
+    ui_visual/
     ui_motion/
     data/
     audio/
@@ -215,6 +218,7 @@ src/
   input/
   render/
   ui/
+  ui/visual/
   motion/
   data/
   audio/
@@ -232,7 +236,9 @@ Web guidelines:
 - `data` should centralize constants, tuning values, and tables instead of scattering magic numbers.
 - `debug` tools should not control formal game flow or ship enabled by accident.
 - UI motion logic should be separated from gameplay core.
+- UI visual design should be separated from gameplay core.
 - DOM / React UI animation should live in UI or motion modules, not gameplay logic.
+- DOM / React UI styling should live in UI, visual, style, or component modules, not gameplay logic.
 - Canvas gameplay effects should be separated from rules and state resolution.
 - Keep DOM UI or React overlays separate from canvas/WebGL gameplay logic.
 - Keep GSAP timelines, React component motion, and CSS transitions in UI / presentation modules.
@@ -245,11 +251,42 @@ For Web games, consider modules like:
 ```txt
 src/ui/motion/
 src/ui/animations/
+src/ui/components/
+src/ui/styles/
+src/ui/theme/
 src/render/effects/
 src/core/reducedMotion.js
 ```
 
 For engines, use animation controllers, tween services, or UI animation components instead of mixing motion code into gameplay state logic.
+
+## Canvas UI vs DOM / React UI
+
+Canvas can render gameplay, but complex product-quality UI should usually live in a real UI layer.
+
+Prefer Canvas / WebGL for:
+
+- gameplay space
+- board or arena rendering
+- in-world bars
+- particles and hit effects
+- simple diegetic overlays
+
+Prefer DOM / React / CSS overlay for:
+
+- main menus
+- settings
+- pause screens
+- shops
+- card selection
+- upgrade screens
+- inventory
+- skill trees
+- result screens
+- text-heavy panels
+- responsive HUD
+
+If final UI must be drawn on Canvas, it still needs UI art direction, typography, icons, layout, interaction states, visual assets, and motion specs. Plain rectangles and default text are not a finished UI.
 
 ## Safe Refactor Workflow for Giant Single-File Games
 

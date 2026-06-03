@@ -20,6 +20,7 @@ $game-dev-studio
 - 可從模糊想法整理出可執行的遊戲企劃
 - 強調程式架構，避免所有邏輯塞進單一檔案
 - 只要涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案
+- 美觀的遊戲 UI 指引，明確把 canvas 畫出的矩形和預設文字視為 placeholder，而不是完成品 UI
 - UI 動效與遊戲爽感檢查，包含 GSAP、React Bits 風格動效、引擎原生 UI 動畫與回饋節奏。
 - 主動檢查 UI 動效、HUD 回饋、選單轉場、GSAP / React Bits 風格機會與遊戲爽感動畫
 - 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
@@ -111,6 +112,13 @@ $game-dev-studio
 請檢查這個遊戲的 UI 哪些地方可以用動效提升遊戲爽感，例如 GSAP、React Bits 風格或引擎原生動畫。先不要修改檔案。
 ```
 
+### 提升遊戲 UI 視覺設計
+
+```txt
+$game-dev-studio
+請檢查這個 Web Game 的 UI，告訴我如何讓它像正式遊戲介面，而不是 canvas 畫出來的 placeholder 方塊。請考慮 DOM / React overlay、字體、面板、圖示、元件狀態、排版與動效。先不要修改檔案。
+```
+
 ### 建立安全重構計畫
 
 ```txt
@@ -157,6 +165,7 @@ game-dev-studio/
 │   ├── workflow.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
+│   ├── ui-visual-design-guide.md
 │   ├── ui-motion-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
@@ -184,6 +193,8 @@ game-dev-studio/
 
 建議第一個公開版本為 `v0.1.0`。
 
+目前建議的下一個文件版本是 `v0.2.0`，重點是正式遊戲 UI 視覺設計、Canvas vs DOM / React UI 分工、UI 動效與遊戲爽感指引。
+
 建議 release 標題：
 `v0.1.0 - Initial public release`
 
@@ -195,12 +206,24 @@ game-dev-studio/
 - 中英文 README
 - Architecture guide
 - Visual asset policy
+- Game UI visual design guide
 - UI motion and game feel animation guide
 - Output templates
 - Ruthless playtester
 - Contribution guide
 - Prompt examples
 - MIT License
+
+建議下一版 release 標題：
+`v0.2.0 - Game UI visual design and motion guidance`
+
+建議下一版 release notes：
+
+- Added Game UI Visual Design guidance
+- Added Canvas UI vs DOM / React UI quality rules
+- Added Game UI Visual Design Brief template
+- Added UI Motion / Game Feel guidance
+- Added test prompts for polished UI and motion review
 
 ## 授權
 

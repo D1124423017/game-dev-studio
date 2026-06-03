@@ -1,7 +1,7 @@
 name: "game-dev-studio"
 display_name: "Game Dev Studio"
-description: "A Codex skill that works like a full game development studio team for game design, programming, UI/UX, UI motion, art direction, QA, and playtesting."
-version: "0.1.0"
+description: "A Codex skill that works like a full game development studio team for game design, programming, UI/UX, game UI visual design, UI motion, art direction, QA, and playtesting."
+version: "0.2.0"
 author: "Health Body"
 tags:
   - "game-development"
@@ -12,6 +12,8 @@ tags:
   - "godot"
   - "web-game"
   - "ui-ux"
+  - "game-ui"
+  - "visual-design"
   - "ui-motion"
   - "game-feel"
   - "art-direction"
@@ -20,6 +22,6 @@ tags:
 interface:
   display_name: "Game Dev Studio"
   short_description: "Full-team game development skill"
-  default_prompt: "Use $game-dev-studio to plan, review, or improve a game project as a full game development team, including UI motion and game feel."
+  default_prompt: "Use $game-dev-studio to plan, review, or improve a game project as a full game development team, including polished game UI, UI motion, and game feel."
 policy:
   allow_implicit_invocation: true

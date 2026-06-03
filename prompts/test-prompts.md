@@ -133,3 +133,24 @@ Please review this game's UI and identify where motion design could improve clar
 ### Failure Meaning
 
 Skill 仍只做靜態 UI 評估，沒有 motion / game feel 思維。
+
+## 7. Game UI Visual Design Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+Review this web game's UI and explain how to make it look like a polished game interface instead of canvas-drawn placeholder boxes. Consider DOM / React overlay, typography, panels, icons, component states, layout, visual hierarchy, and motion. Do not modify files yet.
+```
+
+### Test Purpose
+
+Verify that the skill distinguishes product-quality game UI from canvas placeholder UI.
+
+### Expected Behavior
+
+The answer should identify whether Canvas, DOM, React, or engine-native UI is appropriate; define visual direction; specify typography, panels, icons, component states, spacing, responsive behavior, and motion; and reject debug-style rectangles as final UI.
+
+### Failure Meaning
+
+If the answer accepts plain canvas rectangles and default text as finished UI, the UI visual design guide and SKILL rules need stronger wording.
