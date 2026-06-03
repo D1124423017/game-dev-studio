@@ -2,6 +2,8 @@
 
 Use this reference whenever a task touches anything players can see: characters, enemies, environments, UI, HUD, icons, effects, menus, spritesheets, cutscenes, store art, banners, logo, screenshots, or promotional images.
 
+For UI motion, HUD animation, menu transitions, reward feedback, combo feedback, React Bits-style components, or GSAP-style timelines, also read `references/ui-motion-guide.md`.
+
 ## Core Principle
 
 Player-visible tasks should prioritize direct image generation when the environment supports it.
@@ -44,6 +46,7 @@ For visual tasks, provide:
 - Format
 - Transparent background requirement
 - Animation or spritesheet requirements
+- Motion / interaction requirements
 - Suggested path
 - Naming convention
 - Image generation prompt
@@ -82,6 +85,7 @@ assets/
 - Character / enemy portrait: at least 1024px tall
 - Card art: at least 1024x1536
 - Spritesheet: specify rows, columns, cell size, padding, frame count, and anchor point
+- UI motion asset: specify trigger event, duration, easing, loop behavior, and reduced motion fallback
 
 ## Style Consistency Check
 
@@ -91,6 +95,8 @@ Before calling a visual task complete, check:
 - Is the main color palette consistent?
 - Is the UI visual language consistent?
 - Do effects block gameplay readability?
+- Do UI animations communicate state, reward, danger, or navigation?
+- Do animations respect reduced motion and avoid blocking input?
 - Are icons recognizable when scaled down?
 - Does anything still look like placeholder art?
 - Are player-critical elements readable against the background?
@@ -109,6 +115,7 @@ Before calling a visual task complete, check:
 - Format:
 - Transparent background:
 - Style direction:
+- Motion requirement:
 - Status: generated / prompt only / integrated / not integrated
 
 ### Integration Checklist
@@ -116,6 +123,8 @@ Before calling a visual task complete, check:
 - Asset registry updated:
 - Code reference updated:
 - In-game display confirmed:
+- Motion behavior confirmed:
+- Reduced motion fallback checked:
 - No placeholder remains:
 - Style consistency checked:
 ```

@@ -106,3 +106,24 @@ The answer should score fun, clarity, juice, pacing, readability, replay motivat
 ### Failure Meaning
 
 If the answer is polite but vague, the ruthless playtester guide needs stronger examples and scoring rules.
+
+## 6. UI Motion / Game Feel Animation Check
+
+### Prompt
+
+```txt
+$game-dev-studio
+My web game's UI feels static. Review the HUD health change, combo counter, reward toast, menu buttons, card selection, and victory screen. Suggest motion using CSS, GSAP, React Bits-style patterns, Canvas animation, or engine-native alternatives where appropriate.
+```
+
+### Test Purpose
+
+Verify that the skill checks UI motion, interaction feedback, game feel animation, tool selection, accessibility, and performance risk.
+
+### Expected Behavior
+
+The answer should separate must-have, should-have, and optional motion; recommend concrete motion patterns; identify GSAP / React Bits-style opportunities; include reduced motion and input-delay cautions; and avoid decorative noise.
+
+### Failure Meaning
+
+If the answer only discusses static UI layout or visual style, the UI motion guide and SKILL trigger rules need stronger wording.

@@ -3,14 +3,14 @@ name: game-dev-studio
 description: >
   當使用者想製作、設計、開發、修改、分析或優化任何遊戲專案時使用。
   你需要作為一個完整的遊戲開發團隊來工作，從遊戲製作人、遊戲企劃、
-  程式設計師、UI/UX 設計師、遊戲美術、音效顧問、QA 與犀利測試玩家等
+  程式設計師、UI/UX 設計師、UI 動效設計師、遊戲美術、音效顧問、QA 與犀利測試玩家等
   多重角度協助使用者，把模糊想法轉化為可執行的遊戲企劃、技術架構、
   視覺方案、測試流程與開發任務。
   適用 Unity、Unreal、Godot、HTML Canvas、Web Game、2D、3D 與遊戲原型開發。
   Use for game development, game design, Unity, Unreal, Godot, web game,
   HTML Canvas, 2D games, 3D games, art direction, visual asset planning,
-  UI/UX review, sound design, QA, playtesting, MVP planning, and game project
-  architecture.
+  UI/UX review, UI motion, game feel animation, sound design, QA, playtesting,
+  MVP planning, and game project architecture.
 ---
 
 # Game Dev Studio Skill
@@ -23,6 +23,7 @@ Use this skill when the task benefits from game development team thinking:
 - Reviewing or improving an existing game project
 - Adding core gameplay, systems, progression, levels, or economy
 - Changing UI, UX, HUD, menus, onboarding, or player feedback
+- Reviewing UI motion, game feel animation, transitions, HUD feedback, or interaction polish
 - Creating or planning player-visible content such as characters, enemies, environments, icons, effects, cutscenes, store art, or promotional images
 - Breaking down Codex implementation tasks for game features
 - Reviewing architecture or preventing giant single-file implementations
@@ -50,6 +51,7 @@ Use the bundled references when the task needs more structure than the core rule
 - Read `references/workflow.md` when starting a new game idea, clarifying a vague request, planning a phase, or deciding the order of producer, design, technical, visual, UI/UX, audio, QA, and playtesting work.
 - Read `references/architecture-guide.md` before creating or restructuring a project, choosing an engine-specific layout, splitting modules, reviewing maintainability, or preventing a giant single-file implementation.
 - Read `references/visual-asset-policy.md` whenever the task involves anything visible to players: characters, enemies, environments, UI, HUD, icons, effects, menus, spritesheets, cutscenes, store art, banners, or promotional images.
+- Read `references/ui-motion-guide.md` whenever the task involves Web Game, HTML Canvas, DOM UI, React UI, game HUD, menus, cards, upgrade screens, result screens, toast prompts, combo feedback, reward feedback, player action feedback, UI transitions, GSAP, React Bits-style motion, or engine-native UI animation.
 - Read `references/ruthless-playtester.md` when reviewing a game concept, prototype, UI flow, feature, level, combat loop, reward loop, or completed implementation from a player's harsh but useful perspective.
 - Read `references/output-templates.md` when the user asks for a plan, brief, review, test report, task breakdown, final report, or any structured deliverable.
 
@@ -63,6 +65,7 @@ Use the bundled references when the task needs more structure than the core rule
 - 遊戲企劃：設計玩法、規則、關卡、成長、數值與玩家循環
 - 程式設計師：規劃架構、模組、資料流、測試與可維護性
 - UI/UX 設計師：檢查操作流程、資訊層級、玩家是否看得懂
+- UI Motion Designer / Game Feel Animator：規劃 UI 動效、操作回饋、HUD 數值變化、轉場節奏與遊戲爽感動畫
 - 遊戲美術 / Art Director：規劃畫面風格、角色、場景、UI、圖示、特效
 - 音效 / 音樂顧問：規劃操作回饋、情緒節奏、音效事件
 - QA 測試：檢查 bug、邊界情況、破壞性操作與驗收標準
@@ -79,9 +82,10 @@ Use the bundled references when the task needs more structure than the core rule
 2. 企劃角度：類型、核心玩法、玩家目標、成功失敗條件、爽點
 3. 技術角度：引擎、平台、資料結構、存檔、部署、測試
 4. UI/UX 角度：必要畫面、HUD、教學、操作回饋、資訊層級
-5. 美術角度：風格、角色比例、場景、UI 視覺、資產規格
-6. 音效角度：音樂情緒、操作音效、成功失敗音、環境音
-7. QA 角度：玩家可能卡住、亂玩、看不懂或覺得無聊的地方
+5. UI Motion 角度：按鈕、HUD、Combo、獎勵、錯誤提示、轉場是否需要動態回饋
+6. 美術角度：風格、角色比例、場景、UI 視覺、資產規格
+7. 音效角度：音樂情緒、操作音效、成功失敗音、環境音
+8. QA 角度：玩家可能卡住、亂玩、看不懂或覺得無聊的地方
 
 不要只問問題。
 
@@ -123,6 +127,30 @@ Use the bundled references when the task needs more structure than the core rule
 - logo
 
 除非使用者明確表示只是原型測試，否則不要用 placeholder 當正式結果。
+
+## UI Motion / Game Feel Animation
+
+只要任務涉及 Web Game、HTML Canvas、DOM UI、React UI、遊戲 HUD、選單、卡牌、升級頁、結果畫面、提示 Toast、Combo feedback、玩家操作回饋，就要檢查 UI Motion / Game Feel Animation。
+
+UI motion must serve clarity, feedback, rhythm, and game feel.
+
+- Animation should not be decorative noise.
+- Motion should communicate state change, player action, reward, danger, success, failure, or navigation.
+- Prefer small, readable, responsive motion over slow cinematic UI.
+- Do not block gameplay input with long UI animations unless intentionally designed.
+- For Web / HTML Canvas / DOM UI, consider GSAP for timeline-based motion and React Bits-style patterns for modern interactive components when appropriate.
+- For Unity / Unreal / Godot, use engine-native animation systems or tween tools where appropriate.
+- Always consider performance, readability, accessibility, reduced motion, and fallback behavior.
+- Avoid over-animation, unnecessary package weight, blocking transitions, and motion that hides gameplay-critical information.
+
+檢查重點：
+
+- 按鈕 hover / press / selected / disabled 是否有即時回饋
+- HUD 數值變化、血量變化、Combo、升級、獎勵、錯誤提示、勝利失敗畫面是否有合適動效
+- 主選單、設定頁、升級頁、卡牌選擇、結果畫面是否需要轉場
+- 哪些地方適合 CSS transition、GSAP timeline、Canvas animation、engine animation system、tween tools 或 React component animation
+- 哪些動效屬於必要動效、建議動效、炫技但可選
+- 哪些動效會干擾遊戲、拖慢操作或破壞可讀性
 
 ## 程式架構規則
 
@@ -241,6 +269,7 @@ Use the bundled references when the task needs more structure than the core rule
 - 功能變更
 - 架構影響
 - UI / UX 變更
+- UI Motion / Game Feel 變更
 - 美術 / 音效項目
 - 測試結果
 - 風險

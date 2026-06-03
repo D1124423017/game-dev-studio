@@ -19,11 +19,12 @@ I want to make a game. Please help me clarify the direction from producer, game 
 
 ## Features
 
-- Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, Game Artist, Sound Consultant, QA, and Ruthless Playtester
+- Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, UI Motion Designer / Game Feel Animator, Game Artist, Sound Consultant, QA, and Ruthless Playtester
 - Supports Unity, Unreal, Godot, HTML Canvas, Web Game, 2D, 3D, and game prototypes
 - Transforms vague ideas into executable game plans
 - Emphasizes code architecture to avoid monolithic files
 - Prioritizes image generation or visual solutions for any screen-related tasks
+- Reviews UI motion, HUD feedback, menu transitions, GSAP / React Bits-style motion opportunities, and game feel animation
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
 
 ## Who is this for?
@@ -37,6 +38,8 @@ I want to make a game. Please help me clarify the direction from producer, game 
 ## When to Use / When Not to Use
 
 Use this skill for game planning, architecture review, UI/UX, visual assets, QA, playtesting, feature task breakdown, MVP planning, and player-facing game work.
+
+Also use it when a game UI feels too static and needs button feedback, HUD value motion, menu transitions, combo feedback, reward animations, or engine-native UI animation planning.
 
 Do not use it for tiny typo fixes, simple Git commands, one-line README edits, general knowledge questions, or non-game tasks.
 
@@ -99,6 +102,13 @@ $game-dev-studio
 Create a visual asset brief for the main character, enemies, HUD, skill icons, hit effects, and capsule art. Include image generation prompts.
 ```
 
+### Review UI motion and game feel
+
+```txt
+$game-dev-studio
+Review my web game's HUD, buttons, reward toast, combo counter, and result screen. Suggest UI motion using CSS, GSAP, React Bits-style patterns, or engine-native alternatives where appropriate.
+```
+
 ### Create a safe refactor plan
 
 ```txt
@@ -145,6 +155,7 @@ game-dev-studio/
 │   ├── workflow.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
+│   ├── ui-motion-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
 └── assets/              # Image assets
@@ -182,6 +193,7 @@ Suggested release notes:
 - Bilingual README
 - Architecture guide
 - Visual asset policy
+- UI motion and game feel animation guide
 - Output templates
 - Ruthless playtester
 - Contribution guide

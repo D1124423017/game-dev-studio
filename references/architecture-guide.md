@@ -16,6 +16,7 @@ Every engine has different file types, but the same responsibilities should rema
 - `Gameplay / Systems`: combat, interaction, spawning, quests, progression, rules, win/loss conditions
 - `Input`: keyboard, mouse, gamepad, touch, remapping, input buffering; do not mix it into gameplay core
 - `UI`: HUD, menus, tutorials, prompts, result screens, settings, accessibility states
+- `UI Motion`: button feedback, menu transitions, HUD value animation, reward motion, reduced motion fallback
 - `Data`: levels, enemies, items, skills, tuning values, localization, drop tables
 - `Assets`: images, audio, fonts, prefabs, blueprints, scenes, materials, shaders, animation clips
 - `Audio`: BGM, SFX, mixers, music states, volume settings, audio event mapping
@@ -34,6 +35,7 @@ Use these conceptual modules across engines:
 - `Gameplay`: player, enemies, abilities, combat, physics rules, level logic, win/loss rules
 - `Input`: raw input, input mapping, commands, device-specific adapters
 - `UI`: menus, HUD, overlays, dialogs, results, accessibility states
+- `UI Motion`: animation adapters, transition timelines, tween presets, reduced motion mode
 - `Data`: tuning values, item tables, level definitions, localization, save schemas
 - `Audio`: music states, sound event mapping, mixers, volume settings
 - `Assets`: art, animation, VFX, shaders, materials, sprites, models, fonts
@@ -105,6 +107,7 @@ Assets/
     Gameplay/
     Input/
     UI/
+    UIMotion/
     Data/
     Audio/
     Save/
@@ -125,6 +128,8 @@ Unity guidelines:
 - Do not put every rule into one `GameManager`, `PlayerController`, or `LevelManager`.
 - Prefer ScriptableObjects or data configs for enemies, items, skills, levels, spawn rules, economy values, and tuning.
 - UI logic should not directly mutate gameplay core. Route player intent through controllers, commands, events, or services.
+- UI motion should be presentation-layer feedback. Do not let tween callbacks own gameplay outcomes.
+- Respect reduced motion and keep important HUD updates readable without animation.
 - Avoid scattered `FindObjectOfType` calls for core dependencies.
 - Keep scene flow, gameplay state, UI presentation, and audio events separate.
 - Tests should include compile checks, play mode smoke checks, scene reference checks, and prefab reference checks when possible.
@@ -137,6 +142,7 @@ Content/
     Core/
     Gameplay/
     UI/
+    UIMotion/
   DataTables/
   Levels/
   Materials/
@@ -160,6 +166,7 @@ Unreal guidelines:
 - PlayerController translates player intent and camera/control concerns, not all progression.
 - Pawn / Character owns character behavior and presentation, not global game flow.
 - Widget Blueprint should not contain gameplay core rules.
+- UMG animations should communicate UI state and feedback, not own match flow or progression.
 - Use DataTable / DataAsset for enemies, items, skills, level definitions, and tuning values.
 - Avoid putting all rules in a Level Blueprint.
 - When Blueprint graphs become large, split into function libraries, actor components, data assets, or C++ classes.
@@ -177,6 +184,7 @@ res://
     gameplay/
     input/
     ui/
+    ui_motion/
     data/
     audio/
   autoload/
@@ -195,6 +203,7 @@ Godot guidelines:
 - A scene should not mix unrelated responsibilities such as menu UI, combat state, save logic, and level generation.
 - Use Resources for tunable data and content configuration.
 - Separate input mapping, gameplay state, UI updates, and audio triggers.
+- Keep Tween / AnimationPlayer UI motion separate from core gameplay state changes.
 
 ## HTML Canvas / Web Game Suggested Structure
 
@@ -206,6 +215,7 @@ src/
   input/
   render/
   ui/
+  motion/
   data/
   audio/
   assets/
@@ -222,6 +232,9 @@ Web guidelines:
 - `data` should centralize constants, tuning values, and tables instead of scattering magic numbers.
 - `debug` tools should not control formal game flow or ship enabled by accident.
 - Keep DOM UI or React overlays separate from canvas/WebGL gameplay logic.
+- Keep GSAP timelines, React component motion, and CSS transitions in UI / presentation modules.
+- Do not add a motion library for one tiny effect; prefer CSS transitions for simple states.
+- Respect `prefers-reduced-motion` or an in-game reduced motion option.
 - Add browser smoke checks for boot, input, resize, asset loading, and console errors.
 
 ## Safe Refactor Workflow for Giant Single-File Games

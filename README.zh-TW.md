@@ -15,11 +15,12 @@ $game-dev-studio
 
 ## 特色
 
-- 多角色協作：製作人、企劃、程式、UI/UX、美術、音效、QA、犀利測試玩家
+- 多角色協作：製作人、企劃、程式、UI/UX、UI 動效設計師 / 遊戲爽感動效顧問、美術、音效、QA、犀利測試玩家
 - 適用 Unity、Unreal、Godot、HTML Canvas、Web Game、2D、3D 與遊戲原型
 - 可從模糊想法整理出可執行的遊戲企劃
 - 強調程式架構，避免所有邏輯塞進單一檔案
 - 只要涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案
+- 主動檢查 UI 動效、HUD 回饋、選單轉場、GSAP / React Bits 風格機會與遊戲爽感動畫
 - 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
 
 ## 適合誰使用
@@ -33,6 +34,8 @@ $game-dev-studio
 ## 何時使用 / 何時不要使用
 
 適合用於遊戲規劃、架構審查、UI/UX、美術資產、QA、測試玩家檢查、功能拆任務、MVP 規劃，以及任何影響玩家體驗的遊戲工作。
+
+也適合用於 UI 太靜態、需要按鈕回饋、HUD 數值動效、選單轉場、Combo feedback、獎勵動畫或引擎原生 UI 動畫規劃的情境。
 
 不適合用於小修字、簡單 Git 指令、README 一行修改、一般知識問答，或非遊戲雜務。
 
@@ -95,6 +98,13 @@ $game-dev-studio
 請為主角、敵人、HUD、技能圖示、命中特效與宣傳圖建立美術資產需求，並附上生圖提示詞。
 ```
 
+### 檢查 UI 動效與遊戲爽感
+
+```txt
+$game-dev-studio
+請檢查我的 Web Game HUD、按鈕、獎勵 toast、Combo 計數與結果畫面，建議 CSS、GSAP、React Bits 風格或引擎原生動效方案。
+```
+
 ### 建立安全重構計畫
 
 ```txt
@@ -141,6 +151,7 @@ game-dev-studio/
 │   ├── workflow.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
+│   ├── ui-motion-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
 └── assets/              # 圖片資源
@@ -178,6 +189,7 @@ game-dev-studio/
 - 中英文 README
 - Architecture guide
 - Visual asset policy
+- UI motion and game feel animation guide
 - Output templates
 - Ruthless playtester
 - Contribution guide

@@ -28,6 +28,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Required screens
 - Required assets
 - Required sound
+- Required UI motion / game feel feedback
 - Technical architecture
 - Test plan
 - Acceptance criteria
@@ -105,6 +106,46 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Must-fix:
 - Should-improve:
 - Optional:
+```
+
+## UI Motion Review Template
+
+```md
+## UI Motion Review
+
+### Current UI Feel
+- Static / responsive / over-animated:
+
+### Missing Feedback
+- Player action:
+- Reward:
+- Danger:
+- Error:
+- Navigation:
+- Progression:
+
+### Recommended Motion
+| UI Element | Event | Motion | Tool | Priority |
+|---|---|---|---|---|
+| Button | hover / press | lift + squash | CSS / GSAP | Must |
+| Reward toast | gain reward | slide + glow + fade | GSAP | Should |
+
+### GSAP / React Bits Opportunities
+- GSAP:
+- React Bits-style pattern:
+- Engine-native alternative:
+
+### Risks
+- Performance:
+- Readability:
+- Input delay:
+- Accessibility:
+
+### Implementation Notes
+- Keep animation duration:
+- Avoid blocking input:
+- Respect reduced motion:
+- Test on:
 ```
 
 ## Visual Asset Brief Template
@@ -286,6 +327,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Do-not-change scope
 - Functional requirements
 - Visual requirements
+- UI motion requirements
 - Audio requirements
 - Architecture requirements
 - Test requirements
@@ -301,6 +343,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Feature changes
 - Architecture impact
 - UI/UX changes
+- UI motion / game feel changes
 - Visual asset changes
 - Sound changes
 - Tests run
