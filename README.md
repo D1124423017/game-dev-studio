@@ -19,7 +19,7 @@ I want to make a game. Please help me clarify the direction from producer, game 
 
 ## Features
 
-- Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, UI Motion Designer / Game Feel Animator, Game Artist, Sound Consultant, QA, and Ruthless Playtester
+- Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, UI Motion Designer / Game Feel Animator, Gameplay VFX / Technical VFX Designer, Game Artist, Sound Consultant, QA, and Ruthless Playtester
 - Supports Unity, Unreal, Godot, HTML Canvas, Web Game, 2D, 3D, and game prototypes
 - Transforms vague ideas into executable game plans
 - Emphasizes code architecture to avoid monolithic files
@@ -27,6 +27,9 @@ I want to make a game. Please help me clarify the direction from producer, game 
 - Beautiful game UI guidance that treats canvas-drawn rectangles and default text as placeholders, not finished UI
 - UI motion and game feel review, including GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing.
 - Reviews UI motion, HUD feedback, menu transitions, GSAP / React Bits-style motion opportunities, and game feel animation
+- Gameplay VFX and technical effects guidance for hit sparks, particles, sprite flipbooks, shaders, post-processing, screen shake, Unity VFX Graph, Unreal Niagara, and Godot particles
+- Helps route effects by runtime job instead of forcing everything into canvas drawing
+- Token-conscious modes: Quick Check, Focused Review, and Full Studio Audit so routine tasks stay lightweight
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
 
 ## Who is this for?
@@ -42,6 +45,8 @@ I want to make a game. Please help me clarify the direction from producer, game 
 Use this skill for game planning, architecture review, UI/UX, visual assets, QA, playtesting, feature task breakdown, MVP planning, and player-facing game work.
 
 Also use it when a game UI feels too static and needs button feedback, HUD value motion, menu transitions, combo feedback, reward animations, or engine-native UI animation planning.
+
+Also use it when gameplay feedback feels weak and needs hit effects, slash trails, particles, shader effects, screen shake, projectile impacts, explosions, reward bursts, or engine-native VFX planning.
 
 Do not use it for tiny typo fixes, simple Git commands, one-line README edits, general knowledge questions, or non-game tasks.
 
@@ -83,6 +88,27 @@ Please break down this game idea into MVP, core systems, technical architecture,
 
 ## Usage Examples
 
+### Quick check
+
+```txt
+$game-dev-studio
+Quick Check: Review this upgrade screen and tell me the top three UI or game-feel issues. Keep it short.
+```
+
+### Focused review
+
+```txt
+$game-dev-studio
+Focused Review: Check this game's combat VFX and suggest must-have effects, performance risks, and reduced-shake considerations. Do not modify files yet.
+```
+
+### Full studio audit
+
+```txt
+$game-dev-studio
+Full Studio Audit: Review this prototype as a full game development team and give me the top priorities for making it demo-ready.
+```
+
 ### Start a new game
 
 ```txt
@@ -121,6 +147,13 @@ Review this game's UI and suggest where motion design could improve game feel. C
 ```txt
 $game-dev-studio
 Review this web game's UI and tell me how to make it look like a polished game interface instead of canvas-drawn placeholder boxes. Consider DOM / React overlay, typography, panels, icons, component states, layout, and motion. Do not modify files yet.
+```
+
+### Review gameplay VFX and technical effects
+
+```txt
+$game-dev-studio
+Review this game's combat feedback and suggest gameplay VFX improvements. Consider hit sparks, slash trails, projectile impacts, particles, sprite flipbooks, shader effects, post-processing, screen shake, Unity VFX Graph, Unreal Niagara, or Godot particles depending on the engine. Do not modify files yet.
 ```
 
 ### Create a safe refactor plan
@@ -167,10 +200,13 @@ game-dev-studio/
 │   └── test-prompts.md
 ├── references/           # Reference documents
 │   ├── workflow.md
+│   ├── modes.md
+│   ├── template-index.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
 │   ├── ui-visual-design-guide.md
 │   ├── ui-motion-guide.md
+│   ├── game-vfx-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
 └── assets/              # Image assets
@@ -197,7 +233,7 @@ Recommended public release flow:
 
 The recommended first public release is `v0.1.0`.
 
-The current recommended next documentation release is `v0.2.0`, focused on polished game UI visual design, Canvas vs DOM / React UI boundaries, UI motion, and game feel guidance.
+The current recommended next documentation release is `v0.4.0`, focused on token-efficient review modes, lazy reference loading, and lightweight output formats.
 
 Suggested release title:
 `v0.1.0 - Initial public release`
@@ -228,6 +264,27 @@ Suggested next release notes:
 - Added Game UI Visual Design Brief template
 - Added UI Motion / Game Feel guidance
 - Added test prompts for polished UI and motion review
+
+Suggested VFX release title:
+`v0.3.0 - Gameplay VFX and technical effects guidance`
+
+Suggested VFX release notes:
+
+- Added Gameplay VFX / Technical VFX guidance
+- Added runtime routing for sprite flipbooks, particles, shaders, post-processing, camera impulse, and UI FX
+- Added Unity VFX Graph, Unreal Niagara, Godot particles, and Web Game VFX guidance
+- Added Gameplay VFX Brief, VFX Implementation Plan, and VFX QA Checklist templates
+- Added test prompt for gameplay VFX review
+
+Suggested token-efficiency release title:
+`v0.4.0 - Token-efficient review modes`
+
+Suggested token-efficiency release notes:
+
+- Added Quick Check, Focused Review, and Full Studio Audit modes
+- Reduced default SKILL.md context load
+- Added lightweight template index for short outputs
+- Improved lazy loading rules for references
 
 ## License
 

@@ -18,11 +18,12 @@ Every engine has different file types, but the same responsibilities should rema
 - `UI`: HUD, menus, tutorials, prompts, result screens, settings, accessibility states
 - `UI Visual Design`: typography, themed panels, icon language, component states, responsive layout
 - `UI Motion`: button feedback, menu transitions, HUD value animation, reward motion, reduced motion fallback
+- `Gameplay VFX`: hit sparks, particles, trails, explosions, projectiles, screen shake, camera impulse, shaders, post-processing
 - `Data`: levels, enemies, items, skills, tuning values, localization, drop tables
 - `Assets`: images, audio, fonts, prefabs, blueprints, scenes, materials, shaders, animation clips
 - `Audio`: BGM, SFX, mixers, music states, volume settings, audio event mapping
 - `Save / Settings`: save files, progression, settings, language, volume, key bindings
-- `Render / Presentation`: camera, animation, effects, screen shake, transitions, visual state
+- `Render / Presentation`: camera, animation, VFX, particles, shaders, screen shake, transitions, visual state
 - `Debug`: debug HUD, diagnostics, cheats, test tools; debug code should not control production gameplay
 - `Tests`: unit tests, flow tests, play mode tests, smoke tests, browser checks, fixture scenes
 
@@ -38,9 +39,10 @@ Use these conceptual modules across engines:
 - `UI`: menus, HUD, overlays, dialogs, results, accessibility states
 - `UI Visual Design`: UI art direction, component styling, layout system, fonts, icons, states
 - `UI Motion`: animation adapters, transition timelines, tween presets, reduced motion mode
+- `Gameplay VFX`: effect event mapping, particle adapters, sprite flipbooks, shader parameters, camera impulse, effect pooling
 - `Data`: tuning values, item tables, level definitions, localization, save schemas
 - `Audio`: music states, sound event mapping, mixers, volume settings
-- `Assets`: art, animation, VFX, shaders, materials, sprites, models, fonts
+- `Assets`: art, animation, VFX, shaders, materials, particle textures, sprites, models, fonts
 - `Save`: persistence, progression, settings, migration
 - `Debug`: diagnostics, debug UI, dev cheats, profiling helpers
 - `Tests`: unit tests, play mode tests, smoke tests, fixture scenes
@@ -110,6 +112,7 @@ Assets/
     Input/
     UI/
     UIMotion/
+    VFX/
     Data/
     Audio/
     Save/
@@ -131,7 +134,11 @@ Unity guidelines:
 - Prefer ScriptableObjects or data configs for enemies, items, skills, levels, spawn rules, economy values, and tuning.
 - UI logic should not directly mutate gameplay core. Route player intent through controllers, commands, events, or services.
 - UI motion should be presentation-layer feedback. Do not let tween callbacks own gameplay outcomes.
+- Gameplay VFX should subscribe to gameplay events. Do not let particles, shader callbacks, or animation events own damage, score, progression, or win/loss logic.
+- Use Particle System, VFX Graph, Shader Graph, material animation, tween tools, and Cinemachine impulse where appropriate.
+- Pool frequently spawned effects and budget overdraw for target hardware.
 - Respect reduced motion and keep important HUD updates readable without animation.
+- Respect reduced shake and avoid rapid flashing.
 - Avoid scattered `FindObjectOfType` calls for core dependencies.
 - Keep scene flow, gameplay state, UI presentation, and audio events separate.
 - Tests should include compile checks, play mode smoke checks, scene reference checks, and prefab reference checks when possible.
@@ -145,9 +152,11 @@ Content/
     Gameplay/
     UI/
     UIMotion/
+    VFX/
   DataTables/
   Levels/
   Materials/
+  Niagara/
   Audio/
   Input/
   Characters/
@@ -169,6 +178,10 @@ Unreal guidelines:
 - Pawn / Character owns character behavior and presentation, not global game flow.
 - Widget Blueprint should not contain gameplay core rules.
 - UMG animations should communicate UI state and feedback, not own match flow or progression.
+- Niagara systems, material effects, camera shake, and post-process effects should communicate gameplay state, not own match flow or progression.
+- Use Niagara for particles, ribbons, beams, trails, sparks, smoke, and magic effects.
+- Use materials, decals, and post-process only when they improve readability or feel.
+- Pool or budget repeated effects and profile overdraw-heavy scenes.
 - Use DataTable / DataAsset for enemies, items, skills, level definitions, and tuning values.
 - Avoid putting all rules in a Level Blueprint.
 - When Blueprint graphs become large, split into function libraries, actor components, data assets, or C++ classes.
@@ -188,12 +201,14 @@ res://
     ui/
     ui_visual/
     ui_motion/
+    vfx/
     data/
     audio/
   autoload/
   resources/
   audio/
   art/
+  vfx/
   tests/
 ```
 
@@ -207,6 +222,8 @@ Godot guidelines:
 - Use Resources for tunable data and content configuration.
 - Separate input mapping, gameplay state, UI updates, and audio triggers.
 - Keep Tween / AnimationPlayer UI motion separate from core gameplay state changes.
+- Keep GPUParticles2D/3D, CPUParticles2D/3D, ShaderMaterial, AnimationPlayer, Tween, and camera shake in presentation scripts.
+- Do not let particle nodes, shader parameters, or camera shake own combat resolution or progression.
 
 ## HTML Canvas / Web Game Suggested Structure
 
@@ -217,6 +234,11 @@ src/
   gameplay/
   input/
   render/
+  render/vfx/
+  render/particles/
+  render/shaders/
+  render/postprocessing/
+  presentation/
   ui/
   ui/visual/
   motion/
@@ -240,6 +262,8 @@ Web guidelines:
 - DOM / React UI animation should live in UI or motion modules, not gameplay logic.
 - DOM / React UI styling should live in UI, visual, style, or component modules, not gameplay logic.
 - Canvas gameplay effects should be separated from rules and state resolution.
+- Gameplay VFX should live in render, presentation, particle, shader, or effect modules, not core rules.
+- Hit pause, screen shake, particles, damage numbers, and sound should subscribe to gameplay events rather than decide gameplay results.
 - Keep DOM UI or React overlays separate from canvas/WebGL gameplay logic.
 - Keep GSAP timelines, React component motion, and CSS transitions in UI / presentation modules.
 - Do not add a motion library for one tiny effect; prefer CSS transitions for simple states.
@@ -255,10 +279,18 @@ src/ui/components/
 src/ui/styles/
 src/ui/theme/
 src/render/effects/
+src/render/vfx/
+src/render/particles/
+src/render/shaders/
+src/render/postprocessing/
+src/render/camera/
+src/assets/vfx/
 src/core/reducedMotion.js
 ```
 
 For engines, use animation controllers, tween services, or UI animation components instead of mixing motion code into gameplay state logic.
+
+For gameplay VFX, use particle systems, shader/material modules, effect pools, camera impulse services, and engine-native VFX systems instead of mixing VFX code into gameplay state logic.
 
 ## Canvas UI vs DOM / React UI
 
@@ -270,6 +302,10 @@ Prefer Canvas / WebGL for:
 - board or arena rendering
 - in-world bars
 - particles and hit effects
+- gameplay-space VFX
+- sprite flipbooks
+- shader or material effects
+- screen shake and camera impulse
 - simple diegetic overlays
 
 Prefer DOM / React / CSS overlay for:

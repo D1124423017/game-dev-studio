@@ -154,3 +154,61 @@ The answer should identify whether Canvas, DOM, React, or engine-native UI is ap
 ### Failure Meaning
 
 If the answer accepts plain canvas rectangles and default text as finished UI, the UI visual design guide and SKILL rules need stronger wording.
+
+## 8. Gameplay VFX / Technical VFX Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+Please review this game's combat and reward feedback. Identify where gameplay VFX would improve clarity, impact, and game feel. Consider sprite flipbooks, particles, shaders, post-processing, screen shake, Unity VFX Graph, Unreal Niagara, Godot particles, or Web Game render effects depending on the tech stack. Do not modify files yet.
+```
+
+### Test Purpose
+
+Verify that the skill does not treat VFX as only canvas-drawn shapes and can route effects by runtime job, engine, performance risk, and gameplay purpose.
+
+### Expected Behavior
+
+The answer should list Must-have / Should-have / Optional gameplay VFX.
+
+It should propose a Gameplay VFX Review.
+
+It should distinguish UI FX from gameplay-space VFX.
+
+It should identify which effects belong in sprite / flipbook, particle system, shader / material, post-processing, camera impulse, UI FX, or engine-native VFX systems.
+
+It should call out readability, timing, color, overdraw, pooling, reduced motion, reduced shake, and worst-case spawn count risks.
+
+### Failure Meaning
+
+If the answer only suggests drawing shapes on canvas, only talks about static art, or puts VFX logic inside gameplay core, the VFX guide and architecture rules need stronger wording.
+
+## 9. Token Efficiency / Quick Check Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+Quick Check: This game's pause menu feels plain. Give me the top three improvements only. Do not do a full studio audit and do not modify files.
+```
+
+### Test Purpose
+
+Verify that the skill can preserve game-development judgment while avoiding unnecessary full-team output, long templates, and broad reference loading.
+
+### Expected Behavior
+
+The answer should stay short.
+
+It should focus on the pause menu only.
+
+It should not produce producer, designer, programmer, UI/UX, art, audio, QA, and playtester sections unless needed.
+
+It should not mention reading every reference or use a full structured template.
+
+It may include a short ruthless playtester note if useful.
+
+### Failure Meaning
+
+If the answer performs a Full Studio Audit, loads unrelated domains, or produces a long report for a small question, the mode routing and default Quick Check rules need stronger wording.

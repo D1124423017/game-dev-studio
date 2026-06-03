@@ -1,6 +1,16 @@
 # 工作流程參考
 
+先選模式，不要每次都執行完整流程。
+
+- Quick Check：小問題、快速建議、單一點檢查。
+- Focused Review：單一領域深度檢查，例如 UI、VFX、架構、QA。
+- Full Studio Audit：新遊戲方向、MVP、重大里程碑或完整專案審查。
+
+詳細模式規則見 `references/modes.md`。
+
 ## 新遊戲啟動
+
+新遊戲啟動通常使用 Full Studio Audit，但仍然只讀必要 reference。
 
 1. 接收使用者想法
 2. 切換製作人角度：釐清範圍、用途、時間、MVP
@@ -10,21 +20,27 @@
 6. 切換 UI/UX 角度：必要畫面、操作流程
 7. 切換 UI Visual 角度：介面是否像正式遊戲，而不是 canvas placeholder 或 debug UI
 8. 切換 UI Motion 角度：HUD、選單、卡牌、獎勵、Combo、結果畫面的動態回饋
-9. 整合產出：方向提案 + 推薦方向 + 風險 + 下一步
+9. 切換 Gameplay VFX 角度：打擊、技能、粒子、shader、screen shake 與特效效能
+10. 整合產出：方向提案 + 推薦方向 + 風險 + 下一步
 
 ## 開發階段
+
+開發階段通常使用 Quick Check 或 Focused Review。
 
 1. 先確認影響範圍
 2. 先讀現有程式碼再改
 3. 如果涉及 UI / HUD / 玩家回饋，先確認 UI 視覺設計、動效方案與工具選型
-4. 實作後驗證
-5. 回報變更與風險
+4. 如果涉及 hit effect、技能、爆炸、粒子、shader、screen shake 或後製，先確認 Gameplay VFX 路由與架構邊界
+5. 實作後驗證
+6. 回報變更與風險
 
 ## 完成階段
 
+完成階段預設使用短版回報。只有公開 release、重大里程碑或使用者要求時才完整展開。
+
 1. 犀利測試玩家發表意見
-2. 檢查視覺、UI visual design、UI motion 與音效完整性
-3. 檢查 reduced motion、效能、可讀性與輸入延遲
+2. 檢查視覺、UI visual design、UI motion、Gameplay VFX 與音效完整性
+3. 檢查 reduced motion、reduced shake、效能、可讀性、overdraw 與輸入延遲
 4. 檢查文件與驗收標準
 5. 回報最終產出
 
@@ -39,3 +55,11 @@
 - UI visual design should be reviewed after information architecture and before implementation details.
 - Web Game 的正式 UI 通常不應只用 Canvas 畫矩形和預設文字完成。
 - 複雜 UI 應評估 DOM / React overlay、engine-native UI、字體、面板、圖示、元件狀態、排版與動效。
+
+## Gameplay VFX / Technical VFX Review
+
+- Gameplay VFX should be reviewed after core gameplay events are understood and before final visual polish.
+- 視覺相關任務除了圖片、UI 與動效，也要檢查 gameplay-space 特效是否清楚傳達打擊、危險、獎勵、技能與狀態變化。
+- VFX should be routed by runtime job: sprite / flipbook, particle system, shader / material, post-processing, camera impulse, or UI FX.
+- VFX logic should live in presentation, render, particles, shaders, or effect modules. It should not own damage, score, progression, or win/loss rules.
+- Check shape, timing, color, readability, overdraw, pooling, worst-case spawn count, reduced motion, and reduced shake.

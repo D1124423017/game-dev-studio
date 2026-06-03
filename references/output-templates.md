@@ -1,6 +1,8 @@
 # Output Templates
 
-Use these templates when a user asks for a structured plan, review, brief, task, test report, refactor plan, or final report. Keep the headings, but omit sections that are not relevant to the current task.
+Use these templates only when a user asks for a detailed structured plan, review, brief, task, test report, refactor plan, or final report.
+
+For ordinary tasks, read `references/template-index.md` first and use a short format. Do not load or reproduce every template here unless the user needs a formal deliverable.
 
 ## Game Concept Template
 
@@ -28,6 +30,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Required screens
 - Required assets
 - Required UI visual design direction
+- Required gameplay VFX feedback
 - Required sound
 - Required UI motion / game feel feedback
 - Technical architecture
@@ -259,6 +262,144 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Negative prompt or avoid list
 - Delivery checklist
 
+## Gameplay VFX Brief Template
+
+```md
+## Gameplay VFX Brief
+
+### Goal
+- What gameplay event should the effect communicate?
+
+### Target Event
+- Event:
+- Source:
+- Target:
+- Player meaning:
+- Priority: Must-have / Should-have / Optional
+
+### VFX Design
+- Shape:
+- Timing:
+- Color:
+- Scale:
+- Directionality:
+- Anticipation:
+- Impact:
+- Follow-through:
+- Decay:
+
+### Runtime Route
+- Sprite / flipbook:
+- Particle system:
+- Shader / material:
+- Post-processing:
+- Camera impulse / screen shake:
+- UI FX:
+- Sound pairing:
+
+### Asset Requirements
+- Generated asset needed:
+- Frame count:
+- FPS:
+- Cell size:
+- Rows / columns:
+- Transparent background:
+- Anchor:
+- Blend mode:
+- Suggested path:
+
+### Performance and Accessibility
+- Worst-case spawn count:
+- Pooling:
+- Overdraw risk:
+- Mobile risk:
+- Reduced motion:
+- Reduced shake:
+- Flashing risk:
+
+### Acceptance Criteria
+- Effect reads at gameplay scale:
+- Effect does not hide hazards:
+- Effect does not block input:
+- Effect performs under worst-case use:
+- Core gameplay still owns outcome:
+```
+
+## VFX Implementation Plan Template
+
+```md
+## VFX Implementation Plan
+
+### Objective
+- ...
+
+### Files to Inspect First
+- Gameplay event source:
+- Render / presentation layer:
+- Asset registry:
+- Audio event mapping:
+
+### Architecture Boundary
+- Core gameplay event:
+- VFX subscriber:
+- Effect pool:
+- Asset path:
+- Cleanup rule:
+
+### Implementation Steps
+1. Add or verify gameplay event.
+2. Add presentation-layer VFX adapter.
+3. Add assets or placeholders clearly labeled as placeholders.
+4. Add pooling or cleanup.
+5. Pair sound, hit pause, camera impulse, or UI feedback if needed.
+6. Add reduced motion / reduced shake handling.
+7. Test worst-case effect spam.
+
+### Do Not Mix
+- Do not put damage, score, progression, or win/loss logic in VFX code.
+- Do not hide gameplay-critical information behind the effect.
+- Do not add heavy post-processing without measuring performance.
+
+### Tests
+- Boot:
+- Trigger event:
+- Repeated trigger:
+- Mobile / low-end mode:
+- Reduced motion / shake:
+- Console/runtime errors:
+```
+
+## VFX QA Checklist Template
+
+```md
+## VFX QA Checklist
+
+### Readability
+- Reads at gameplay scale:
+- Clear source and target:
+- Clear danger / reward / impact meaning:
+- Does not obscure hazards:
+
+### Timing
+- Anticipation is clear:
+- Impact lands on the gameplay event:
+- Decay does not linger too long:
+- Input is not blocked:
+
+### Performance
+- Worst-case spawn count tested:
+- Pooling / cleanup works:
+- Overdraw acceptable:
+- Post-processing cost acceptable:
+- No runtime errors:
+
+### Accessibility
+- Reduced motion checked:
+- Reduced shake checked:
+- No rapid flashing:
+- Important state readable without animation:
+```
+
 ## Sound Design Brief Template
 
 ```md
@@ -421,6 +562,7 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Visual requirements
 - UI visual design requirements
 - UI motion requirements
+- Gameplay VFX requirements
 - Audio requirements
 - Architecture requirements
 - Test requirements
@@ -442,6 +584,10 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - 動效工具:
 - 動效風險:
 - reduced motion / accessibility:
+- Gameplay VFX / Technical VFX changes
+- VFX tools:
+- VFX risks:
+- reduced shake / VFX accessibility:
 - Visual asset changes
 - Sound changes
 - Tests run

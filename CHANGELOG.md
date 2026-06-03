@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+## v0.4.0
+
+- Added Quick Check, Focused Review, and Full Studio Audit modes.
+- Reduced default SKILL.md context load by moving detailed guidance behind lazy references.
+- Added lightweight template index for short outputs.
+- Improved reference loading rules to avoid reading all references for routine tasks.
+- Updated metadata for token-conscious usage.
+
+## v0.3.0
+
+- Added Gameplay VFX / Technical VFX guidance.
+- Added runtime routing for sprite flipbooks, particles, shaders, post-processing, camera impulse, and UI FX.
+- Added Unity VFX Graph, Unreal Niagara, Godot particles, and Web Game VFX guidance.
+- Added Gameplay VFX Brief, VFX Implementation Plan, and VFX QA Checklist templates.
+- Added architecture boundaries for VFX, particle, shader, and camera impulse modules.
+- Added test prompt for gameplay VFX review.
+
 ## v0.2.0
 
 - Added Game UI Visual Design guidance.

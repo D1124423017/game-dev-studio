@@ -4,9 +4,11 @@ Use this reference whenever a task touches anything players can see: characters,
 
 For UI motion, HUD animation, menu transitions, reward feedback, combo feedback, React Bits-style components, or GSAP-style timelines, also read `references/ui-motion-guide.md`.
 
+For gameplay VFX, hit effects, particles, sprite effects, shaders, post-processing, screen shake, flipbooks, Unity VFX Graph, Unreal Niagara, or Godot particles, also read `references/game-vfx-guide.md`.
+
 Visual assets are not only static images.
 
-Player-facing visual work may include motion, animated UI, VFX, spritesheets, transitions, and feedback timing.
+Player-facing visual work may include motion, animated UI, gameplay VFX, particle textures, shader effects, spritesheets, flipbooks, transitions, camera impulse, screen shake, and feedback timing.
 
 If the task involves UI screens, cards, buttons, HUD, or result screens, check whether motion is needed.
 
@@ -54,6 +56,7 @@ For visual tasks, provide:
 - Format
 - Transparent background requirement
 - Animation or spritesheet requirements
+- Gameplay VFX requirements
 - Motion / interaction requirements
 - UI visual design requirements
 - Suggested path
@@ -94,6 +97,9 @@ assets/
 - Character / enemy portrait: at least 1024px tall
 - Card art: at least 1024x1536
 - Spritesheet: specify rows, columns, cell size, padding, frame count, and anchor point
+- VFX flipbook: specify rows, columns, cell size, frame count, FPS, one-shot / loop, blend mode, anchor, and cleanup timing
+- Particle texture: specify shape, edge softness, alpha behavior, color tinting, intended particle system, and overdraw risk
+- Shader / material effect: specify visual purpose, parameters, trigger event, duration, and fallback
 - UI motion asset: specify trigger event, duration, easing, loop behavior, and reduced motion fallback
 
 ## Style Consistency Check
@@ -104,9 +110,13 @@ Before calling a visual task complete, check:
 - Is the main color palette consistent?
 - Is the UI visual language consistent?
 - Do effects block gameplay readability?
+- Do gameplay VFX communicate the correct event, target, direction, danger, reward, or impact?
 - Do UI animations communicate state, reward, danger, or navigation?
+- Do VFX use the right route: sprite / flipbook, particle system, shader / material, post-processing, camera impulse, or UI FX?
 - Does the UI look like a polished game interface rather than canvas placeholder boxes?
 - Do animations respect reduced motion and avoid blocking input?
+- Do gameplay effects respect reduced shake, avoid rapid flashing, and stay readable at gameplay scale?
+- Are particles pooled or bounded for repeated use?
 - Are icons recognizable when scaled down?
 - Does anything still look like placeholder art?
 - Are player-critical elements readable against the background?
@@ -135,7 +145,10 @@ Before calling a visual task complete, check:
 - Code reference updated:
 - In-game display confirmed:
 - Motion behavior confirmed:
+- Gameplay VFX behavior confirmed:
+- VFX performance checked:
 - Reduced motion fallback checked:
+- Reduced shake fallback checked:
 - No placeholder remains:
 - Style consistency checked:
 ```

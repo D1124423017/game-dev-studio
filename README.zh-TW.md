@@ -15,7 +15,7 @@ $game-dev-studio
 
 ## 特色
 
-- 多角色協作：製作人、企劃、程式、UI/UX、UI 動效設計師 / 遊戲爽感動效顧問、美術、音效、QA、犀利測試玩家
+- 多角色協作：製作人、企劃、程式、UI/UX、UI 動效設計師 / 遊戲爽感動效顧問、Gameplay VFX / Technical VFX 設計師、美術、音效、QA、犀利測試玩家
 - 適用 Unity、Unreal、Godot、HTML Canvas、Web Game、2D、3D 與遊戲原型
 - 可從模糊想法整理出可執行的遊戲企劃
 - 強調程式架構，避免所有邏輯塞進單一檔案
@@ -23,6 +23,9 @@ $game-dev-studio
 - 美觀的遊戲 UI 指引，明確把 canvas 畫出的矩形和預設文字視為 placeholder，而不是完成品 UI
 - UI 動效與遊戲爽感檢查，包含 GSAP、React Bits 風格動效、引擎原生 UI 動畫與回饋節奏。
 - 主動檢查 UI 動效、HUD 回饋、選單轉場、GSAP / React Bits 風格機會與遊戲爽感動畫
+- Gameplay VFX 與技術特效指引，包含打擊火花、粒子、sprite flipbook、shader、post-processing、screen shake、Unity VFX Graph、Unreal Niagara 與 Godot particles
+- 會依照 runtime job 判斷特效該用 sprite、particle、shader、後製、camera impulse 或 UI FX，而不是全部硬塞進 canvas 繪製
+- 省 token 模式：Quick Check、Focused Review、Full Studio Audit，讓日常任務保持輕量
 - 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
 
 ## 適合誰使用
@@ -38,6 +41,8 @@ $game-dev-studio
 適合用於遊戲規劃、架構審查、UI/UX、美術資產、QA、測試玩家檢查、功能拆任務、MVP 規劃，以及任何影響玩家體驗的遊戲工作。
 
 也適合用於 UI 太靜態、需要按鈕回饋、HUD 數值動效、選單轉場、Combo feedback、獎勵動畫或引擎原生 UI 動畫規劃的情境。
+
+也適合用於 gameplay 回饋太弱、需要打擊特效、slash trail、粒子、shader effect、screen shake、projectile impact、爆炸、獎勵 burst 或引擎原生 VFX 規劃的情境。
 
 不適合用於小修字、簡單 Git 指令、README 一行修改、一般知識問答，或非遊戲雜務。
 
@@ -79,6 +84,27 @@ $game-dev-studio
 
 ## 使用範例
 
+### 快速檢查
+
+```txt
+$game-dev-studio
+Quick Check: 請檢查這個升級畫面，告訴我前三個 UI 或遊戲爽感問題。請保持簡短。
+```
+
+### 聚焦審查
+
+```txt
+$game-dev-studio
+Focused Review: 請檢查這個遊戲的戰鬥 VFX，提出必備特效、效能風險與 reduced-shake 注意事項。先不要修改檔案。
+```
+
+### 完整工作室審查
+
+```txt
+$game-dev-studio
+Full Studio Audit: 請用完整遊戲開發團隊角度審查這個原型，給我讓它達到 demo-ready 的最高優先事項。
+```
+
 ### 從零開始做遊戲
 
 ```txt
@@ -117,6 +143,13 @@ $game-dev-studio
 ```txt
 $game-dev-studio
 請檢查這個 Web Game 的 UI，告訴我如何讓它像正式遊戲介面，而不是 canvas 畫出來的 placeholder 方塊。請考慮 DOM / React overlay、字體、面板、圖示、元件狀態、排版與動效。先不要修改檔案。
+```
+
+### 檢查 gameplay VFX 與技術特效
+
+```txt
+$game-dev-studio
+請檢查這個遊戲的戰鬥回饋，建議 gameplay VFX 改進方向。請依照引擎或技術棧考慮 hit sparks、slash trails、projectile impacts、particles、sprite flipbooks、shader effects、post-processing、screen shake、Unity VFX Graph、Unreal Niagara 或 Godot particles。先不要修改檔案。
 ```
 
 ### 建立安全重構計畫
@@ -163,10 +196,13 @@ game-dev-studio/
 │   └── test-prompts.md
 ├── references/           # 參考文件
 │   ├── workflow.md
+│   ├── modes.md
+│   ├── template-index.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
 │   ├── ui-visual-design-guide.md
 │   ├── ui-motion-guide.md
+│   ├── game-vfx-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
 └── assets/              # 圖片資源
@@ -193,7 +229,7 @@ game-dev-studio/
 
 建議第一個公開版本為 `v0.1.0`。
 
-目前建議的下一個文件版本是 `v0.2.0`，重點是正式遊戲 UI 視覺設計、Canvas vs DOM / React UI 分工、UI 動效與遊戲爽感指引。
+目前建議的下一個文件版本是 `v0.4.0`，重點是省 token 審查模式、lazy reference loading 與輕量輸出格式。
 
 建議 release 標題：
 `v0.1.0 - Initial public release`
@@ -224,6 +260,27 @@ game-dev-studio/
 - Added Game UI Visual Design Brief template
 - Added UI Motion / Game Feel guidance
 - Added test prompts for polished UI and motion review
+
+建議 VFX release 標題：
+`v0.3.0 - Gameplay VFX and technical effects guidance`
+
+建議 VFX release notes：
+
+- Added Gameplay VFX / Technical VFX guidance
+- Added runtime routing for sprite flipbooks, particles, shaders, post-processing, camera impulse, and UI FX
+- Added Unity VFX Graph, Unreal Niagara, Godot particles, and Web Game VFX guidance
+- Added Gameplay VFX Brief, VFX Implementation Plan, and VFX QA Checklist templates
+- Added test prompt for gameplay VFX review
+
+建議 token-efficiency release 標題：
+`v0.4.0 - Token-efficient review modes`
+
+建議 token-efficiency release notes：
+
+- Added Quick Check, Focused Review, and Full Studio Audit modes
+- Reduced default SKILL.md context load
+- Added lightweight template index for short outputs
+- Improved lazy loading rules for references
 
 ## 授權
 
