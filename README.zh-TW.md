@@ -6,11 +6,22 @@
 
 一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
 
+**目前版本：** `v0.4.1`
+
 ## 快速開始
+
+日常任務建議先用輕量檢查：
 
 ```txt
 $game-dev-studio
-我想做一款遊戲。請先從製作人、企劃、程式、UI/UX、美術、音效、QA、測試玩家的角度幫我釐清方向，不要直接寫程式。
+Quick Check: 請檢查這個升級畫面，告訴我前三個 UI 或遊戲爽感問題。請保持簡短。
+```
+
+大型規劃再使用完整審查：
+
+```txt
+$game-dev-studio
+Full Studio Audit: 我想做一款遊戲。請先從製作人、企劃、程式、UI/UX、美術、音效、QA、測試玩家的角度幫我釐清方向，不要直接寫程式。
 ```
 
 ## 特色
@@ -21,12 +32,19 @@ $game-dev-studio
 - 強調程式架構，避免所有邏輯塞進單一檔案
 - 只要涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案
 - 美觀的遊戲 UI 指引，明確把 canvas 畫出的矩形和預設文字視為 placeholder，而不是完成品 UI
-- UI 動效與遊戲爽感檢查，包含 GSAP、React Bits 風格動效、引擎原生 UI 動畫與回饋節奏。
-- 主動檢查 UI 動效、HUD 回饋、選單轉場、GSAP / React Bits 風格機會與遊戲爽感動畫
+- UI 動效與遊戲爽感檢查，包含 HUD 回饋、選單轉場、GSAP、React Bits 風格動效、引擎原生 UI 動畫與回饋節奏
 - Gameplay VFX 與技術特效指引，包含打擊火花、粒子、sprite flipbook、shader、post-processing、screen shake、Unity VFX Graph、Unreal Niagara 與 Godot particles
 - 會依照 runtime job 判斷特效該用 sprite、particle、shader、後製、camera impulse 或 UI FX，而不是全部硬塞進 canvas 繪製
 - 省 token 模式：Quick Check、Focused Review、Full Studio Audit，讓日常任務保持輕量
 - 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
+
+## 審查模式
+
+- **Quick Check**：日常問題的預設模式。輸出簡短，避免載入大型 references。
+- **Focused Review**：用於單一領域，例如架構、UI、視覺資產、UI 動效、Gameplay VFX、QA 或測試玩家檢查。
+- **Full Studio Audit**：用於新遊戲方向、MVP 規劃、里程碑審查、公開發布準備或完整專案審查。
+
+這個 Skill 採用 lazy-load references 設計，不應為小任務讀取所有 references 或輸出完整團隊報告。
 
 ## 適合誰使用
 
@@ -54,10 +72,22 @@ $game-dev-studio
 git clone https://github.com/D1124423017/game-dev-studio.git ~/.codex/skills/game-dev-studio
 ```
 
-Windows 可以使用類似路徑：
+某些 Codex / Agent 環境會使用 `.agents/skills`：
+
+```bash
+git clone https://github.com/D1124423017/game-dev-studio.git ~/.agents/skills/game-dev-studio
+```
+
+Windows 請依你的環境使用對應 skills 目錄，例如：
 
 ```powershell
 git clone https://github.com/D1124423017/game-dev-studio.git "$env:USERPROFILE\.codex\skills\game-dev-studio"
+```
+
+或：
+
+```powershell
+git clone https://github.com/D1124423017/game-dev-studio.git "$env:USERPROFILE\.agents\skills\game-dev-studio"
 ```
 
 安裝後重新啟動 Codex 或重新載入 skills，然後使用：
@@ -218,69 +248,21 @@ game-dev-studio/
 
 ## Release 建議
 
-公開發布時建議：
-
-- 第一個穩定公開版標記為 `v0.1.0`。
-- Release note 說明 Skill 目的、安裝路徑與支援工作流程。
-- 如果 reference 模板或呼叫行為有破壞性變更，應在 release 中標明。
-- README 範例應和最新 `SKILL.md` 保持一致。
-
-## 版本發布
-
-建議第一個公開版本為 `v0.1.0`。
-
-目前建議的下一個文件版本是 `v0.4.0`，重點是省 token 審查模式、lazy reference loading 與輕量輸出格式。
+目前建議公開發布版本：`v0.4.1`。
 
 建議 release 標題：
-`v0.1.0 - Initial public release`
+`v0.4.1 - Public documentation and template polish`
 
 建議 release notes：
 
-- 初版 Game Dev Studio Skill
-- 完整遊戲開發團隊型工作流程
-- 支援製作人、企劃、程式、UI/UX、美術、音效、QA、測試玩家等多角色指引
-- 中英文 README
-- Architecture guide
-- Visual asset policy
-- Game UI visual design guide
-- UI motion and game feel animation guide
-- Output templates
-- Ruthless playtester
-- Contribution guide
-- Prompt examples
-- MIT License
+- Polished README structure and installation guidance
+- Added `.agents/skills` installation examples
+- Updated GitHub issue and pull request templates for review modes, lazy loading, and VFX guidance
+- Kept public documentation aligned with token-efficient Skill behavior
 
-建議下一版 release 標題：
-`v0.2.0 - Game UI visual design and motion guidance`
+完整版本紀錄請看 [CHANGELOG.md](CHANGELOG.md)。
 
-建議下一版 release notes：
-
-- Added Game UI Visual Design guidance
-- Added Canvas UI vs DOM / React UI quality rules
-- Added Game UI Visual Design Brief template
-- Added UI Motion / Game Feel guidance
-- Added test prompts for polished UI and motion review
-
-建議 VFX release 標題：
-`v0.3.0 - Gameplay VFX and technical effects guidance`
-
-建議 VFX release notes：
-
-- Added Gameplay VFX / Technical VFX guidance
-- Added runtime routing for sprite flipbooks, particles, shaders, post-processing, camera impulse, and UI FX
-- Added Unity VFX Graph, Unreal Niagara, Godot particles, and Web Game VFX guidance
-- Added Gameplay VFX Brief, VFX Implementation Plan, and VFX QA Checklist templates
-- Added test prompt for gameplay VFX review
-
-建議 token-efficiency release 標題：
-`v0.4.0 - Token-efficient review modes`
-
-建議 token-efficiency release notes：
-
-- Added Quick Check, Focused Review, and Full Studio Audit modes
-- Reduced default SKILL.md context load
-- Added lightweight template index for short outputs
-- Improved lazy loading rules for references
+未來發布版本時，如果 reference 模板或呼叫行為有破壞性變更，應在 release 中標明，並保持 README 範例和最新 `SKILL.md` 一致。
 
 ## 授權
 

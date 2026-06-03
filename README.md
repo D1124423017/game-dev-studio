@@ -6,15 +6,26 @@
 
 A universal skill that enables Codex / AI Agent to assist in game development as a "complete game development team".
 
+**Current version:** `v0.4.1`
+
 ## What is Game Dev Studio?
 
 Game Dev Studio is a skill for AI agents that transforms them into a full game development team. It's not just a code assistant—it's a multi-role team that helps turn vague game ideas into executable plans, technical architectures, visual solutions, and development tasks.
 
 ## Quick Start
 
+For routine work, start with a lightweight check:
+
 ```txt
 $game-dev-studio
-I want to make a game. Please help me clarify the direction from producer, game design, programming, UI/UX, art, sound, QA, and playtesting perspectives before writing code.
+Quick Check: Review this upgrade screen and tell me the top three UI or game-feel issues. Keep it short.
+```
+
+For broad planning, ask for a full audit:
+
+```txt
+$game-dev-studio
+Full Studio Audit: I want to make a game. Please help me clarify the direction from producer, game design, programming, UI/UX, art, sound, QA, and playtesting perspectives before writing code.
 ```
 
 ## Features
@@ -25,12 +36,19 @@ I want to make a game. Please help me clarify the direction from producer, game 
 - Emphasizes code architecture to avoid monolithic files
 - Prioritizes image generation or visual solutions for any screen-related tasks
 - Beautiful game UI guidance that treats canvas-drawn rectangles and default text as placeholders, not finished UI
-- UI motion and game feel review, including GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing.
-- Reviews UI motion, HUD feedback, menu transitions, GSAP / React Bits-style motion opportunities, and game feel animation
+- UI motion and game feel review, including HUD feedback, menu transitions, GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing
 - Gameplay VFX and technical effects guidance for hit sparks, particles, sprite flipbooks, shaders, post-processing, screen shake, Unity VFX Graph, Unreal Niagara, and Godot particles
 - Helps route effects by runtime job instead of forcing everything into canvas drawing
 - Token-conscious modes: Quick Check, Focused Review, and Full Studio Audit so routine tasks stay lightweight
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
+
+## Review Modes
+
+- **Quick Check**: Default for routine questions. Keeps output short and avoids loading large references.
+- **Focused Review**: Use for one domain such as architecture, UI, visual assets, UI motion, gameplay VFX, QA, or playtesting.
+- **Full Studio Audit**: Use for new game direction, MVP planning, milestone review, public release readiness, or full project review.
+
+The skill is designed to lazy-load references. It should not read every reference or produce a full-team report for small tasks.
 
 ## Who is this for?
 
@@ -58,10 +76,22 @@ Clone or download this repository into your Codex skills directory.
 git clone https://github.com/D1124423017/game-dev-studio.git ~/.codex/skills/game-dev-studio
 ```
 
-On Windows, use your Codex skills folder, for example:
+Some Codex / Agent environments use `.agents/skills` instead:
+
+```bash
+git clone https://github.com/D1124423017/game-dev-studio.git ~/.agents/skills/game-dev-studio
+```
+
+On Windows, use the skills folder for your environment, for example:
 
 ```powershell
 git clone https://github.com/D1124423017/game-dev-studio.git "$env:USERPROFILE\.codex\skills\game-dev-studio"
+```
+
+Or:
+
+```powershell
+git clone https://github.com/D1124423017/game-dev-studio.git "$env:USERPROFILE\.agents\skills\game-dev-studio"
 ```
 
 Restart Codex or reload skills after installation. Then invoke the skill with:
@@ -222,69 +252,21 @@ The `.skill` file itself is ignored by Git because generated packages should not
 
 ## Release Suggestions
 
-Recommended public release flow:
-
-- Tag the first stable public version as `v0.1.0`.
-- Include a short release note explaining the skill purpose, installation path, and supported workflows.
-- Mention breaking changes when reference templates or invocation behavior changes.
-- Keep README examples aligned with the latest `SKILL.md`.
-
-## Releases
-
-The recommended first public release is `v0.1.0`.
-
-The current recommended next documentation release is `v0.4.0`, focused on token-efficient review modes, lazy reference loading, and lightweight output formats.
+Current recommended public release: `v0.4.1`.
 
 Suggested release title:
-`v0.1.0 - Initial public release`
+`v0.4.1 - Public documentation and template polish`
 
 Suggested release notes:
 
-- Initial Game Dev Studio Skill
-- Full game development team workflow
-- Multi-role guidance for producer, designer, programmer, UI/UX, art, sound, QA, and playtesting
-- Bilingual README
-- Architecture guide
-- Visual asset policy
-- Game UI visual design guide
-- UI motion and game feel animation guide
-- Output templates
-- Ruthless playtester
-- Contribution guide
-- Prompt examples
-- MIT License
+- Polished README structure and installation guidance
+- Added `.agents/skills` installation examples
+- Updated GitHub issue and pull request templates for review modes, lazy loading, and VFX guidance
+- Kept public documentation aligned with token-efficient Skill behavior
 
-Suggested next release title:
-`v0.2.0 - Game UI visual design and motion guidance`
+See [CHANGELOG.md](CHANGELOG.md) for full release history.
 
-Suggested next release notes:
-
-- Added Game UI Visual Design guidance
-- Added Canvas UI vs DOM / React UI quality rules
-- Added Game UI Visual Design Brief template
-- Added UI Motion / Game Feel guidance
-- Added test prompts for polished UI and motion review
-
-Suggested VFX release title:
-`v0.3.0 - Gameplay VFX and technical effects guidance`
-
-Suggested VFX release notes:
-
-- Added Gameplay VFX / Technical VFX guidance
-- Added runtime routing for sprite flipbooks, particles, shaders, post-processing, camera impulse, and UI FX
-- Added Unity VFX Graph, Unreal Niagara, Godot particles, and Web Game VFX guidance
-- Added Gameplay VFX Brief, VFX Implementation Plan, and VFX QA Checklist templates
-- Added test prompt for gameplay VFX review
-
-Suggested token-efficiency release title:
-`v0.4.0 - Token-efficient review modes`
-
-Suggested token-efficiency release notes:
-
-- Added Quick Check, Focused Review, and Full Studio Audit modes
-- Reduced default SKILL.md context load
-- Added lightweight template index for short outputs
-- Improved lazy loading rules for references
+When publishing future releases, mention breaking changes when reference templates or invocation behavior changes, and keep README examples aligned with the latest `SKILL.md`.
 
 ## License
 

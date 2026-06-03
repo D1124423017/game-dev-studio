@@ -31,6 +31,7 @@ Keep this skill general-purpose and reusable.
 - Do not remove token-conscious behavior such as Quick Check, Focused Review, Full Studio Audit, and lazy reference loading.
 - Do not remove the Ruthless Playtester role.
 - Do not rename the skill or change `$game-dev-studio` usage.
+- Keep `SKILL.md` short and router-like. Put detailed guidance in references so routine tasks stay lightweight.
 
 ## Markdown Style
 
@@ -51,4 +52,5 @@ Before opening a pull request, check:
 - README language links work between `README.md` and `README.zh-TW.md`.
 - The skill remains engine-agnostic.
 - Routine tasks still default to lightweight output and lazy reference loading.
+- `SKILL.md` remains concise and does not duplicate long reference content.
 - `.skill` package files are not committed.

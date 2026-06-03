@@ -1,7 +1,7 @@
 name: "game-dev-studio"
 display_name: "Game Dev Studio"
 description: "A token-conscious Codex skill that works like a full game development studio team for game design, programming, UI/UX, game UI visual design, UI motion, gameplay VFX, technical VFX, art direction, QA, and playtesting."
-version: "0.4.0"
+version: "0.4.1"
 author: "Health Body"
 tags:
   - "game-development"
@@ -28,7 +28,7 @@ tags:
   - "playtesting"
 interface:
   display_name: "Game Dev Studio"
-  short_description: "Full-team game development skill"
+  short_description: "Token-conscious full-team game development skill"
   default_prompt: "Use $game-dev-studio to plan, review, or improve a game project. Start with Quick Check unless Focused Review or Full Studio Audit is requested."
 policy:
   allow_implicit_invocation: true

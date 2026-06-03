@@ -8,6 +8,14 @@ Describe the problem.
 
 Which file or section is affected?
 
+## Mode Affected
+
+- [ ] Quick Check
+- [ ] Focused Review
+- [ ] Full Studio Audit
+- [ ] Reference loading / token usage
+- [ ] Not sure
+
 ## Expected Behavior
 
 What should happen?

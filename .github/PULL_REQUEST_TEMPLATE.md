@@ -13,5 +13,9 @@
 - [ ] References are updated if needed.
 - [ ] `git diff --check` passes.
 - [ ] The skill remains engine-agnostic.
+- [ ] `SKILL.md` remains short and router-like.
+- [ ] Quick Check, Focused Review, and Full Studio Audit behavior remains intact.
+- [ ] References are lazy-loaded instead of all read by default.
 - [ ] Visual tasks still prioritize image generation or complete image-generation briefs.
+- [ ] UI visual design, UI motion, and gameplay VFX guidance remain intact.
 - [ ] Architecture planning and giant single-file prevention remain intact.

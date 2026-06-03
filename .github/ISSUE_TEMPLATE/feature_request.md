@@ -14,6 +14,9 @@ Explain how it improves game planning, design, programming, UI/UX, art, sound, Q
 - Game Designer
 - Programmer
 - UI/UX Designer
+- Game UI Visual Designer
+- UI Motion / Game Feel Animator
+- Gameplay VFX / Technical VFX Designer
 - Art Director
 - Sound Designer
 - QA Tester

@@ -2,7 +2,14 @@
 
 ## Unreleased
 
-## v0.4.0
+## v0.4.1 - 2026-06-03
+
+- Polished README structure and installation guidance.
+- Added `.agents/skills` installation examples.
+- Updated GitHub issue and pull request templates for review modes, lazy loading, and VFX guidance.
+- Updated metadata version for public documentation polish.
+
+## v0.4.0 - 2026-06-03
 
 - Added Quick Check, Focused Review, and Full Studio Audit modes.
 - Reduced default SKILL.md context load by moving detailed guidance behind lazy references.
@@ -10,7 +17,7 @@
 - Improved reference loading rules to avoid reading all references for routine tasks.
 - Updated metadata for token-conscious usage.
 
-## v0.3.0
+## v0.3.0 - 2026-06-03
 
 - Added Gameplay VFX / Technical VFX guidance.
 - Added runtime routing for sprite flipbooks, particles, shaders, post-processing, camera impulse, and UI FX.
@@ -19,7 +26,7 @@
 - Added architecture boundaries for VFX, particle, shader, and camera impulse modules.
 - Added test prompt for gameplay VFX review.
 
-## v0.2.0
+## v0.2.0 - 2026-06-03
 
 - Added Game UI Visual Design guidance.
 - Added Canvas UI vs DOM / React UI quality rules.
@@ -30,7 +37,7 @@
 - Added GSAP / React Bits-style motion analysis guidance.
 - Added test prompt for UI motion and game feel review.
 
-## v0.1.0
+## v0.1.0 - 2026-06-03
 
 - Initial public release of Game Dev Studio Skill.
 - Added full game development team workflow.
