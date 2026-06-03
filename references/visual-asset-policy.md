@@ -4,6 +4,12 @@ Use this reference whenever a task touches anything players can see: characters,
 
 For UI motion, HUD animation, menu transitions, reward feedback, combo feedback, React Bits-style components, or GSAP-style timelines, also read `references/ui-motion-guide.md`.
 
+Visual assets are not only static images.
+
+Player-facing visual work may include motion, animated UI, VFX, spritesheets, transitions, and feedback timing.
+
+If the task involves UI screens, cards, buttons, HUD, or result screens, check whether motion is needed.
+
 ## Core Principle
 
 Player-visible tasks should prioritize direct image generation when the environment supports it.

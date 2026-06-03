@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added UI Motion / Game Feel Animation guidance.
+- Added UI motion review template.
+- Added GSAP / React Bits-style motion analysis guidance.
+- Added test prompt for UI motion and game feel review.
+
 ## v0.1.0
 
 - Initial public release of Game Dev Studio Skill.

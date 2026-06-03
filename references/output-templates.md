@@ -108,6 +108,53 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Optional:
 ```
 
+## UI Motion Brief Template
+
+```md
+## UI Motion Brief
+
+### Goal
+- What should the motion communicate?
+
+### Target UI
+- Screen:
+- Element:
+- User event:
+- Game state:
+
+### Motion Design
+- Entrance:
+- Hover:
+- Press:
+- Selected:
+- Confirm:
+- Error:
+- Exit:
+
+### Tooling
+- CSS transition:
+- GSAP timeline:
+- Canvas animation:
+- React Bits-style component:
+- Engine-native animation:
+
+### Timing
+- Duration:
+- Delay:
+- Stagger:
+- Easing:
+
+### Accessibility
+- Reduced motion:
+- Fallback:
+
+### Acceptance Criteria
+- Motion is readable:
+- Motion does not block input:
+- Motion supports gameplay feedback:
+- No console/runtime errors:
+```
+
 ## UI Motion Review Template
 
 ```md
@@ -344,6 +391,10 @@ Use these templates when a user asks for a structured plan, review, brief, task,
 - Architecture impact
 - UI/UX changes
 - UI motion / game feel changes
+- UI Motion / Game Feel:
+- 動效工具:
+- 動效風險:
+- reduced motion / accessibility:
 - Visual asset changes
 - Sound changes
 - Tests run

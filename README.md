@@ -24,6 +24,7 @@ I want to make a game. Please help me clarify the direction from producer, game 
 - Transforms vague ideas into executable game plans
 - Emphasizes code architecture to avoid monolithic files
 - Prioritizes image generation or visual solutions for any screen-related tasks
+- UI motion and game feel review, including GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing.
 - Reviews UI motion, HUD feedback, menu transitions, GSAP / React Bits-style motion opportunities, and game feel animation
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
 
@@ -107,6 +108,11 @@ Create a visual asset brief for the main character, enemies, HUD, skill icons, h
 ```txt
 $game-dev-studio
 Review my web game's HUD, buttons, reward toast, combo counter, and result screen. Suggest UI motion using CSS, GSAP, React Bits-style patterns, or engine-native alternatives where appropriate.
+```
+
+```txt
+$game-dev-studio
+Review this game's UI and suggest where motion design could improve game feel. Consider GSAP, React Bits-style patterns, or engine-native animation depending on the tech stack. Do not modify files yet.
 ```
 
 ### Create a safe refactor plan

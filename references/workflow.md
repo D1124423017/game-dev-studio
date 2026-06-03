@@ -26,3 +26,9 @@
 3. 檢查 reduced motion、效能、可讀性與輸入延遲
 4. 檢查文件與驗收標準
 5. 回報最終產出
+
+## UI Motion / Game Feel Review
+
+- Motion should be reviewed after static UI/UX and before final polish.
+- 視覺相關任務除了圖片資產，也要檢查互動動效。
+- UI motion should improve clarity, feedback, rhythm, and game feel, not add decorative noise.

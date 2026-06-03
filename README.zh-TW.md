@@ -20,6 +20,7 @@ $game-dev-studio
 - 可從模糊想法整理出可執行的遊戲企劃
 - 強調程式架構，避免所有邏輯塞進單一檔案
 - 只要涉及畫面呈現，就優先使用圖片生成模型或提供完整生圖方案
+- UI 動效與遊戲爽感檢查，包含 GSAP、React Bits 風格動效、引擎原生 UI 動畫與回饋節奏。
 - 主動檢查 UI 動效、HUD 回饋、選單轉場、GSAP / React Bits 風格機會與遊戲爽感動畫
 - 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
 
@@ -103,6 +104,11 @@ $game-dev-studio
 ```txt
 $game-dev-studio
 請檢查我的 Web Game HUD、按鈕、獎勵 toast、Combo 計數與結果畫面，建議 CSS、GSAP、React Bits 風格或引擎原生動效方案。
+```
+
+```txt
+$game-dev-studio
+請檢查這個遊戲的 UI 哪些地方可以用動效提升遊戲爽感，例如 GSAP、React Bits 風格或引擎原生動畫。先不要修改檔案。
 ```
 
 ### 建立安全重構計畫

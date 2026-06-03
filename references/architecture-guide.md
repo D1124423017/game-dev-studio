@@ -231,11 +231,25 @@ Web guidelines:
 - `input` should collect and normalize input. It should not directly mutate large global state everywhere.
 - `data` should centralize constants, tuning values, and tables instead of scattering magic numbers.
 - `debug` tools should not control formal game flow or ship enabled by accident.
+- UI motion logic should be separated from gameplay core.
+- DOM / React UI animation should live in UI or motion modules, not gameplay logic.
+- Canvas gameplay effects should be separated from rules and state resolution.
 - Keep DOM UI or React overlays separate from canvas/WebGL gameplay logic.
 - Keep GSAP timelines, React component motion, and CSS transitions in UI / presentation modules.
 - Do not add a motion library for one tiny effect; prefer CSS transitions for simple states.
 - Respect `prefers-reduced-motion` or an in-game reduced motion option.
 - Add browser smoke checks for boot, input, resize, asset loading, and console errors.
+
+For Web games, consider modules like:
+
+```txt
+src/ui/motion/
+src/ui/animations/
+src/render/effects/
+src/core/reducedMotion.js
+```
+
+For engines, use animation controllers, tween services, or UI animation components instead of mixing motion code into gameplay state logic.
 
 ## Safe Refactor Workflow for Giant Single-File Games
 
