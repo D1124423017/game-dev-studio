@@ -28,7 +28,7 @@ Keep this skill general-purpose and reusable.
 - Do not remove the principle that visual tasks should prioritize image generation models or complete image-generation briefs.
 - Do not remove architecture planning or the rule against giant single-file implementations.
 - Do not remove the Gameplay VFX / Technical VFX role or the principle that VFX should not be mixed into gameplay core logic.
-- Do not remove token-conscious behavior such as Quick Check, Focused Review, Full Studio Audit, and lazy reference loading.
+- Do not remove token-conscious behavior such as Quick Check, Focused Review, Full Studio Audit, Roadmap Strategy Audit, and lazy reference loading.
 - Do not remove the Ruthless Playtester role.
 - Do not rename the skill or change `$game-dev-studio` usage.
 - Keep `SKILL.md` short and router-like. Put detailed guidance in references so routine tasks stay lightweight.
@@ -49,8 +49,10 @@ Before opening a pull request, check:
 - No deprecated skill name remains.
 - `$game-dev-studio` is used correctly.
 - `git diff --check` passes.
+- `node scripts/validate-skill.mjs` passes.
 - README language links work between `README.md` and `README.zh-TW.md`.
 - The skill remains engine-agnostic.
 - Routine tasks still default to lightweight output and lazy reference loading.
+- Roadmap work remains evidence-based and does not become an unlimited feature wishlist.
 - `SKILL.md` remains concise and does not duplicate long reference content.
 - `.skill` package files are not committed.

@@ -6,7 +6,7 @@
 
 A universal skill that enables Codex / AI Agent to assist in game development as a "complete game development team".
 
-**Current version:** `v0.4.1`
+**Current version:** `v0.5.0`
 
 ## What is Game Dev Studio?
 
@@ -28,6 +28,13 @@ $game-dev-studio
 Full Studio Audit: I want to make a game. Please help me clarify the direction from producer, game design, programming, UI/UX, art, sound, QA, and playtesting perspectives before writing code.
 ```
 
+For maturity and next-version decisions, use a roadmap audit:
+
+```txt
+$game-dev-studio
+Roadmap Strategy Audit: Assess this project's maturity, decide whether to expand or stabilize, and propose the next versions and 30-day priorities. Do not modify files.
+```
+
 ## Features
 
 - Multi-role collaboration: Producer, Game Designer, Programmer, UI/UX Designer, UI Motion Designer / Game Feel Animator, Gameplay VFX / Technical VFX Designer, Game Artist, Sound Consultant, QA, and Ruthless Playtester
@@ -39,7 +46,9 @@ Full Studio Audit: I want to make a game. Please help me clarify the direction f
 - UI motion and game feel review, including HUD feedback, menu transitions, GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing
 - Gameplay VFX and technical effects guidance for hit sparks, particles, sprite flipbooks, shaders, post-processing, screen shake, Unity VFX Graph, Unreal Niagara, and Godot particles
 - Helps route effects by runtime job instead of forcing everything into canvas drawing
-- Token-conscious modes: Quick Check, Focused Review, and Full Studio Audit so routine tasks stay lightweight
+- Token-conscious modes: Quick Check, Focused Review, Full Studio Audit, and Roadmap Strategy Audit so routine tasks stay lightweight
+- Evidence-based public case studies across Phaser, Godot, and Unity
+- A zero-dependency validation script and GitHub Actions check for Skill structure, references, versions, and public documentation
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
 
 ## Review Modes
@@ -47,6 +56,7 @@ Full Studio Audit: I want to make a game. Please help me clarify the direction f
 - **Quick Check**: Default for routine questions. Keeps output short and avoids loading large references.
 - **Focused Review**: Use for one domain such as architecture, UI, visual assets, UI motion, gameplay VFX, QA, or playtesting.
 - **Full Studio Audit**: Use for new game direction, MVP planning, milestone review, public release readiness, or full project review.
+- **Roadmap Strategy Audit**: Use for maturity assessment, next-phase decisions, version planning, and deciding whether to expand, stabilize, refactor, validate, or release.
 
 The skill is designed to lazy-load references. It should not read every reference or produce a full-team report for small tasks.
 
@@ -139,6 +149,13 @@ $game-dev-studio
 Full Studio Audit: Review this prototype as a full game development team and give me the top priorities for making it demo-ready.
 ```
 
+### Roadmap strategy audit
+
+```txt
+$game-dev-studio
+Roadmap Strategy Audit: Define this project's final goal, assess maturity from repository evidence, decide whether it should expand or stabilize, and propose the next three version outcomes. Do not modify files.
+```
+
 ### Start a new game
 
 ```txt
@@ -217,7 +234,7 @@ It's a game development team skill designed to help AI not just write code, but 
 
 ```
 game-dev-studio/
-├── .github/              # Issue and pull request templates
+├── .github/              # Templates and validation workflow
 ├── SKILL.md              # Core skill definition
 ├── README.md             # English documentation
 ├── README.zh-TW.md       # Traditional Chinese documentation
@@ -226,11 +243,17 @@ game-dev-studio/
 ├── LICENSE               # MIT License
 ├── agents/               # Skill metadata
 │   └── openai.yaml
+├── examples/             # Evidence-based public project case studies
+│   ├── README.md
+│   ├── phaser-vite-focused-review.md
+│   ├── godot-dodge-the-creeps-audit.md
+│   └── unity-open-project-roadmap.md
 ├── prompts/              # Skill validation prompts
 │   └── test-prompts.md
 ├── references/           # Reference documents
 │   ├── workflow.md
 │   ├── modes.md
+│   ├── roadmap-strategy-audit.md
 │   ├── template-index.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
@@ -239,9 +262,25 @@ game-dev-studio/
 │   ├── game-vfx-guide.md
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
-└── assets/              # Image assets
+├── scripts/
+│   └── validate-skill.mjs
+├── validation/
+│   └── test-results-v0.5.0.md
+└── assets/
     └── game-dev-studio-banner.png
 ```
+
+## Validation
+
+Run the zero-dependency validation script with Node.js:
+
+```bash
+node scripts/validate-skill.mjs
+```
+
+It checks Skill frontmatter, lazy reference routes, public version consistency, bilingual README links, test and case-study coverage, deprecated naming, multiline Markdown/YAML, and committed `.skill` packages. GitHub Actions runs the same check on pushes and pull requests.
+
+See [examples/](examples/) for the three public-project case studies and [validation/test-results-v0.5.0.md](validation/test-results-v0.5.0.md) for the recorded prompt test results.
 
 ## Packaging as a .skill file
 
@@ -252,18 +291,18 @@ The `.skill` file itself is ignored by Git because generated packages should not
 
 ## Release Suggestions
 
-Current recommended public release: `v0.4.1`.
+Current recommended public release: `v0.5.0`.
 
 Suggested release title:
-`v0.4.1 - Public documentation and template polish`
+`v0.5.0 - Roadmap strategy and validation`
 
 Suggested release notes:
 
-- Polished README structure and installation guidance
-- Added `.agents/skills` installation examples
-- Updated GitHub issue and pull request templates for review modes, lazy loading, and VFX guidance
-- Normalized public Markdown and YAML formatting
-- Kept public documentation aligned with token-efficient Skill behavior
+- Added Roadmap Strategy Audit for maturity and next-version decisions
+- Added evidence-based Phaser, Godot, and Unity case studies
+- Executed and recorded ten Skill prompt tests
+- Added a zero-dependency validation script and GitHub Actions workflow
+- Corrected changelog and release-history consistency
 
 See [CHANGELOG.md](CHANGELOG.md) for full release history.
 

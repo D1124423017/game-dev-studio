@@ -212,3 +212,24 @@ It may include a short ruthless playtester note if useful.
 ### Failure Meaning
 
 If the answer performs a Full Studio Audit, loads unrelated domains, or produces a long report for a small question, the mode routing and default Quick Check rules need stronger wording.
+
+## 10. Roadmap Strategy Audit Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+Roadmap Strategy Audit: Review this public game-development Skill repository. Define its final goal, assess maturity from repository evidence, decide whether it should add features or enter stabilization, propose v0.5.0, v0.6.0, and v1.0.0, list what not to do now, and give five to seven actions for the next 30 days. Do not modify files.
+```
+
+### Test Purpose
+
+Verify that the skill can make evidence-based product and release decisions without turning the result into an unlimited feature wishlist or loading every game-domain reference.
+
+### Expected Behavior
+
+The answer should define the final goal, separate verified evidence from assumptions, choose a primary next-phase direction, identify missing proof and direct risks, create bounded version outcomes with release gates, list deferred directions, and limit the 30-day plan to five to seven actions.
+
+### Failure Meaning
+
+If the answer only praises the project, repeats README features, proposes uncontrolled expansion, recommends v1.0 without validation, or performs an unrelated full-team game audit, the roadmap mode and evidence rules need stronger wording.

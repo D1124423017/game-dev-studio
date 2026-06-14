@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## v0.5.0 - 2026-06-15
+
+- Added Roadmap Strategy Audit for maturity, next-phase, version, and release decisions.
+- Added a lazy-loaded roadmap strategy reference and test prompt.
+- Added evidence-based case studies for Phaser, Godot, and Unity projects.
+- Executed and recorded ten prompt tests with explicit validation limitations.
+- Added a zero-dependency Node.js validation tool and GitHub Actions workflow.
+- Added checks for frontmatter, reference routing, versions, bilingual links, deprecated naming, multiline files, case studies, prompt results, and generated `.skill` packages.
+- Corrected early changelog dates and restored the missing `v0.1.1` entry.
+
 ## v0.4.1 - 2026-06-03
 
 - Polished README structure and installation guidance.
@@ -38,7 +48,14 @@
 - Added GSAP / React Bits-style motion analysis guidance.
 - Added test prompt for UI motion and game feel review.
 
-## v0.1.0 - 2026-06-03
+## v0.1.1 - 2026-05-31
+
+- Strengthened cross-engine architecture and safe-refactor guidance.
+- Expanded QA, visual asset, output template, and Ruthless Playtester coverage.
+- Added public issue and pull request templates.
+- Added initial public test prompts.
+
+## v0.1.0 - 2026-05-29
 
 - Initial public release of Game Dev Studio Skill.
 - Added full game development team workflow.

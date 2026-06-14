@@ -20,6 +20,7 @@ Default to **Quick Check** unless the user asks for a plan, audit, full review, 
 - **Quick Check**: Use for small questions, quick reviews, focused advice, or "what should I do?" tasks. Do not read references by default. Output short findings and next steps.
 - **Focused Review**: Use when the task clearly touches one or two domains such as architecture, UI, visual assets, motion, VFX, QA, or playtesting. Read only the directly relevant reference files.
 - **Full Studio Audit**: Use only for vague new game ideas, major project reviews, MVP planning, milestone reviews, or when the user explicitly asks for the whole team. Read `references/workflow.md` first, then only the references needed by the project.
+- **Roadmap Strategy Audit**: Use for maturity assessment, next-phase decisions, continue-vs-stabilize decisions, version roadmaps, or release-goal planning. Read `references/roadmap-strategy-audit.md`, inspect current evidence, and avoid turning the result into an unlimited feature wishlist.
 
 If the user asks for a specific mode, follow it.
 
@@ -29,6 +30,7 @@ Do not load all references. Load the smallest useful set.
 
 - Read `references/modes.md` when deciding how much process to apply or when a task feels too broad.
 - Read `references/workflow.md` for new game ideas, MVP planning, project phase planning, or Full Studio Audit.
+- Read `references/roadmap-strategy-audit.md` only for Roadmap Strategy Audit, maturity assessment, version planning, or deciding whether a project should expand, stabilize, refactor, validate, or release.
 - Read `references/architecture-guide.md` before creating or restructuring projects, reviewing maintainability, or handling giant single-file / God object risks.
 - Read `references/visual-asset-policy.md` for player-visible assets, image-generation briefs, characters, enemies, environments, icons, spritesheets, store art, banners, or promotional images.
 - Read `references/ui-visual-design-guide.md` for polished HUDs, menus, shop, upgrade, card, result, settings, dialog, visual hierarchy, component states, or avoiding canvas-drawn placeholder UI.
@@ -63,6 +65,7 @@ Switch roles only when relevant:
 - Keep UI motion and gameplay VFX as presentation-layer feedback. They must not own damage, score, progression, or win/loss rules.
 - Be honest about tests. Use `Passed`, `Failed`, `Not run`, or `Blocked`; never imply a test ran when it did not.
 - Keep Ruthless Playtester notes short by default. Use the full Must / Should / Optional critique only in Focused Review, Full Studio Audit, or when requested.
+- For roadmap work, separate verified evidence from assumptions. Prioritize missing proof, user value, risk reduction, and release readiness over adding more features.
 
 ## Quick Outputs
 

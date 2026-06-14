@@ -13,6 +13,7 @@ Which file or section is affected?
 - [ ] Quick Check
 - [ ] Focused Review
 - [ ] Full Studio Audit
+- [ ] Roadmap Strategy Audit
 - [ ] Reference loading / token usage
 - [ ] Not sure
 

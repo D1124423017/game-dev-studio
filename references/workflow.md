@@ -5,8 +5,23 @@
 - Quick Check：小問題、快速建議、單一點檢查。
 - Focused Review：單一領域深度檢查，例如 UI、VFX、架構、QA。
 - Full Studio Audit：新遊戲方向、MVP、重大里程碑或完整專案審查。
+- Roadmap Strategy Audit：成熟度、下一階段、版本路線圖、繼續擴充或進入穩定期的決策。
 
 詳細模式規則見 `references/modes.md`。
+
+## 路線圖與版本決策
+
+Roadmap Strategy Audit 不等於完整團隊審查，也不應自動載入全部 references。
+
+1. 先定義專案或 Skill 的最終目標
+2. 檢查目前程式、文件、案例、測試、使用者回饋與 release 證據
+3. 分開標示已驗證事實、推論與未知項目
+4. 判斷應繼續擴充、穩定、重構、驗證或發布
+5. 以風險降低和使用者價值排序版本內容
+6. 明確列出現在不該做的方向
+7. 將近期行動限制在五到七項
+
+詳細規則見 `references/roadmap-strategy-audit.md`。
 
 ## 新遊戲啟動
 

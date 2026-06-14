@@ -89,6 +89,44 @@ Output:
 - Ruthless Playtester notes
 - Top priorities
 
+## Roadmap Strategy Audit
+
+Use when the main question is what the project should do next, not how to implement one feature.
+
+Best for:
+
+- Maturity assessment
+- Continue adding features vs enter stabilization
+- Version and release roadmaps
+- Portfolio, demo, early access, or v1 readiness
+- Choosing between expansion, refactor, validation, polish, and release
+- Defining a focused 30-day plan
+
+Reference loading:
+
+- Read `references/roadmap-strategy-audit.md`.
+- Inspect current repository evidence such as code, tests, examples, changelog, release state, and user feedback.
+- Add `references/workflow.md` only when project phases or MVP scope need deeper review.
+- Load architecture, UI, visual, motion, VFX, QA, or playtesting references only when evidence shows that domain affects the strategy decision.
+
+Output:
+
+- Final goal
+- Current maturity with evidence
+- Continue / stabilize / refactor / validate / release decision
+- Largest gaps and direct risks
+- Prioritized version roadmap
+- Explicit "do not do now" list
+- Five to seven actions for the next 30 days
+
+Avoid:
+
+- Unlimited feature wishlists
+- Treating documentation volume as proof of quality
+- Recommending a major version without validation evidence
+- Reading all references by default
+- Turning a general skill or game into one-project-specific guidance
+
 ## Mode Selection Rule
 
 If in doubt, choose the lighter mode and say what would trigger a deeper review.
