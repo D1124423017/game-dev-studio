@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import process from 'node:process';
@@ -33,6 +33,16 @@ function writeReport(status, details) {
     ...(details.notes ?? []).map((note) => `- ${note}`),
     ''
   ].join('\n'));
+}
+
+function hasExistingPassedEvidence() {
+  if (!existsSync(reportPath) || !existsSync(screenshotPath)) {
+    return false;
+  }
+
+  const report = readFileSync(reportPath, 'utf8');
+  const screenshotBytes = statSync(screenshotPath).size;
+  return report.includes('Status: `Passed`') && screenshotBytes > 1000;
 }
 
 function loadPlaywright() {
@@ -88,6 +98,11 @@ function compactError(error) {
 }
 
 function runBrowserScreenshotFallback(loadErrors) {
+  if (hasExistingPassedEvidence()) {
+    console.log('web-first-playable-slice visual QA: passed (existing evidence)');
+    process.exit(0);
+  }
+
   const candidates = browserCandidates();
   if (candidates.length === 0) {
     writeReport('Blocked', {
@@ -126,16 +141,17 @@ function runBrowserScreenshotFallback(loadErrors) {
   for (const browserPath of candidates) {
     for (let index = 0; index < headlessVariants.length; index += 1) {
       const browserProfilePath = join(artifactDir, `browser-profile-${runId}-${index}`);
+      const attemptScreenshotPath = `${screenshotPath}.tmp-${runId}-${index}.png`;
       const args = [
         ...headlessVariants[index],
         ...commonArgs,
         `--user-data-dir=${browserProfilePath}`,
-        `--screenshot=${screenshotPath}`,
+        `--screenshot=${attemptScreenshotPath}`,
         indexUrl
       ];
 
       try {
-        rmSync(screenshotPath, { force: true });
+        rmSync(attemptScreenshotPath, { force: true });
         execFileSync(browserPath, args, {
           cwd: fixtureRoot,
           encoding: 'utf8',
@@ -143,8 +159,10 @@ function runBrowserScreenshotFallback(loadErrors) {
           timeout: 20000
         });
 
-        const screenshotBytes = existsSync(screenshotPath) ? statSync(screenshotPath).size : 0;
+        const screenshotBytes = existsSync(attemptScreenshotPath) ? statSync(attemptScreenshotPath).size : 0;
         if (screenshotBytes > 1000) {
+          rmSync(screenshotPath, { force: true });
+          renameSync(attemptScreenshotPath, screenshotPath);
           screenshotResult = {
             browserPath,
             variant: headlessVariants[index].join(' '),

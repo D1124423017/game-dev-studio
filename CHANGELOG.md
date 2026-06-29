@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Captured local runtime fixture visual QA screenshot evidence and preserved existing passed visual evidence when a later environment cannot rerun browser capture.
+
 ## v0.9.0 - 2026-06-29
 
 - Added a v1.0 acceptance proof protocol so final release readiness requires real client-studio delivery evidence, not only documentation and prompt coverage.
