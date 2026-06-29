@@ -38,8 +38,8 @@ I am a client commissioning this studio to turn the final HTML5 Breakout lesson 
 - Architecture gate: keep Canvas for gameplay rendering, DOM/CSS for UI, `game.js` for rules/render loop, `ui.js` for UI/audio/state wiring, `styles.css` for visual system, and `smoke.mjs` for proof checks.
 - Task breakdown: add a `proof/` slice to the external clone, avoid editing tutorial lesson files, verify no blocking alerts or page reload flow remain in the proof slice.
 - Implementation delivery: patch artifact applied to the temporary clone and committed locally as `5164ee67c7a85898bb7138502d9b9cec70061100`.
-- QA / playtest: syntax checks and smoke test passed; visual screenshot capture was blocked by local browser runtime.
-- Acceptance report: first-playable proof is acceptable as v0.9 evidence, but not enough for final v1.0 completion because visual QA is blocked.
+- QA / playtest: syntax checks, smoke test, local HTTP boot, Playwright visual QA, and start-flow browser interaction passed.
+- Acceptance report: first-playable proof is acceptable as external Web / HTML Canvas visual evidence for the v1.0 gate, while non-Web engine runtime captures remain blocked.
 
 ## Implementation Evidence
 
@@ -57,16 +57,18 @@ I am a client commissioning this studio to turn the final HTML5 Breakout lesson 
 | JavaScript syntax | `Passed` | `node --check proof/src/game.js`, `node --check proof/src/ui.js`, and `node --check proof/tests/smoke.mjs` exited 0 |
 | Smoke test | `Passed` | `node proof/tests/smoke.mjs` printed `client-studio breakout proof smoke: passed` |
 | Local proof commit | `Passed` | temporary clone commit `5164ee67c7a85898bb7138502d9b9cec70061100` contains five proof files and 740 insertions |
-| Visual QA | `Blocked` | Chrome and Edge headless screenshot attempts did not produce a usable screenshot in this local environment |
-| Main flow browser playthrough | `Not run` | blocked by the same local browser screenshot/runtime issue |
+| Local HTTP boot retry | `Passed` | on 2026-06-30, a temporary Node static server returned HTTP 200 for `proof/studio-slice.html` |
+| Visual QA | `Passed` | existing Node REPL Playwright captured `validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png` and `validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png`; console messages and page errors were `none` |
+| Start flow browser interaction | `Passed` | Playwright clicked `Start Slice` and captured the HUD in `playing` state at 1366x768 |
+| Full win/loss playthrough | `Not run` | the proof validates first-playable boot and start interaction, not a full Breakout completion session |
 
 ## Ruthless Playtester Note
 
 - The proof slice is much more client-readable than the original tutorial page, but it is still a thin Breakout demo. It proves workflow discipline, UI separation, and delivery evidence; it does not prove that the game concept is commercially interesting.
-- The biggest remaining weakness is the lack of captured visual evidence. A client should not accept final presentation without a screenshot or live browser pass.
+- The biggest remaining weakness is gameplay depth. The visual shell is client-readable, but the loop remains tutorial-scale and still needs level, reward, and difficulty design before it can be called a real product.
 
 ## Client Acceptance Status
 
-- Verdict: Accepted as v0.9 proof evidence; not accepted as final v1.0 completion.
-- Remaining risks: visual QA is blocked, there is no real player session recording, upstream source remains a tutorial-scale project, and the proof covers Web/HTML Canvas only.
-- Client decisions: choose whether the next proof should target Godot, Unity, or a user-owned prototype, and provide a browser environment where screenshot QA can run.
+- Verdict: Accepted as external Web / HTML Canvas visual proof evidence; not accepted as full final-goal completion by itself.
+- Remaining risks: there is no full player session recording, upstream source remains a tutorial-scale project, and Godot / Unity / Unreal runtime visual captures remain blocked until those engines are available.
+- Client decisions: choose whether the next proof should target a runnable Godot, Unity, Unreal, or user-owned prototype with engine-level screenshot evidence.

@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, relative } from 'node:path';
 import process from 'node:process';
 
@@ -79,9 +79,13 @@ const requiredFiles = [
   'validation/proof-godot-dodge-the-creeps-v1.0.0.md',
   'validation/proof-unity2d-prototype-v1.0.0.md',
   'validation/proof-unreal-pixelperfect2d-v1.0.0.md',
+  'validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md',
+  'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png',
+  'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/v0.9-real-project-proof-plan.md',
-  'validation/v1.0-acceptance-proof-protocol.md'
+  'validation/v1.0-acceptance-proof-protocol.md',
+  'validation/runtime-visual-qa-gate.md'
 ];
 
 for (const file of requiredFiles) {
@@ -102,9 +106,11 @@ const externalProofReport = read('validation/proof-gamedev-canvas-workshop-v1.0.
 const godotProofReport = read('validation/proof-godot-dodge-the-creeps-v1.0.0.md');
 const unityProofReport = read('validation/proof-unity2d-prototype-v1.0.0.md');
 const unrealProofReport = read('validation/proof-unreal-pixelperfect2d-v1.0.0.md');
+const externalVisualQaReport = read('validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const v090ProofPlan = read('validation/v0.9-real-project-proof-plan.md');
 const v100ProofProtocol = read('validation/v1.0-acceptance-proof-protocol.md');
+const runtimeVisualQaGate = read('validation/runtime-visual-qa-gate.md');
 const endToEndTrace = read('examples/client-studio-end-to-end-trace.md');
 
 const skillLines = skill.split(/\r?\n/);
@@ -341,10 +347,28 @@ assert(
     externalProofReport.includes('5164ee67c7a85898bb7138502d9b9cec70061100') &&
     externalProofReport.includes('Patch apply check | `Passed`') &&
     externalProofReport.includes('Smoke test | `Passed`') &&
-    externalProofReport.includes('Visual QA | `Blocked`') &&
-    externalProofReport.includes('Accepted as v0.9 proof evidence'),
-  'External real-project proof report records source, implementation evidence, tests, visual QA status, and acceptance',
+    externalProofReport.includes('Visual QA | `Passed`') &&
+    externalProofReport.includes('gamedev-canvas-workshop-studio-slice-main-menu.png') &&
+    externalProofReport.includes('gamedev-canvas-workshop-studio-slice-play-state.png') &&
+    externalProofReport.includes('Accepted as external Web / HTML Canvas visual proof evidence'),
+  'External Web real-project proof report records source, implementation evidence, tests, passed visual QA, and acceptance',
   'validation/proof-gamedev-canvas-workshop-v1.0.0.md must record the external proof source, implementation evidence, tests, visual QA status, and acceptance'
+);
+assert(
+  externalVisualQaReport.includes('# Gamedev Canvas Workshop Visual QA Report') &&
+    externalVisualQaReport.includes('Visual QA status: Passed') &&
+    externalVisualQaReport.includes('Console messages: none') &&
+    externalVisualQaReport.includes('Page errors: none') &&
+    externalVisualQaReport.includes('gamedev-canvas-workshop-studio-slice-main-menu.png') &&
+    externalVisualQaReport.includes('gamedev-canvas-workshop-studio-slice-play-state.png'),
+  'External Web visual QA report records screenshot artifacts and clean runtime status',
+  'validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md must record passed visual QA, screenshots, console status, and page errors'
+);
+assert(
+  statSync(join(root, 'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png')).size > 100000 &&
+    statSync(join(root, 'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png')).size > 100000,
+  'External Web visual QA screenshots are present and non-empty',
+  'External Web visual QA screenshots must be committed and non-empty'
 );
 assert(
   godotProofReport.includes('# v1.0 Proof Report: Godot Dodge the Creeps HUD Proof Slice') &&
@@ -385,9 +409,10 @@ assert(
   finalGoalCoverage.includes('## Requirement Coverage') &&
     finalGoalCoverage.includes('Real end-to-end use on a game repo') &&
     finalGoalCoverage.includes('Partially proven') &&
-    finalGoalCoverage.includes('external real game repository') &&
+    finalGoalCoverage.includes('external Web / HTML Canvas proof now has runtime visual QA screenshots') &&
     finalGoalCoverage.includes('Recommended Next Proof') &&
-    finalGoalCoverage.includes('validation/v1.0-acceptance-proof-protocol.md'),
+    finalGoalCoverage.includes('validation/v1.0-acceptance-proof-protocol.md') &&
+    finalGoalCoverage.includes('validation/runtime-visual-qa-gate.md'),
   'Final goal coverage audit records partial runtime proof and remaining external proof gap',
   'validation/final-goal-coverage-v0.8.0.md must map requirements and clearly state the partial runtime proof plus remaining external proof gap and v1.0 proof protocol'
 );
@@ -397,9 +422,24 @@ assert(
     v100ProofProtocol.includes('Minimum External Proof') &&
     v100ProofProtocol.includes('Screenshot or visual QA evidence') &&
     v100ProofProtocol.includes('Do not count a screenshot requirement as passed') &&
-    v100ProofProtocol.includes('v1.0 Release Gate'),
+    v100ProofProtocol.includes('v1.0 Release Gate') &&
+    v100ProofProtocol.includes('validation/runtime-visual-qa-gate.md'),
   'v1.0 acceptance proof protocol defines external proof, visual evidence, and release gates',
   'validation/v1.0-acceptance-proof-protocol.md must define the external proof package, visual evidence rules, and v1.0 release gate'
+);
+assert(
+    runtimeVisualQaGate.includes('# Runtime Visual QA Gate') &&
+    runtimeVisualQaGate.includes('2026-06-30 External Web Proof Retry') &&
+    runtimeVisualQaGate.includes('External Web proof runtime visual QA: `Passed`') &&
+    runtimeVisualQaGate.includes('Local HTTP boot | `Passed`') &&
+    runtimeVisualQaGate.includes('Chrome headless screenshot | `Blocked`') &&
+    runtimeVisualQaGate.includes('Edge headless screenshot | `Blocked`') &&
+    runtimeVisualQaGate.includes('Existing Node REPL Playwright capture | `Passed`') &&
+    runtimeVisualQaGate.includes('gamedev-canvas-workshop-visual-qa-report.md') &&
+    runtimeVisualQaGate.includes('Required Evidence To Close This Gate') &&
+    runtimeVisualQaGate.includes('Godot, Unity, and Unreal screenshots remain blocked'),
+  'Runtime visual QA gate records passed external Web screenshots and remaining engine blockers',
+  'validation/runtime-visual-qa-gate.md must record the external Web runtime screenshots and remaining non-Web engine blockers'
 );
 assert(
   v090ProofPlan.includes('# v0.9 Real Project Proof Plan') &&
