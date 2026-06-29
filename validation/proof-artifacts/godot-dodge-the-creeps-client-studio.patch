@@ -1,0 +1,170 @@
+diff --git a/2d/dodge_the_creeps/hud.gd b/2d/dodge_the_creeps/hud.gd
+index b4504f1..39dae6b 100644
+--- a/2d/dodge_the_creeps/hud.gd
++++ b/2d/dodge_the_creeps/hud.gd
+@@ -4,0 +5,12 @@ signal start_game
++const SCORE_MILESTONE_INTERVAL = 5
++var reduced_motion := false
++
++func _ready():
++	$StartButton.focus_mode = Control.FOCUS_ALL
++	$StartButton.grab_focus()
++
++
++func set_reduced_motion(enabled):
++	reduced_motion = enabled
++
++
+@@ -7,0 +20,4 @@ func show_message(text):
++	if not reduced_motion:
++		$MessageLabel.modulate.a = 0.0
++		var tween = create_tween()
++		tween.tween_property($MessageLabel, "modulate:a", 1.0, 0.12)
+@@ -17,0 +34 @@ func show_game_over():
++	$StartButton.grab_focus()
+@@ -21,0 +39,10 @@ func update_score(score):
++	if score > 0 and score % SCORE_MILESTONE_INTERVAL == 0:
++		_pulse_score()
++
++
++func _pulse_score():
++	if reduced_motion:
++		return
++	var tween = create_tween()
++	tween.tween_property($ScoreLabel, "scale", Vector2(1.12, 1.12), 0.08)
++	tween.tween_property($ScoreLabel, "scale", Vector2.ONE, 0.12)
+@@ -25,0 +53 @@ func _on_StartButton_pressed():
++	$StartButton.release_focus()
+diff --git a/2d/dodge_the_creeps/proof/portfolio_acceptance_checklist.md b/2d/dodge_the_creeps/proof/portfolio_acceptance_checklist.md
+new file mode 100644
+index 0000000..14bdcd0
+--- /dev/null
++++ b/2d/dodge_the_creeps/proof/portfolio_acceptance_checklist.md
+@@ -0,0 +1,47 @@
++# Dodge the Creeps Portfolio Proof Checklist
++
++## Client Goal
++
++Turn the finished tutorial project into a small portfolio-ready proof slice without changing its core survival loop.
++
++## Scope Lock
++
++- Keep the original move-and-dodge gameplay.
++- Add HUD feedback polish only.
++- Preserve existing scenes and scripts.
++- Do not add new art, paid assets, or large architecture layers.
++
++## Formal Art Direction
++
++- Keep the existing abstract forest / arcade-survival style.
++- Use Godot Control UI polish instead of replacing the art set.
++- Treat score, start, and game-over states as portfolio-facing UI moments.
++
++## Architecture Boundary
++
++- `main.gd` remains gameplay orchestration.
++- `player.gd` remains player movement and collision.
++- `mob.gd` remains enemy movement.
++- `hud.gd` owns UI state, focus, message motion, and score milestone feedback.
++
++## QA Checklist
++
++| Check | Expected |
++|---|---|
++| Start button focus | Button can receive keyboard/gamepad focus. |
++| Start flow | Button hides and emits `start_game`. |
++| Score milestone | Every five points triggers a non-blocking score pulse. |
++| Game over | Start button returns and regains focus. |
++| Reduced motion | `set_reduced_motion(true)` disables UI tweens. |
++| Architecture | Gameplay files do not own HUD animation. |
++
++## Acceptance Criteria
++
++- HUD polish is separated from gameplay resolution.
++- UI feedback is visible but non-blocking.
++- The tutorial-scale architecture stays simple.
++- Runtime launch is required before final client acceptance.
++
++## Ruthless Playtester Note
++
++The game is still a short tutorial loop. The proof improves presentation discipline, but a real portfolio version still needs one readable difficulty escalation and a captured runtime clip.
+diff --git a/2d/dodge_the_creeps/proof/static_smoke.mjs b/2d/dodge_the_creeps/proof/static_smoke.mjs
+new file mode 100644
+index 0000000..2823f89
+--- /dev/null
++++ b/2d/dodge_the_creeps/proof/static_smoke.mjs
+@@ -0,0 +1,74 @@
++import { existsSync, readFileSync } from 'node:fs';
++import { dirname, join, resolve } from 'node:path';
++import { fileURLToPath } from 'node:url';
++
++const proofRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
++const projectRoot = proofRoot;
++const failures = [];
++
++function assert(condition, message) {
++  if (!condition) {
++    failures.push(message);
++  }
++}
++
++function read(relativePath) {
++  return readFileSync(join(projectRoot, relativePath), 'utf8');
++}
++
++const requiredFiles = [
++  'hud.gd',
++  'main.gd',
++  'player.gd',
++  'mob.gd',
++  'hud.tscn',
++  'main.tscn',
++  'project.godot',
++  'proof/portfolio_acceptance_checklist.md'
++];
++
++for (const file of requiredFiles) {
++  assert(existsSync(join(projectRoot, file)), `Missing ${file}`);
++}
++
++const hud = read('hud.gd');
++const main = read('main.gd');
++const player = read('player.gd');
++const mob = read('mob.gd');
++const project = read('project.godot');
++const checklist = read('proof/portfolio_acceptance_checklist.md');
++
++assert(hud.includes('const SCORE_MILESTONE_INTERVAL = 5'), 'HUD should define score milestone interval');
++assert(hud.includes('func set_reduced_motion'), 'HUD should expose reduced motion toggle');
++assert(hud.includes('func _pulse_score'), 'HUD should isolate score pulse logic');
++assert(hud.includes('create_tween()'), 'HUD should use Godot tween feedback');
++assert(hud.includes('$StartButton.grab_focus()'), 'HUD should restore start button focus');
++assert(hud.includes('$StartButton.release_focus()'), 'HUD should release focus on start');
++assert(hud.includes('score % SCORE_MILESTONE_INTERVAL'), 'HUD should trigger milestone feedback from score only');
++assert(!main.includes('create_tween()'), 'Gameplay orchestration should not own UI tween logic');
++assert(!player.includes('create_tween()'), 'Player movement should not own UI tween logic');
++assert(!mob.includes('create_tween()'), 'Enemy behavior should not own UI tween logic');
++assert(project.includes('run/main_scene="res://main.tscn"'), 'Project should preserve main scene entry point');
++assert(project.includes('start_game'), 'Project should preserve start input action');
++assert(checklist.includes('Architecture Boundary'), 'Checklist should document architecture boundary');
++assert(checklist.includes('Reduced motion'), 'Checklist should include reduced motion acceptance');
++assert(checklist.includes('Runtime launch is required'), 'Checklist should avoid pretending runtime launch happened');
++
++const lineCounts = {
++  hud: hud.split(/\r?\n/).filter(Boolean).length,
++  main: main.split(/\r?\n/).filter(Boolean).length,
++  player: player.split(/\r?\n/).filter(Boolean).length,
++  mob: mob.split(/\r?\n/).filter(Boolean).length
++};
++
++assert(lineCounts.hud < 80, `HUD proof slice should stay small: ${lineCounts.hud} lines`);
++assert(lineCounts.main < 80, `Main should remain tutorial-scale: ${lineCounts.main} lines`);
++assert(lineCounts.player < 80, `Player should remain tutorial-scale: ${lineCounts.player} lines`);
++assert(lineCounts.mob < 30, `Mob should remain tutorial-scale: ${lineCounts.mob} lines`);
++
++if (failures.length > 0) {
++  console.error(failures.map((failure) => `[FAIL] ${failure}`).join('\n'));
++  process.exit(1);
++}
++
++console.log('godot dodge proof static smoke: passed');
