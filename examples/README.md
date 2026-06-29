@@ -10,6 +10,14 @@ They are not endorsements, full code reviews, or substitutes for running each pr
 | [Godot Dodge the Creeps](godot-dodge-the-creeps-audit.md) | Godot / GDScript | Full Studio Audit | `4e29fc322925582b3b528571cc139b1990860157` |
 | [Unity Open Project #1](unity-open-project-roadmap.md) | Unity / C# | Roadmap Strategy Audit | `608eac98df29cd97821a6115cd52dfb9027345b1` |
 
+## Client Studio Workflow Trace
+
+The [Client Studio End-to-End Trace](client-studio-end-to-end-trace.md) documents the expected shape of a client-commissioned workflow from brief intake through implementation delivery and acceptance reporting.
+
+It is not runtime proof. It exists to make the expected end-to-end behavior explicit before running the same workflow on a real game repository.
+
+For `v1.0.0`, follow the proof requirements in [../validation/v1.0-acceptance-proof-protocol.md](../validation/v1.0-acceptance-proof-protocol.md). The first stable release should be backed by an independently scoped game project, not only by this trace or the local runtime fixture.
+
 ## Case Study Rules
 
 - Pin the inspected source commit.

@@ -14,6 +14,8 @@ If the task involves UI screens, cards, buttons, HUD, or result screens, check w
 
 If the task involves formal game UI, also read `references/ui-visual-design-guide.md`.
 
+If the task needs client-ready visual direction, visual target selection, style bible, Product Design plugin coordination, or design QA, also read `references/studio-art-direction-pipeline.md`.
+
 ## Core Principle
 
 Player-visible tasks should prioritize direct image generation when the environment supports it.
@@ -42,6 +44,33 @@ A prototype placeholder is only for quick testing:
 - It must be clearly labeled as placeholder.
 - It must not be reported as finished production art.
 - It should be replaced before public screenshots, release builds, store pages, or portfolio presentation.
+
+## Formal Game Art Quality Gate
+
+Before player-facing work is considered production-ready, define the formal art direction.
+
+Minimum gate:
+
+- Overall game style:
+- Mood and fantasy:
+- Character / enemy style:
+- Environment / prop style:
+- UI visual language:
+- Gameplay VFX language:
+- Color palette:
+- Typography:
+- Asset resolution and format:
+- Naming and import rules:
+- Placeholder replacement plan:
+- Image-generation plan or prompt pack:
+- Selected visual target or approved style bible:
+- Design QA or visual comparison plan:
+
+All player-visible content should feel like one game. Characters, scenes, props, skills, UI, icons, motion, and VFX need consistent shape language, color language, and quality level.
+
+If direct image generation is unavailable, provide complete image-generation briefs. Do not stop at "make it prettier."
+
+Canvas can render gameplay, sprites, particles, and diegetic elements. It should not be used as an excuse to ship debug rectangles, unstyled text, or placeholder UI as finished art.
 
 ## Required Visual Asset Brief
 
@@ -107,6 +136,7 @@ assets/
 Before calling a visual task complete, check:
 
 - Does it look like the same game?
+- Is there a formal game art direction, not only isolated asset ideas?
 - Is the main color palette consistent?
 - Is the UI visual language consistent?
 - Do effects block gameplay readability?

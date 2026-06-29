@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game Dev Studio Runtime Fixture</title>
+    <link rel="stylesheet" href="./src/ui/visual/theme.css">
+  </head>
+  <body>
+    <main class="shell" data-app>
+      <section class="hero-panel" id="menu-panel">
+        <p class="eyebrow">First playable slice</p>
+        <h1>Neon Arena Brief</h1>
+        <p class="lede">Defeat the training drone in one compact arena. Move with WASD or arrows, then attack at close range.</p>
+        <button class="primary-action" id="start-button" type="button">Start Slice</button>
+      </section>
+
+      <section class="game-surface" aria-label="Playable game fixture">
+        <canvas id="game-canvas" width="640" height="360" aria-label="Arena renderer"></canvas>
+        <aside class="hud-panel" id="hud-panel">
+          <div class="hud-row">
+            <span>Player</span>
+            <strong id="player-health">100</strong>
+          </div>
+          <div class="hud-row">
+            <span>Enemy</span>
+            <strong id="enemy-health">60</strong>
+          </div>
+          <div class="hud-row">
+            <span>Objective</span>
+            <strong id="objective-text">Press start</strong>
+          </div>
+          <button class="secondary-action" id="attack-button" type="button">Strike</button>
+        </aside>
+      </section>
+
+      <section class="result-panel is-hidden" id="result-panel" aria-live="polite">
+        <p class="eyebrow">Result</p>
+        <h2 id="result-title">Victory</h2>
+        <p id="result-copy">The slice is complete.</p>
+        <button class="secondary-action" id="restart-button" type="button">Run Again</button>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.mjs"></script>
+  </body>
+</html>

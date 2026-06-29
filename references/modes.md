@@ -41,6 +41,7 @@ Best for:
 - Architecture review
 - UI visual review
 - UI motion / game feel review
+- Studio art direction or visual target review
 - Gameplay VFX review
 - Visual asset planning
 - QA pass
@@ -69,6 +70,8 @@ Best for:
 - Major milestone review
 - Full project review
 - Public release readiness
+- Vertical slice, alpha, beta, or release candidate readiness
+- Implementation and delivery readiness
 - Portfolio or demo readiness
 
 Reference loading:
@@ -88,6 +91,47 @@ Output:
 - QA risks
 - Ruthless Playtester notes
 - Top priorities
+
+## Client Studio Production Workflow
+
+Use when the user acts as a client, stakeholder, product owner, or project owner asking the studio to make, commission, plan, or fully produce a game.
+
+Best for:
+
+- Client briefs
+- "Make/build this game" requests
+- Commissioned game work
+- Full production from concept to implementation
+- Requests that need proposal, scope, art direction, architecture, tasks, and acceptance criteria
+
+Reference loading:
+
+- Read `references/client-studio-production-workflow.md`.
+- Add `references/template-index.md` for short stage outputs.
+- Add `references/studio-art-direction-pipeline.md` when the client work needs a formal visual target, style bible, polished UI, Product Design plugin coordination, or design QA.
+- Add `references/production-milestone-gates.md` when the client work spans prototype, vertical slice, alpha, beta, release candidate, delivery, or acceptance.
+- Add `references/studio-implementation-delivery-workflow.md` when the approved work moves into implementation, integration, QA, playtest, acceptance, or final delivery reporting.
+- Add architecture, UI visual, visual asset, motion, VFX, QA, or playtesting references only when that stage is active.
+- Read `references/output-templates.md` only for formal proposal packages or complete deliverables.
+
+Output:
+
+- Client brief summary
+- Studio proposal or recommended direction
+- Scope lock
+- Formal art direction gate
+- Production architecture gate
+- Production tasks
+- Implementation delivery plan
+- QA / acceptance plan
+- Client decisions needed
+
+Avoid:
+
+- Starting implementation from a vague brief
+- Acting as if the studio can approve scope for the client
+- Legal, contract, pricing, or payment language
+- Full workflow output for tiny Quick Check tasks
 
 ## Roadmap Strategy Audit
 

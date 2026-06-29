@@ -4,6 +4,292 @@ Use these templates only when a user asks for a detailed structured plan, review
 
 For ordinary tasks, read `references/template-index.md` first and use a short format. Do not load or reproduce every template here unless the user needs a formal deliverable.
 
+## Client Brief Template
+
+- Client goal
+- Target player
+- Target platform
+- Engine / technology preference
+- Genre, camera, input, and session length
+- Reference games or visual references
+- Must-have features
+- Nice-to-have features
+- Not-wanted items
+- Time / team / budget constraints if provided
+- Existing project or greenfield
+- Success criteria
+- Missing decisions
+- Studio assumptions
+
+## Studio Proposal Template
+
+- Brief summary
+- Direction A: easiest to finish
+- Direction B: most distinctive
+- Direction C: most commercial
+- Direction D: most experimental
+- Recommended direction
+- Why this direction fits the client goal
+- MVP scope
+- Formal art direction summary
+- Technical architecture summary
+- Production risks
+- Client decisions needed before implementation
+
+## Scope Lock Template
+
+- Approved goal
+- MVP features
+- Deferred features
+- Explicit non-goals
+- Milestones
+- Acceptance criteria
+- Known risks
+- Change-control note
+- Client approval needed
+
+## Art Direction Package Template
+
+- Overall game style
+- Mood and fantasy
+- Player-facing quality target
+- Approved visual target or style bible status
+- Color palette
+- Typography
+- UI visual language
+- Character / enemy direction
+- Environment / prop direction
+- Gameplay VFX language
+- UI motion language
+- Asset list
+- Asset sizes and formats
+- Suggested paths and naming
+- Image-generation prompts
+- Avoid list
+- Placeholder replacement plan
+- Client approval checklist
+
+## Visual Target Selection Template
+
+- Target screen or asset
+- Client goal
+- Player goal
+- Current visual references
+- Proposed route: ImageGen / Figma / screenshot / mockup / style bible
+- Product Design plugin route if available
+- Three visual directions if ideation is needed
+- Recommended direction
+- Why it fits the game fantasy
+- What must be preserved in implementation
+- What should not be copied
+- Client decision needed before implementation
+- Acceptance criteria
+
+## Game Style Bible Template
+
+- Working title
+- Genre, camera, and platform
+- Target player
+- Visual pillars
+- Mood and fantasy
+- Do-not-look-like list
+- Palette
+- Typography
+- Shape language
+- Material / texture language
+- Character style
+- Enemy / NPC style
+- Environment style
+- Prop / item style
+- UI panel style
+- Button and control style
+- Icon style
+- HUD style
+- UI motion language
+- Gameplay VFX language
+- Audio mood pairing
+- Asset naming and folder rules
+- Placeholder replacement rule
+- Client approval checklist
+
+## Game UI Design System Template
+
+- Type scale
+- Color tokens
+- Spacing scale
+- Layout grid
+- Panel styles
+- Button styles
+- Input, slider, toggle, and tab styles
+- Icon system
+- Card system
+- Modal / dialog system
+- HUD component rules
+- Navigation and focus rules
+- Default state
+- Hover state
+- Pressed state
+- Selected state
+- Disabled state
+- Focused state
+- Loading state
+- Error state
+- Success state
+- Motion timing
+- Reduced motion behavior
+- Responsive breakpoints
+- Controller / keyboard focus if relevant
+
+## Technical Architecture Package Template
+
+- Engine / technology stack
+- Entry point
+- Scene / state flow
+- Gameplay core
+- Input
+- Render / presentation
+- UI layer
+- UI visual design
+- UI motion
+- Gameplay VFX
+- Audio
+- Data / config
+- Save / settings
+- Asset loading
+- Debug tools
+- QA / tests
+- Suggested file structure
+- High-risk areas
+- Do-not-mix boundaries
+- Acceptance checks
+
+## Production Task Breakdown Template
+
+- Task objective
+- Client-approved scope
+- Files or areas to inspect first
+- Allowed change scope
+- Do-not-change scope
+- Functional requirements
+- Formal art requirements
+- UI visual requirements
+- UI motion requirements
+- Gameplay VFX requirements
+- Architecture requirements
+- QA and test requirements
+- Acceptance criteria
+- Final delivery report format
+
+## Implementation Delivery Plan Template
+
+- Client-approved or assumed scope
+- Explicit non-goals
+- Acceptance criteria
+- Target engine / stack
+- Existing repo or greenfield
+- Files or areas to inspect first
+- Files likely to edit
+- Files not to touch
+- Architecture boundary
+- Visual target / style bible status
+- UI motion requirements
+- Gameplay VFX requirements
+- Audio requirements
+- Data / save requirements
+- Tests or smoke checks to run
+- Manual verification
+- Rollback risk
+- Client decisions still open
+
+## Implementation Delivery Report Template
+
+- Delivered slice
+- Scope status
+- Modified files
+- Added files
+- Deleted files
+- Architecture boundaries preserved
+- Visual target / style bible status
+- UI/UX changes
+- UI visual design changes
+- UI motion changes
+- Gameplay VFX changes
+- Audio changes
+- Data / save changes
+- Tests run
+- Test results
+- Manual verification
+- Known risks
+- Remaining work
+- Ruthless Playtester note
+- Client decisions still needed
+
+## Client Acceptance Report Template
+
+- Delivered work or proposal
+- Scope status: accepted / changed / blocked
+- Art direction status
+- Visual target / style bible status
+- Architecture status
+- Milestone gate status
+- Implementation delivery evidence
+- Implementation status
+- Tests run
+- Test results
+- Known risks
+- Remaining work
+- Ruthless Playtester note
+- Client decisions still needed
+
+## Production Milestone Gate Template
+
+- Milestone: Concept / Prototype / Vertical Slice / Alpha / Beta / Release Candidate / Public Release / Client Acceptance
+- Goal of this gate
+- Included scope
+- Deferred scope
+- Explicit non-goals
+- Evidence required to pass
+- Current evidence
+- Tests required
+- Tests run
+- Highest risks
+- Change requests affecting this gate
+- Client approval needed
+- Gate verdict: Passed / Failed / Not run / Blocked
+
+## Change Request Impact Template
+
+- Requested change
+- Reason
+- Affected gameplay
+- Affected UI / UX
+- Affected art / VFX / motion
+- Affected audio
+- Affected architecture
+- Affected tests
+- Affected milestone
+- Risk
+- Recommendation: accept now / defer / cut something else / needs client decision
+
+## Design QA Report Template
+
+- Approved visual target
+- Implementation captured
+- Viewport / screen state checked
+- Typography match
+- Layout and spacing match
+- Color and contrast match
+- Component states implemented
+- Motion behavior checked
+- Reduced motion checked
+- Gameplay readability preserved
+- Runtime / console errors
+- P0 differences
+- P1 differences
+- P2 differences
+- P3 polish notes
+- Verdict: Passed / Failed / Not run / Blocked
+
 ## Game Concept Template
 
 - Game title or working title

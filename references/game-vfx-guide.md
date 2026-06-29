@@ -16,6 +16,25 @@ Every effect should answer at least one player question:
 
 Do not treat VFX as "draw some circles on canvas." Canvas can be a valid renderer, but production-quality effects need art direction, timing, shape, color, readability, performance limits, and integration rules.
 
+## Formal Game VFX Quality Gate
+
+Before accepting gameplay VFX as production-ready, define:
+
+- Gameplay event:
+- Player meaning:
+- Effect category: hit / danger / reward / skill / movement / state / transition
+- Shape language:
+- Timing language:
+- Color and faction language:
+- Runtime route:
+- Asset source: generated sprite, flipbook, particle texture, shader, engine-native system, or authored asset
+- Sound / hit pause / camera impulse pairing:
+- Performance budget:
+- Reduced motion / reduced shake fallback:
+- Acceptance criteria:
+
+VFX must match the game's art direction. A useful effect reads at gameplay size, communicates the correct event, avoids hiding hazards, and stays bounded under worst-case spawn counts.
+
 ## VFX Categories
 
 ### Must-have gameplay feedback

@@ -233,3 +233,136 @@ The answer should define the final goal, separate verified evidence from assumpt
 ### Failure Meaning
 
 If the answer only praises the project, repeats README features, proposes uncontrolled expansion, recommends v1.0 without validation, or performs an unrelated full-team game audit, the roadmap mode and evidence rules need stronger wording.
+
+## 11. Client Studio Production Workflow Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+I am a client commissioning this studio to make a 2D action game. Start with client brief intake, studio proposal, formal art direction, production architecture, MVP scope, and acceptance criteria. Do not write code yet.
+```
+
+### Test Purpose
+
+Verify that the skill treats the user as the client / product owner, behaves like a game studio, and moves through proposal, scope, art direction, architecture, and acceptance planning before implementation.
+
+### Expected Behavior
+
+The answer should summarize the client brief, state assumptions, offer two to four production directions, recommend a direction, define MVP and non-goals, include formal game art direction, include a production architecture gate, define acceptance criteria, and list client decisions needed before implementation.
+
+It should not start coding.
+
+It should not add contract, payment, or legal language.
+
+It should not make the workflow specific to one existing game project.
+
+### Failure Meaning
+
+If the answer jumps into implementation, omits formal art direction, omits architecture, treats placeholder UI as finished, or behaves like a generic coding assistant instead of a client-facing game studio, the client studio workflow needs stronger routing and gate rules.
+
+## 12. Studio Art Direction / Product Design Pipeline Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+I am the client. Before building the main menu and upgrade screen, create a studio art direction package with a selected visual target route, style bible, UI design system, Product Design plugin handoff if available, and design QA acceptance criteria. Do not implement yet.
+```
+
+### Test Purpose
+
+Verify that the skill does not jump from a written UI request to production code and can require a visual target, style bible, Product Design plugin handoff, and design QA before client-ready UI implementation.
+
+### Expected Behavior
+
+The answer should identify the need for a selected visual target or approved style bible, propose a visual target route, define style bible elements, define UI design system requirements, mention Product Design plugin ideation / image-to-code / design QA when available, and list client decisions required before implementation.
+
+It should not start coding.
+
+It should not accept canvas rectangles, default typography, or generic DOM styling as finished UI.
+
+### Failure Meaning
+
+If the answer only says "make the UI prettier," starts editing immediately, omits visual target selection, or ignores design QA, the studio art direction pipeline needs stronger routing and gate rules.
+
+## 13. Production Milestone Gate Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+Plan this game project from prototype to vertical slice, alpha, beta, release candidate, and client acceptance. For each gate, define scope, evidence required, tests, risks, and client approval needed. Do not modify files.
+```
+
+### Test Purpose
+
+Verify that the skill can behave like a production studio with explicit milestone gates instead of treating "it runs" as release-ready.
+
+### Expected Behavior
+
+The answer should define the goal of each gate, included scope, deferred scope, evidence required, tests, risks, and client approvals. It should call out that vertical slice proves one polished representative slice, alpha is feature-complete enough for broad testing, beta is stabilization, release candidate is ship/hand-off readiness, and client acceptance needs delivery evidence.
+
+It should not add legal, contract, pricing, or payment language.
+
+It should not turn the milestone plan into an uncontrolled feature wishlist.
+
+### Failure Meaning
+
+If the answer only gives a schedule, skips exit evidence, ignores QA, or treats a playable prototype as release-ready, the production milestone gates need stronger guidance.
+
+## 14. End-to-End Implementation Delivery Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+The client has approved the MVP scope, visual target, and architecture. Implement the first playable slice. Before editing, inspect the repo and provide a bounded implementation delivery plan with tests, risks, and acceptance criteria. After editing, report QA evidence and remaining client decisions.
+```
+
+### Test Purpose
+
+Verify that the skill can move from approved client/studio planning into implementation without losing scope, architecture, visual quality, QA, playtest, and acceptance discipline.
+
+### Expected Behavior
+
+Before editing, the answer should inspect the repo, identify entry points and relevant modules, restate approved or assumed scope, define non-goals, define a bounded implementation slice, name architecture boundaries, name visual target / style bible status, and list tests or smoke checks.
+
+After editing, the answer should report files changed, architecture impact, UI/visual/motion/VFX/audio impact where relevant, tests run with `Passed` / `Failed` / `Not run` / `Blocked`, manual verification, known risks, Ruthless Playtester note when player experience changed, and client decisions still needed.
+
+It should not turn the request into an unbounded rewrite.
+
+It should not report unrun tests as passed.
+
+It should not accept placeholder UI as client-ready delivery.
+
+### Failure Meaning
+
+If the answer starts editing before reading the repo, mixes unrelated systems into a giant file, ignores visual target status, omits tests, or reports "done" without evidence, the implementation delivery workflow needs stronger guidance.
+
+## 15. v1.0 Completion Audit / Evidence Gate Test Prompt
+
+### Prompt
+
+```txt
+$game-dev-studio
+Roadmap Strategy Audit: Determine whether this Skill is ready for v1.0.0 as a client-commissioned AI game development studio operating system. Inspect current repository evidence, validation records, runtime proof, visual QA evidence, and known gaps. Do not modify files, do not praise by default, and do not recommend v1.0.0 unless the evidence proves it.
+```
+
+### Test Purpose
+
+Verify that the skill does not confuse documentation coverage with real production readiness.
+
+### Expected Behavior
+
+The answer should separate verified evidence from missing evidence.
+
+It should identify whether there is an independently scoped game project proof package.
+
+It should check for client brief, proposal, scope lock, formal art direction, architecture gate, implementation delivery, QA results, visual QA evidence when relevant, Ruthless Playtester feedback, and client acceptance reporting.
+
+It should refuse to call the goal complete if runtime proof, visual proof, or external project evidence is missing.
+
+### Failure Meaning
+
+If the answer recommends v1.0.0 only because README, references, or prompt tests exist, the roadmap audit and completion evidence rules need stronger wording.

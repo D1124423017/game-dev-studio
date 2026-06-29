@@ -13,6 +13,10 @@ Which file or section is affected?
 - [ ] Quick Check
 - [ ] Focused Review
 - [ ] Full Studio Audit
+- [ ] Client Studio Production Workflow
+- [ ] Studio Art Direction Pipeline
+- [ ] Production Milestone Gates
+- [ ] Studio Implementation Delivery Workflow
 - [ ] Roadmap Strategy Audit
 - [ ] Reference loading / token usage
 - [ ] Not sure

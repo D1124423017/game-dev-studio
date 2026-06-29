@@ -2,6 +2,8 @@
 
 Use this guide when a task involves player-facing UI screens or components: main menus, HUDs, card selection, shops, upgrade screens, skill bars, inventory, settings, dialogs, result screens, pause menus, toast prompts, mission panels, or portfolio / store-facing UI screenshots.
 
+For client-ready UI, visual target selection, Product Design plugin coordination, image-to-code handoff, or design QA, also read `references/studio-art-direction-pipeline.md`.
+
 ## Core Rule
 
 Canvas can render gameplay, but product-quality UI should usually be designed as a real UI layer with styled components, images, typography, states, layout, and motion.
@@ -75,6 +77,36 @@ Do not accept:
 - unreadable icons at gameplay size
 - panels that do not match the game theme
 - inconsistent border, shadow, glow, and color language
+
+## Formal Game UI Quality Gate
+
+Before implementing or accepting formal UI, define:
+
+- Target screen:
+- Player goal on the screen:
+- Game fantasy / theme:
+- Typography:
+- Color palette:
+- Panel and frame treatment:
+- Button and control style:
+- Icon style:
+- HUD hierarchy:
+- Empty, loading, disabled, error, success, selected, and focused states:
+- Responsive behavior:
+- Motion language:
+- Required generated or designed assets:
+- Accessibility and readability constraints:
+
+The UI should look intentionally designed before final implementation. Canvas can remain the gameplay renderer, but formal menus, shops, cards, settings, upgrade screens, and result screens need real visual hierarchy, component states, and asset treatment.
+
+Do not accept debug overlays, default browser controls, temporary OnGUI labels, or unstyled engine controls as client-ready delivery.
+
+For production implementation, also define the approved visual target:
+
+- Selected ImageGen concept / Figma frame / screenshot / mockup:
+- If no image target exists, approved style bible:
+- Client approval status:
+- Visual comparison or design QA plan:
 
 ## Required UI Art Direction
 
@@ -209,5 +241,6 @@ Do not add React only to copy a visual effect. The goal is polished game UI, not
 - Does not rely on plain canvas rectangles:
 - Text hierarchy is clear:
 - UI matches game style:
+- UI matches approved visual target or style bible:
 - Responsive layout checked:
 ```

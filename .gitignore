@@ -5,3 +5,6 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 本地驗證產物
+validation/runtime-fixtures/**/artifacts/browser-profile*/

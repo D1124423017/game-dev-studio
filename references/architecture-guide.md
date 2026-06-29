@@ -101,6 +101,37 @@ Larger project rules:
 - Separate save/settings from gameplay systems.
 - Add repeatable tests or smoke checks for boot, input, win/loss, restart, and asset loading.
 
+## Production Architecture Gate
+
+Before starting a new production task or creating a greenfield project, define the architecture boundary that the implementation must respect.
+
+Minimum gate:
+
+- Entry point:
+- Scene / state flow:
+- Gameplay core:
+- Input:
+- Render / presentation:
+- UI layer:
+- UI visual design:
+- UI motion:
+- Gameplay VFX:
+- Audio:
+- Data / config:
+- Save / settings:
+- Asset loading:
+- Debug tools:
+- QA / tests:
+- File and module structure:
+
+Production rules:
+
+- Do not begin broad implementation until these responsibilities are assigned.
+- Web games should usually separate gameplay rendering from complex UI using DOM / React / CSS overlays when text-heavy or responsive UI is needed.
+- Unity, Unreal, and Godot should use engine-native scenes, prefabs, widgets, resources, particles, animation controllers, and data assets while preserving the same responsibility boundaries.
+- Implementation tasks must inspect existing structure first and fit the chosen architecture. If the architecture is wrong, propose a scoped architecture revision before adding features.
+- No feature should create a new giant file that owns gameplay, UI, render, input, audio, save, data, and tests together.
+
 ## Unity Suggested Structure
 
 ```txt

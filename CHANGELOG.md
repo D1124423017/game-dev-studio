@@ -2,6 +2,39 @@
 
 ## Unreleased
 
+- Added a v1.0 acceptance proof protocol so final release readiness requires real client-studio delivery evidence, not only documentation and prompt coverage.
+- Added a proof package validator for future `validation/proof-*.md` reports.
+- Added a v0.9 real-project proof plan and `--require` validation mode for release gating.
+- Added a completion-audit test prompt for proving the Skill should not claim v1.0 readiness without external implementation, QA, visual evidence, and client acceptance proof.
+
+## v0.8.0 - 2026-06-29
+
+- Added Studio Implementation Delivery Workflow for scoped implementation, repository intake, production slice planning, QA evidence, playtest notes, and client-facing delivery reports.
+- Strengthened implementation guardrails so approved scope, non-goals, architecture boundaries, visual target / style bible status, tests, risks, and client decisions remain visible during file edits.
+- Added short and formal templates for implementation delivery plans and implementation delivery reports.
+- Added a prompt test and recorded validation result for end-to-end client studio implementation delivery.
+- Added final-goal coverage audit and client-studio end-to-end trace to separate documented coverage from missing runtime proof.
+- Added a local web first-playable runtime fixture with modular architecture, DOM/CSS game UI, Canvas gameplay rendering, smoke test, QA evidence, Ruthless Playtester note, and client acceptance status.
+- Added visual QA script for the runtime fixture; it records `Passed` when Playwright/browser runtime is available and `Blocked` otherwise.
+
+## v0.7.0 - 2026-06-29
+
+- Added Studio Art Direction Pipeline for selected visual targets, style bibles, UI design systems, Product Design plugin coordination, and design QA gates.
+- Added Production Milestone Gates for concept, prototype, vertical slice, alpha, beta, release candidate, public release, and client acceptance checks.
+- Strengthened client-ready UI and art rules so written ideas alone are not treated as enough for production visual implementation.
+- Added short and formal templates for visual target selection, style bibles, game UI design systems, milestone gates, change requests, and design QA reports.
+- Added test prompts and validation coverage for studio art direction and production milestone gates.
+
+## v0.6.0 - 2026-06-29
+
+- Added Client Studio Production Workflow for client briefs, stakeholder requests, commissioned game work, and concept-to-implementation planning.
+- Added a lazy-loaded client/studio production reference.
+- Added scope lock, formal art direction gate, production architecture gate, production task breakdown, QA, and client acceptance reporting guidance.
+- Strengthened formal game art, UI visual design, gameplay VFX, and architecture quality gates.
+- Added short and formal templates for client briefs, studio proposals, scope locks, art direction packages, technical architecture packages, production task breakdowns, and client acceptance reports.
+- Added a client/studio production test prompt and recorded v0.6.0 validation result.
+- Updated validation coverage for the new workflow and v0.6.0 version fields.
+
 ## v0.5.0 - 2026-06-15
 
 - Added Roadmap Strategy Audit for maturity, next-phase, version, and release decisions.
