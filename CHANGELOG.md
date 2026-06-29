@@ -5,6 +5,7 @@
 - Captured local runtime fixture visual QA screenshot evidence and preserved existing passed visual evidence when a later environment cannot rerun browser capture.
 - Added a second real-project proof report for Godot Dodge the Creeps, including a HUD polish patch artifact, static smoke test, QA status, Ruthless Playtester note, and client acceptance status.
 - Added a third real-project proof report for a Unity 2D prototype, including a title-menu UI motion patch artifact, static smoke test, QA status, Ruthless Playtester note, and client acceptance status.
+- Added a fourth real-project proof report for an Unreal Paper2D sample, including a pixel-perfect viewport policy patch artifact, static smoke test, QA status, Ruthless Playtester note, and client acceptance status.
 
 ## v0.9.0 - 2026-06-29
 

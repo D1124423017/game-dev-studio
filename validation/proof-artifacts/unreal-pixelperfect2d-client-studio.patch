@@ -1,0 +1,221 @@
+diff --git a/Proof/client_studio_acceptance.md b/Proof/client_studio_acceptance.md
+new file mode 100644
+index 0000000..f7805fb
+--- /dev/null
++++ b/Proof/client_studio_acceptance.md
+@@ -0,0 +1,49 @@
++# Unreal Pixel Perfect 2D Client Studio Proof Checklist
++
++## Client Goal
++
++Turn the existing Unreal Paper2D pixel-perfect sample into a small proof slice that makes the project's visual-quality policy more explicit and harder to regress.
++
++## Scope Lock
++
++- Keep the original Paper2D character, map, sprites, materials, and project settings.
++- Improve the viewport-level pixel-perfect presentation policy only.
++- Preserve the existing game mode, character movement, input bindings, and content assets.
++- Do not add new art, UMG screens, Niagara effects, or broad gameplay systems.
++
++## Formal Art Direction
++
++- Keep the existing pixel-art / Paper2D visual identity.
++- Treat crisp sprite rendering as the primary art-direction requirement.
++- Preserve the no-post-processing policy so pixel colors and sprite edges remain intentional.
++- Avoid UI or debug overlays in this proof slice.
++
++## Architecture Boundary
++
++- `SampleGameViewportClient` owns viewport show flag policy.
++- `SampleCharacter` owns movement, animation selection, and facing direction.
++- `SampleGameMode` owns default pawn selection only.
++- `DefaultEngine.ini` owns the viewport client registration.
++- Content assets remain data and presentation assets, not proof logic.
++
++## QA Checklist
++
++| Check | Expected |
++|---|---|
++| Viewport client registered | `DefaultEngine.ini` points to `SampleGameViewportClient`. |
++| Pixel-perfect policy | `ApplyPixelPerfectShowFlags()` disables post processing. |
++| Runtime persistence | `Draw()` reapplies the policy before frame rendering. |
++| Character boundary | Character code does not own viewport show flags. |
++| Game mode boundary | Game mode does not own visual render policy. |
++| Paper2D plugin | `Sample.uproject` keeps Paper2D enabled. |
++
++## Acceptance Criteria
++
++- Pixel-perfect visual policy is explicit and isolated.
++- Gameplay classes do not own render policy.
++- Static smoke passes.
++- Unreal editor compile and PIE are required before final client acceptance.
++
++## Ruthless Playtester Note
++
++This proof strengthens the sample's visual discipline, but it still has no player-facing goal, HUD, or progression. It proves Unreal presentation boundaries, not a complete game loop.
+diff --git a/Proof/static_smoke.mjs b/Proof/static_smoke.mjs
+new file mode 100644
+index 0000000..cd1a6a1
+--- /dev/null
++++ b/Proof/static_smoke.mjs
+@@ -0,0 +1,77 @@
++import { existsSync, readFileSync } from 'node:fs';
++import { join, resolve } from 'node:path';
++
++const projectRoot = resolve(process.cwd());
++const failures = [];
++
++function assert(condition, message) {
++  if (!condition) {
++    failures.push(message);
++  }
++}
++
++function read(relativePath) {
++  return readFileSync(join(projectRoot, relativePath), 'utf8');
++}
++
++const requiredFiles = [
++  'README.md',
++  'LICENSE',
++  'Sample.uproject',
++  'Config/DefaultEngine.ini',
++  'Source/Sample/SampleGameViewportClient.h',
++  'Source/Sample/SampleGameViewportClient.cpp',
++  'Source/Sample/SampleCharacter.cpp',
++  'Source/Sample/SampleGameMode.cpp',
++  'Proof/client_studio_acceptance.md'
++];
++
++for (const file of requiredFiles) {
++  assert(existsSync(join(projectRoot, file)), `Missing ${file}`);
++}
++
++const readme = read('README.md');
++const license = read('LICENSE');
++const project = read('Sample.uproject');
++const engineConfig = read('Config/DefaultEngine.ini');
++const viewportHeader = read('Source/Sample/SampleGameViewportClient.h');
++const viewportSource = read('Source/Sample/SampleGameViewportClient.cpp');
++const characterSource = read('Source/Sample/SampleCharacter.cpp');
++const gameModeSource = read('Source/Sample/SampleGameMode.cpp');
++const checklist = read('Proof/client_studio_acceptance.md');
++
++assert(readme.includes('pixel perfect 2D game in Unreal Engine 5 with Paper2D'), 'README should identify the Unreal Paper2D visual target');
++assert(readme.includes('EngineShowFlags.PostProcessing'), 'README should document the post-processing risk');
++assert(license.includes('MIT License'), 'Project should keep MIT license evidence');
++assert(project.includes('"EngineAssociation": "5.2"'), 'Project should record the Unreal engine association');
++assert(project.includes('"Name": "Paper2D"'), 'Project should keep the Paper2D plugin enabled');
++assert(engineConfig.includes('GameViewportClientClassName=/Script/Sample.SampleGameViewportClient'), 'DefaultEngine should register the custom viewport client');
++assert(viewportHeader.includes('void Draw(FViewport* InViewport, FCanvas* SceneCanvas) override;'), 'Viewport client should override Draw');
++assert(viewportHeader.includes('void ApplyPixelPerfectShowFlags();'), 'Viewport client should isolate pixel-perfect show flags');
++assert(viewportSource.includes('ApplyPixelPerfectShowFlags();'), 'Viewport source should call the pixel-perfect policy');
++assert(viewportSource.includes('Super::Draw(InViewport, SceneCanvas);'), 'Viewport source should preserve the engine draw path');
++assert(viewportSource.includes('EngineShowFlags.PostProcessing = 0;'), 'Viewport policy should disable post processing');
++assert(!characterSource.includes('EngineShowFlags'), 'Character should not own render show flags');
++assert(!gameModeSource.includes('EngineShowFlags'), 'GameMode should not own render show flags');
++assert(checklist.includes('Formal Art Direction'), 'Checklist should document the art direction gate');
++assert(checklist.includes('Architecture Boundary'), 'Checklist should document architecture boundaries');
++assert(checklist.includes('Unreal editor compile and PIE are required'), 'Checklist should not pretend runtime checks passed');
++
++const lineCounts = {
++  viewportHeader: viewportHeader.split(/\r?\n/).filter(Boolean).length,
++  viewportSource: viewportSource.split(/\r?\n/).filter(Boolean).length,
++  characterSource: characterSource.split(/\r?\n/).filter(Boolean).length,
++  gameModeSource: gameModeSource.split(/\r?\n/).filter(Boolean).length
++};
++
++assert(lineCounts.viewportHeader < 30, `Viewport header should stay small: ${lineCounts.viewportHeader} lines`);
++assert(lineCounts.viewportSource < 35, `Viewport source should stay focused: ${lineCounts.viewportSource} lines`);
++assert(lineCounts.characterSource < 130, `Character source should remain sample-scale: ${lineCounts.characterSource} lines`);
++assert(lineCounts.gameModeSource < 20, `GameMode source should remain focused: ${lineCounts.gameModeSource} lines`);
++
++if (failures.length > 0) {
++  console.error(failures.map((failure) => `[FAIL] ${failure}`).join('\n'));
++  process.exit(1);
++}
++
++console.log('unreal pixelperfect2d proof static smoke: passed');
+diff --git a/Source/Sample/SampleGameViewportClient.cpp b/Source/Sample/SampleGameViewportClient.cpp
+index d462016..2dce647 100644
+--- a/Source/Sample/SampleGameViewportClient.cpp
++++ b/Source/Sample/SampleGameViewportClient.cpp
+@@ -1,11 +1,22 @@
+-// Copyright Epic Games, Inc. All Rights Reserved.
+-
+-#include "SampleGameViewportClient.h"
+-
+-void USampleGameViewportClient::Activated(FViewport* InViewport, const FWindowActivateEvent& InActivateEvent)
+-{
+-    Super::Activated(InViewport, InActivateEvent);
+-
+-    // Disable post processing effects when the viewport is activated
+-    EngineShowFlags.PostProcessing = 0;
+-}
++// Copyright Epic Games, Inc. All Rights Reserved.
++
++#include "SampleGameViewportClient.h"
++
++void USampleGameViewportClient::Activated(FViewport* InViewport, const FWindowActivateEvent& InActivateEvent)
++{
++    Super::Activated(InViewport, InActivateEvent);
++
++    ApplyPixelPerfectShowFlags();
++}
++
++void USampleGameViewportClient::Draw(FViewport* InViewport, FCanvas* SceneCanvas)
++{
++    ApplyPixelPerfectShowFlags();
++    Super::Draw(InViewport, SceneCanvas);
++}
++
++void USampleGameViewportClient::ApplyPixelPerfectShowFlags()
++{
++    // Keep Paper2D sprites crisp in editor, PIE, and packaged runtime paths.
++    EngineShowFlags.PostProcessing = 0;
++}
+diff --git a/Source/Sample/SampleGameViewportClient.h b/Source/Sample/SampleGameViewportClient.h
+index 580014f..5001d91 100644
+--- a/Source/Sample/SampleGameViewportClient.h
++++ b/Source/Sample/SampleGameViewportClient.h
+@@ -1,18 +1,22 @@
+-// Copyright Epic Games, Inc. All Rights Reserved.
+-
+-#pragma once
+-
+-#include "CoreMinimal.h"
+-#include "Engine/GameViewportClient.h"
+-#include "SampleGameViewportClient.generated.h"
+-
+-/**
+- * Custom viewport used to override the EngineShowFlags.
+- */
+-UCLASS(minimalapi)
+-class USampleGameViewportClient : public UGameViewportClient
+-{
+-    GENERATED_BODY()
+-public:
+-    void Activated(FViewport* InViewport, const FWindowActivateEvent& InActivateEvent) override;
+-};
++// Copyright Epic Games, Inc. All Rights Reserved.
++
++#pragma once
++
++#include "CoreMinimal.h"
++#include "Engine/GameViewportClient.h"
++#include "SampleGameViewportClient.generated.h"
++
++/**
++ * Custom viewport used to override the EngineShowFlags.
++ */
++UCLASS(minimalapi)
++class USampleGameViewportClient : public UGameViewportClient
++{
++    GENERATED_BODY()
++public:
++    void Activated(FViewport* InViewport, const FWindowActivateEvent& InActivateEvent) override;
++    void Draw(FViewport* InViewport, FCanvas* SceneCanvas) override;
++
++private:
++    void ApplyPixelPerfectShowFlags();
++};
