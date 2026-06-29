@@ -6,7 +6,7 @@
 
 一個讓 Codex / AI Agent 以「完整遊戲開發團隊」方式協助遊戲製作的通用 Skill。
 
-**目前版本：** `v0.8.0`
+**目前版本：** `v0.9.0`
 
 ## 快速開始
 
@@ -331,7 +331,7 @@ node scripts/validate-skill.mjs
 
 它會檢查 Skill frontmatter、lazy reference 路由、公開版本一致性、中英文 README 連結、測試與案例覆蓋、舊名稱、多行 Markdown/YAML，以及是否誤提交 `.skill`。GitHub Actions 會在 push 與 pull request 執行相同檢查。
 
-三個公開專案案例與 client-studio workflow trace 請看 [examples/](examples/)，測試紀錄、final-goal coverage notes、v1.0 acceptance proof protocol，以及含 smoke / visual QA 檢查的本地 web first-playable runtime fixture 請看 [validation/](validation/)。
+三個公開專案案例與 client-studio workflow trace 請看 [examples/](examples/)，測試紀錄、final-goal coverage notes、v0.9 external proof report、v1.0 acceptance proof protocol，以及含 smoke / visual QA 檢查的本地 web first-playable runtime fixture 請看 [validation/](validation/)。
 
 在至少一個獨立遊戲專案完成 proof protocol 前，不應把這個 repo 視為 `v1.0.0` ready。該證據需要包含甲方 brief、方向提案、scope lock、正式美術方向、architecture gate、implementation delivery、QA 證據、必要時的 visual evidence、犀利測試玩家回饋與 client acceptance report。
 
@@ -356,10 +356,10 @@ node scripts/validate-proof-package.mjs --require validation/proof-example-v1.0.
 
 ## Release 建議
 
-目前建議公開發布版本：`v0.8.0`。
+目前建議公開發布版本：`v0.9.0`。
 
 建議 release 標題：
-`v0.8.0 - End-to-end studio implementation delivery`
+`v0.9.0 - Real project proof gate`
 
 建議 release notes：
 
@@ -368,6 +368,8 @@ node scripts/validate-proof-package.mjs --require validation/proof-example-v1.0.
 - 新增 Studio Art Direction Pipeline，用於 visual target、style bible、Product Design plugin 銜接與 design QA
 - 新增 Production Milestone Gates，用於 Prototype、Vertical Slice、Alpha、Beta、Release Candidate 與 Client Acceptance
 - 新增 Studio Implementation Delivery Workflow，用於 scoped implementation、repo intake、QA 證據、playtest notes 與 client-facing delivery report
+- 新增外部 HTML5 Canvas Breakout 專案的 real-project proof report
+- 新增 proof package validation 與 v1.0 acceptance proof gate
 - 補強正式遊戲美術、UI、VFX、production architecture、implementation 與交付證據品質 gate
 
 完整版本紀錄請看 [CHANGELOG.md](CHANGELOG.md)。

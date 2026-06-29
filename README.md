@@ -6,7 +6,7 @@
 
 A universal skill that enables Codex / AI Agent to assist in game development as a "complete game development team".
 
-**Current version:** `v0.8.0`
+**Current version:** `v0.9.0`
 
 ## What is Game Dev Studio?
 
@@ -335,7 +335,7 @@ node scripts/validate-skill.mjs
 
 It checks Skill frontmatter, lazy reference routes, public version consistency, bilingual README links, test and case-study coverage, deprecated naming, multiline Markdown/YAML, and committed `.skill` packages. GitHub Actions runs the same check on pushes and pull requests.
 
-See [examples/](examples/) for the three public-project case studies and the client-studio workflow trace. See [validation/](validation/) for recorded prompt test results, final-goal coverage notes, the v1.0 acceptance proof protocol, and the local web first-playable runtime fixture with smoke and visual QA checks.
+See [examples/](examples/) for the three public-project case studies and the client-studio workflow trace. See [validation/](validation/) for recorded prompt test results, final-goal coverage notes, the v0.9 external proof report, the v1.0 acceptance proof protocol, and the local web first-playable runtime fixture with smoke and visual QA checks.
 
 The repo should not be treated as `v1.0.0` ready until the proof protocol has been satisfied by at least one independently scoped game project with client brief, proposal, scope lock, formal art direction, architecture gate, implementation delivery, QA evidence, visual evidence when relevant, Ruthless Playtester feedback, and client acceptance reporting.
 
@@ -360,10 +360,10 @@ The `.skill` file itself is ignored by Git because generated packages should not
 
 ## Release Suggestions
 
-Current recommended public release: `v0.8.0`.
+Current recommended public release: `v0.9.0`.
 
 Suggested release title:
-`v0.8.0 - End-to-end studio implementation delivery`
+`v0.9.0 - Real project proof gate`
 
 Suggested release notes:
 
@@ -372,6 +372,8 @@ Suggested release notes:
 - Added Studio Art Direction Pipeline for visual targets, style bibles, Product Design plugin coordination, and design QA
 - Added Production Milestone Gates for prototype, vertical slice, alpha, beta, release candidate, and client acceptance
 - Added Studio Implementation Delivery Workflow for scoped implementation, repo intake, QA evidence, playtest notes, and client-facing delivery reports
+- Added a real-project proof report for an external HTML5 Canvas Breakout project
+- Added proof package validation and v1.0 acceptance proof gates
 - Strengthened formal game art, UI, VFX, production architecture, implementation, and delivery evidence quality gates
 
 See [CHANGELOG.md](CHANGELOG.md) for full release history.

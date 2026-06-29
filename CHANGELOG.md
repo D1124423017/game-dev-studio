@@ -2,10 +2,13 @@
 
 ## Unreleased
 
+## v0.9.0 - 2026-06-29
+
 - Added a v1.0 acceptance proof protocol so final release readiness requires real client-studio delivery evidence, not only documentation and prompt coverage.
 - Added a proof package validator for future `validation/proof-*.md` reports.
 - Added a v0.9 real-project proof plan and `--require` validation mode for release gating.
 - Added a completion-audit test prompt for proving the Skill should not claim v1.0 readiness without external implementation, QA, visual evidence, and client acceptance proof.
+- Added the first external real-project proof report using `end3r/Gamedev-Canvas-workshop`, including a patch artifact, local proof commit, syntax checks, smoke test, QA notes, Ruthless Playtester note, and client acceptance status.
 
 ## v0.8.0 - 2026-06-29
 

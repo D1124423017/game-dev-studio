@@ -1,0 +1,770 @@
+diff --git a/proof/src/game.js b/proof/src/game.js
+new file mode 100644
+index 0000000..27fb222
+--- /dev/null
++++ b/proof/src/game.js
+@@ -0,0 +1,232 @@
++export const GAME_CONFIG = {
++  width: 480,
++  height: 320,
++  ballRadius: 9,
++  paddleWidth: 82,
++  paddleHeight: 12,
++  brickRows: 3,
++  brickColumns: 5,
++  brickWidth: 74,
++  brickHeight: 22,
++  brickPadding: 10,
++  brickOffsetTop: 52,
++  brickOffsetLeft: 28
++};
++
++export function createInitialState() {
++  return {
++    status: 'ready',
++    score: 0,
++    lives: 3,
++    combo: 0,
++    ball: {
++      x: GAME_CONFIG.width / 2,
++      y: GAME_CONFIG.height - 44,
++      dx: 2.4,
++      dy: -2.6
++    },
++    paddle: {
++      x: (GAME_CONFIG.width - GAME_CONFIG.paddleWidth) / 2
++    },
++    input: {
++      left: false,
++      right: false
++    },
++    bricks: Array.from({ length: GAME_CONFIG.brickColumns }, (_, column) =>
++      Array.from({ length: GAME_CONFIG.brickRows }, (_, row) => ({
++        x: 0,
++        y: 0,
++        column,
++        row,
++        active: true
++      }))
++    )
++  };
++}
++
++function resetBallAndPaddle(state) {
++  state.ball.x = GAME_CONFIG.width / 2;
++  state.ball.y = GAME_CONFIG.height - 44;
++  state.ball.dx = 2.4;
++  state.ball.dy = -2.6;
++  state.paddle.x = (GAME_CONFIG.width - GAME_CONFIG.paddleWidth) / 2;
++}
++
++function activeBrickCount(state) {
++  return state.bricks.flat().filter((brick) => brick.active).length;
++}
++
++function resolveBrickCollisions(state, hooks) {
++  for (const column of state.bricks) {
++    for (const brick of column) {
++      if (!brick.active) {
++        continue;
++      }
++
++      if (
++        state.ball.x > brick.x &&
++        state.ball.x < brick.x + GAME_CONFIG.brickWidth &&
++        state.ball.y > brick.y &&
++        state.ball.y < brick.y + GAME_CONFIG.brickHeight
++      ) {
++        state.ball.dy = -state.ball.dy;
++        brick.active = false;
++        state.score += 10;
++        state.combo += 1;
++        hooks.onBrickHit?.({ score: state.score, combo: state.combo });
++
++        if (activeBrickCount(state) === 0) {
++          state.status = 'won';
++          hooks.onComplete?.('won');
++        }
++      }
++    }
++  }
++}
++
++function update(state, hooks) {
++  if (state.status !== 'playing') {
++    return;
++  }
++
++  resolveBrickCollisions(state, hooks);
++
++  if (
++    state.ball.x + state.ball.dx > GAME_CONFIG.width - GAME_CONFIG.ballRadius ||
++    state.ball.x + state.ball.dx < GAME_CONFIG.ballRadius
++  ) {
++    state.ball.dx = -state.ball.dx;
++  }
++
++  if (state.ball.y + state.ball.dy < GAME_CONFIG.ballRadius) {
++    state.ball.dy = -state.ball.dy;
++  } else if (state.ball.y + state.ball.dy > GAME_CONFIG.height - GAME_CONFIG.ballRadius) {
++    const hitsPaddle =
++      state.ball.x > state.paddle.x &&
++      state.ball.x < state.paddle.x + GAME_CONFIG.paddleWidth;
++
++    if (hitsPaddle) {
++      state.ball.dy = -Math.abs(state.ball.dy);
++      state.combo = 0;
++      hooks.onPaddleHit?.();
++    } else {
++      state.lives -= 1;
++      state.combo = 0;
++      hooks.onLifeLost?.(state.lives);
++
++      if (state.lives <= 0) {
++        state.status = 'lost';
++        hooks.onComplete?.('lost');
++      } else {
++        resetBallAndPaddle(state);
++      }
++    }
++  }
++
++  if (state.input.right && state.paddle.x < GAME_CONFIG.width - GAME_CONFIG.paddleWidth) {
++    state.paddle.x += 6;
++  } else if (state.input.left && state.paddle.x > 0) {
++    state.paddle.x -= 6;
++  }
++
++  state.ball.x += state.ball.dx;
++  state.ball.y += state.ball.dy;
++}
++
++function drawRoundedPanel(ctx) {
++  const gradient = ctx.createLinearGradient(0, 0, GAME_CONFIG.width, GAME_CONFIG.height);
++  gradient.addColorStop(0, '#0b1020');
++  gradient.addColorStop(1, '#17213f');
++  ctx.fillStyle = gradient;
++  ctx.fillRect(0, 0, GAME_CONFIG.width, GAME_CONFIG.height);
++
++  ctx.strokeStyle = 'rgba(125, 211, 252, 0.26)';
++  ctx.lineWidth = 2;
++  ctx.strokeRect(8, 8, GAME_CONFIG.width - 16, GAME_CONFIG.height - 16);
++}
++
++function renderBricks(ctx, state) {
++  for (const column of state.bricks) {
++    for (const brick of column) {
++      if (!brick.active) {
++        continue;
++      }
++
++      brick.x = brick.row * (GAME_CONFIG.brickWidth + GAME_CONFIG.brickPadding) + GAME_CONFIG.brickOffsetLeft;
++      brick.y = brick.column * (GAME_CONFIG.brickHeight + GAME_CONFIG.brickPadding) + GAME_CONFIG.brickOffsetTop;
++      ctx.fillStyle = '#38bdf8';
++      ctx.shadowColor = 'rgba(56, 189, 248, 0.6)';
++      ctx.shadowBlur = 12;
++      ctx.fillRect(brick.x, brick.y, GAME_CONFIG.brickWidth, GAME_CONFIG.brickHeight);
++      ctx.shadowBlur = 0;
++    }
++  }
++}
++
++function renderBall(ctx, state) {
++  ctx.beginPath();
++  ctx.arc(state.ball.x, state.ball.y, GAME_CONFIG.ballRadius, 0, Math.PI * 2);
++  ctx.fillStyle = '#f8fafc';
++  ctx.shadowColor = 'rgba(248, 250, 252, 0.7)';
++  ctx.shadowBlur = 16;
++  ctx.fill();
++  ctx.closePath();
++  ctx.shadowBlur = 0;
++}
++
++function renderPaddle(ctx, state) {
++  ctx.fillStyle = '#f97316';
++  ctx.shadowColor = 'rgba(249, 115, 22, 0.45)';
++  ctx.shadowBlur = 14;
++  ctx.fillRect(state.paddle.x, GAME_CONFIG.height - GAME_CONFIG.paddleHeight - 16, GAME_CONFIG.paddleWidth, GAME_CONFIG.paddleHeight);
++  ctx.shadowBlur = 0;
++}
++
++function render(ctx, state) {
++  drawRoundedPanel(ctx);
++  renderBricks(ctx, state);
++  renderBall(ctx, state);
++  renderPaddle(ctx, state);
++}
++
++export function createBreakoutGame(canvas, hooks = {}) {
++  const ctx = canvas.getContext('2d');
++  let state = createInitialState();
++  let frame = 0;
++
++  function loop() {
++    update(state, hooks);
++    render(ctx, state);
++    hooks.onFrame?.(state);
++    frame = requestAnimationFrame(loop);
++  }
++
++  return {
++    getState: () => state,
++    start() {
++      if (state.status === 'playing') {
++        return;
++      }
++      state.status = 'playing';
++      hooks.onStatus?.('playing');
++      frame = requestAnimationFrame(loop);
++    },
++    restart() {
++      cancelAnimationFrame(frame);
++      state = createInitialState();
++      hooks.onStatus?.('ready');
++      render(ctx, state);
++    },
++    setInput(key, value) {
++      state.input[key] = value;
++    },
++    setPointerX(pointerX) {
++      const rect = canvas.getBoundingClientRect();
++      const scaledX = ((pointerX - rect.left) / rect.width) * GAME_CONFIG.width;
++      state.paddle.x = Math.max(0, Math.min(GAME_CONFIG.width - GAME_CONFIG.paddleWidth, scaledX - GAME_CONFIG.paddleWidth / 2));
++    },
++    renderInitial() {
++      render(ctx, state);
++    }
++  };
++}
+diff --git a/proof/src/styles.css b/proof/src/styles.css
+new file mode 100644
+index 0000000..b369736
+--- /dev/null
++++ b/proof/src/styles.css
+@@ -0,0 +1,225 @@
++:root {
++  color-scheme: dark;
++  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  background: #080b14;
++  color: #f8fafc;
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  min-height: 100vh;
++  margin: 0;
++  background:
++    radial-gradient(circle at 20% 12%, rgba(56, 189, 248, 0.28), transparent 30%),
++    radial-gradient(circle at 76% 18%, rgba(249, 115, 22, 0.16), transparent 28%),
++    linear-gradient(135deg, #080b14 0%, #111827 55%, #17213f 100%);
++}
++
++button {
++  font: inherit;
++}
++
++.studio-shell {
++  width: min(1180px, calc(100vw - 32px));
++  min-height: 100vh;
++  margin: 0 auto;
++  padding: 28px 0;
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) 320px;
++  gap: 20px;
++  align-items: center;
++}
++
++.stage-card,
++.hud-card,
++.brief-card,
++.result-card {
++  border: 1px solid rgba(148, 163, 184, 0.22);
++  background: rgba(15, 23, 42, 0.78);
++  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.34);
++  backdrop-filter: blur(14px);
++}
++
++.stage-card {
++  position: relative;
++  border-radius: 8px;
++  overflow: hidden;
++}
++
++.stage-header {
++  padding: 20px 22px 14px;
++  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
++}
++
++.eyebrow {
++  margin: 0 0 8px;
++  color: #7dd3fc;
++  font-size: 12px;
++  font-weight: 800;
++  letter-spacing: 0.12em;
++  text-transform: uppercase;
++}
++
++h1,
++h2 {
++  margin: 0;
++  line-height: 1.05;
++}
++
++h1 {
++  font-size: clamp(34px, 6vw, 72px);
++}
++
++h2 {
++  font-size: 26px;
++}
++
++.lede {
++  width: min(620px, 100%);
++  margin: 12px 0 0;
++  color: #cbd5e1;
++  line-height: 1.6;
++}
++
++.canvas-wrap {
++  position: relative;
++  aspect-ratio: 3 / 2;
++  display: grid;
++  place-items: center;
++  padding: 18px;
++}
++
++canvas {
++  width: min(100%, 760px);
++  height: auto;
++  display: block;
++  border-radius: 8px;
++  border: 1px solid rgba(125, 211, 252, 0.24);
++  background: #0b1020;
++}
++
++.start-panel {
++  position: absolute;
++  inset: 18px;
++  display: grid;
++  place-items: center;
++  text-align: center;
++  background: rgba(8, 11, 20, 0.72);
++}
++
++.start-panel.is-hidden,
++.result-card.is-hidden {
++  display: none;
++}
++
++.start-panel-inner {
++  max-width: 420px;
++  padding: 24px;
++}
++
++.primary-action,
++.secondary-action {
++  min-height: 46px;
++  border: 0;
++  border-radius: 8px;
++  cursor: pointer;
++  font-weight: 800;
++  transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
++}
++
++.primary-action {
++  margin-top: 18px;
++  padding: 0 22px;
++  color: #111827;
++  background: #7dd3fc;
++  box-shadow: 0 14px 36px rgba(56, 189, 248, 0.26);
++}
++
++.secondary-action {
++  width: 100%;
++  color: #f8fafc;
++  background: rgba(248, 250, 252, 0.1);
++  border: 1px solid rgba(248, 250, 252, 0.18);
++}
++
++.primary-action:hover,
++.secondary-action:hover {
++  transform: translateY(-1px);
++}
++
++.primary-action:active,
++.secondary-action:active {
++  transform: translateY(1px);
++}
++
++.side-column {
++  display: grid;
++  gap: 16px;
++}
++
++.hud-card,
++.brief-card,
++.result-card {
++  border-radius: 8px;
++  padding: 18px;
++}
++
++.hud-grid {
++  display: grid;
++  grid-template-columns: repeat(2, minmax(0, 1fr));
++  gap: 10px;
++  margin: 16px 0;
++}
++
++.hud-stat {
++  padding: 12px;
++  border-radius: 8px;
++  background: rgba(248, 250, 252, 0.08);
++}
++
++.hud-stat span {
++  display: block;
++  color: #94a3b8;
++  font-size: 12px;
++  font-weight: 700;
++}
++
++.hud-stat strong {
++  display: block;
++  margin-top: 6px;
++  font-size: 26px;
++}
++
++.status-line,
++.brief-card p,
++.result-card p {
++  color: #cbd5e1;
++  line-height: 1.55;
++}
++
++.brief-list {
++  margin: 14px 0 0;
++  padding-left: 18px;
++  color: #cbd5e1;
++  line-height: 1.65;
++}
++
++@media (max-width: 900px) {
++  .studio-shell {
++    grid-template-columns: 1fr;
++    align-items: start;
++  }
++}
++
++@media (prefers-reduced-motion: reduce) {
++  *,
++  *::before,
++  *::after {
++    scroll-behavior: auto !important;
++    transition-duration: 0.01ms !important;
++    animation-duration: 0.01ms !important;
++  }
++}
+diff --git a/proof/src/ui.js b/proof/src/ui.js
+new file mode 100644
+index 0000000..33f7d30
+--- /dev/null
++++ b/proof/src/ui.js
+@@ -0,0 +1,119 @@
++import { createBreakoutGame } from './game.js';
++
++const canvas = document.querySelector('#game-canvas');
++const startPanel = document.querySelector('#start-panel');
++const startButton = document.querySelector('#start-button');
++const restartButton = document.querySelector('#restart-button');
++const resultCard = document.querySelector('#result-card');
++const resultTitle = document.querySelector('#result-title');
++const resultCopy = document.querySelector('#result-copy');
++const scoreValue = document.querySelector('#score-value');
++const livesValue = document.querySelector('#lives-value');
++const comboValue = document.querySelector('#combo-value');
++const stateValue = document.querySelector('#state-value');
++const statusLine = document.querySelector('#status-line');
++const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
++let audioContext;
++
++function playTone(frequency, duration = 0.08) {
++  if (motionPreference.matches) {
++    return;
++  }
++
++  audioContext ??= new AudioContext();
++  const oscillator = audioContext.createOscillator();
++  const gain = audioContext.createGain();
++  oscillator.frequency.value = frequency;
++  oscillator.type = 'triangle';
++  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
++  gain.gain.exponentialRampToValueAtTime(0.07, audioContext.currentTime + 0.01);
++  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
++  oscillator.connect(gain).connect(audioContext.destination);
++  oscillator.start();
++  oscillator.stop(audioContext.currentTime + duration);
++}
++
++function setStatus(copy) {
++  statusLine.textContent = copy;
++}
++
++function updateHud(state) {
++  scoreValue.textContent = state.score;
++  livesValue.textContent = state.lives;
++  comboValue.textContent = `${state.combo}x`;
++  stateValue.textContent = state.status;
++}
++
++function showResult(result) {
++  const won = result === 'won';
++  resultCard.classList.remove('is-hidden');
++  resultTitle.textContent = won ? 'Client slice cleared' : 'Training failed';
++  resultCopy.textContent = won
++    ? 'The first playable loop has a readable win state, HUD feedback, and restart path.'
++    : 'The first playable loop has a readable failure state and restart path.';
++  setStatus(won ? 'Victory feedback delivered.' : 'Loss feedback delivered.');
++  playTone(won ? 740 : 180, 0.18);
++}
++
++const game = createBreakoutGame(canvas, {
++  onFrame: updateHud,
++  onStatus(status) {
++    updateHud(game.getState());
++    setStatus(status === 'playing' ? 'Break bricks, protect the ball, and keep the run alive.' : 'Ready for client review.');
++  },
++  onBrickHit(event) {
++    setStatus(`Brick cleared. Combo ${event.combo}x.`);
++    playTone(520 + event.combo * 20);
++  },
++  onPaddleHit() {
++    setStatus('Paddle return confirmed.');
++    playTone(340);
++  },
++  onLifeLost(lives) {
++    setStatus(`${lives} lives remaining.`);
++    playTone(160, 0.14);
++  },
++  onComplete: showResult
++});
++
++function beginSlice() {
++  startPanel.classList.add('is-hidden');
++  resultCard.classList.add('is-hidden');
++  game.start();
++}
++
++function restartSlice() {
++  resultCard.classList.add('is-hidden');
++  startPanel.classList.remove('is-hidden');
++  game.restart();
++  updateHud(game.getState());
++  setStatus('Ready for client review.');
++}
++
++document.addEventListener('keydown', (event) => {
++  if (event.code === 'ArrowLeft') {
++    game.setInput('left', true);
++  }
++  if (event.code === 'ArrowRight') {
++    game.setInput('right', true);
++  }
++});
++
++document.addEventListener('keyup', (event) => {
++  if (event.code === 'ArrowLeft') {
++    game.setInput('left', false);
++  }
++  if (event.code === 'ArrowRight') {
++    game.setInput('right', false);
++  }
++});
++
++canvas.addEventListener('pointermove', (event) => {
++  game.setPointerX(event.clientX);
++});
++
++startButton.addEventListener('click', beginSlice);
++restartButton.addEventListener('click', restartSlice);
++
++game.renderInitial();
++updateHud(game.getState());
+diff --git a/proof/studio-slice.html b/proof/studio-slice.html
+new file mode 100644
+index 0000000..cb0d718
+--- /dev/null
++++ b/proof/studio-slice.html
+@@ -0,0 +1,82 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>Client Studio Breakout Slice</title>
++    <link rel="stylesheet" href="./src/styles.css">
++  </head>
++  <body>
++    <main class="studio-shell">
++      <section class="stage-card" aria-label="Playable Breakout slice">
++        <header class="stage-header">
++          <p class="eyebrow">Client first playable</p>
++          <h1>Crystal Breakout</h1>
++          <p class="lede">
++            A polished HTML Canvas gameplay slice with DOM-based HUD, state feedback,
++            restart flow, lightweight UI motion, and audio cues.
++          </p>
++        </header>
++
++        <div class="canvas-wrap">
++          <canvas id="game-canvas" width="480" height="320" aria-label="Breakout arena"></canvas>
++          <div class="start-panel" id="start-panel">
++            <div class="start-panel-inner">
++              <p class="eyebrow">Scope locked</p>
++              <h2>One complete loop</h2>
++              <p class="status-line">
++                Move with arrow keys or pointer. Clear the bricks, preserve lives,
++                and verify win/loss/restart feedback.
++              </p>
++              <button class="primary-action" id="start-button" type="button">Start Slice</button>
++            </div>
++          </div>
++        </div>
++      </section>
++
++      <aside class="side-column" aria-label="Client review panels">
++        <section class="hud-card" aria-label="Game HUD">
++          <p class="eyebrow">Run status</p>
++          <div class="hud-grid">
++            <div class="hud-stat">
++              <span>Score</span>
++              <strong id="score-value">0</strong>
++            </div>
++            <div class="hud-stat">
++              <span>Lives</span>
++              <strong id="lives-value">3</strong>
++            </div>
++            <div class="hud-stat">
++              <span>Combo</span>
++              <strong id="combo-value">0x</strong>
++            </div>
++            <div class="hud-stat">
++              <span>State</span>
++              <strong id="state-value">ready</strong>
++            </div>
++          </div>
++          <p class="status-line" id="status-line">Ready for client review.</p>
++        </section>
++
++        <section class="brief-card" aria-label="Scope notes">
++          <p class="eyebrow">MVP scope</p>
++          <ul class="brief-list">
++            <li>Keep the tutorial's Breakout core loop.</li>
++            <li>Separate DOM UI from Canvas gameplay rendering.</li>
++            <li>Replace browser alerts with client-readable result UI.</li>
++            <li>Add reduced-motion handling and lightweight audio cues.</li>
++          </ul>
++        </section>
++
++        <section class="result-card is-hidden" id="result-card" aria-live="polite">
++          <p class="eyebrow">Result</p>
++          <h2 id="result-title">Client slice cleared</h2>
++          <p id="result-copy">The first playable loop is ready for acceptance review.</p>
++          <button class="secondary-action" id="restart-button" type="button">Restart Review</button>
++        </section>
++      </aside>
++    </main>
++
++    <script type="module" src="./src/ui.js"></script>
++  </body>
++</html>
+diff --git a/proof/tests/smoke.mjs b/proof/tests/smoke.mjs
+new file mode 100644
+index 0000000..05e796f
+--- /dev/null
++++ b/proof/tests/smoke.mjs
+@@ -0,0 +1,82 @@
++import { existsSync, readFileSync } from 'node:fs';
++import { dirname, join, resolve } from 'node:path';
++import { fileURLToPath } from 'node:url';
++
++const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
++const requiredFiles = [
++  'studio-slice.html',
++  'src/game.js',
++  'src/ui.js',
++  'src/styles.css'
++];
++
++const failures = [];
++
++function assert(condition, message) {
++  if (!condition) {
++    failures.push(message);
++  }
++}
++
++function read(relativePath) {
++  return readFileSync(join(root, relativePath), 'utf8');
++}
++
++for (const file of requiredFiles) {
++  assert(existsSync(join(root, file)), `Missing ${file}`);
++}
++
++const html = read('studio-slice.html');
++const game = read('src/game.js');
++const ui = read('src/ui.js');
++const css = read('src/styles.css');
++
++assert(html.includes('class="studio-shell"'), 'HTML should include the studio shell layout');
++assert(html.includes('id="game-canvas"'), 'HTML should include a canvas gameplay surface');
++assert(html.includes('id="score-value"'), 'HTML should include DOM HUD values');
++assert(html.includes('id="result-card"'), 'HTML should include client-readable result UI');
++assert(html.includes('type="module"'), 'HTML should load modular JavaScript');
++assert(!html.includes('alert('), 'HTML should not rely on browser alerts');
++
++assert(game.includes('export function createInitialState'), 'Game module should expose initial state creation');
++assert(game.includes('export function createBreakoutGame'), 'Game module should expose game factory');
++assert(game.includes('hooks.onComplete'), 'Game module should report completion through hooks');
++assert(!game.includes('document.location.reload'), 'Game module should not reload the page for state changes');
++assert(!game.includes('alert('), 'Game module should not use blocking alerts');
++
++assert(ui.includes("import { createBreakoutGame }"), 'UI module should import the game module');
++assert(ui.includes('AudioContext'), 'UI module should include lightweight audio feedback');
++assert(ui.includes('prefers-reduced-motion'), 'UI module should respect reduced motion');
++assert(ui.includes('classList.add'), 'UI module should control DOM states');
++
++assert(css.includes('.hud-card'), 'CSS should style the HUD as a formal UI surface');
++assert(css.includes('.primary-action'), 'CSS should style primary actions');
++assert(css.includes('@media (prefers-reduced-motion: reduce)'), 'CSS should include reduced motion fallback');
++assert(css.includes('font-family'), 'CSS should define a typography direction');
++
++const gameLines = game.split(/\r?\n/).filter(Boolean).length;
++const uiLines = ui.split(/\r?\n/).filter(Boolean).length;
++const cssLines = css.split(/\r?\n/).filter(Boolean).length;
++assert(gameLines < 230, `Game module is too large for this proof slice: ${gameLines} lines`);
++assert(uiLines < 150, `UI module is too large for this proof slice: ${uiLines} lines`);
++assert(cssLines < 240, `CSS module is too large for this proof slice: ${cssLines} lines`);
++
++const combined = `${html}\n${game}\n${ui}\n${css}`;
++const forbidden = [
++  'YOU WIN, CONGRATS!',
++  'GAME OVER',
++  'document.location.reload',
++  'alert(',
++  'font: 16px Arial'
++];
++
++for (const token of forbidden) {
++  assert(!combined.includes(token), `Forbidden legacy token remains: ${token}`);
++}
++
++if (failures.length > 0) {
++  console.error(failures.map((failure) => `[FAIL] ${failure}`).join('\n'));
++  process.exit(1);
++}
++
++console.log('client-studio breakout proof smoke: passed');

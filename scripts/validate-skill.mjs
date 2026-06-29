@@ -75,6 +75,7 @@ const requiredFiles = [
   'validation/test-results-v0.6.0.md',
   'validation/test-results-v0.7.0.md',
   'validation/test-results-v0.8.0.md',
+  'validation/proof-gamedev-canvas-workshop-v1.0.0.md',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/v0.9-real-project-proof-plan.md',
   'validation/v1.0-acceptance-proof-protocol.md'
@@ -94,6 +95,7 @@ const validationResultsV050 = read('validation/test-results-v0.5.0.md');
 const validationResultsV060 = read('validation/test-results-v0.6.0.md');
 const validationResultsV070 = read('validation/test-results-v0.7.0.md');
 const validationResultsV080 = read('validation/test-results-v0.8.0.md');
+const externalProofReport = read('validation/proof-gamedev-canvas-workshop-v1.0.0.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const v090ProofPlan = read('validation/v0.9-real-project-proof-plan.md');
 const v100ProofProtocol = read('validation/v1.0-acceptance-proof-protocol.md');
@@ -328,6 +330,17 @@ assert(
   'validation/test-results-v0.8.0.md must record the end-to-end implementation delivery test'
 );
 assert(
+  externalProofReport.includes('# v1.0 Proof Report: Gamedev Canvas Workshop Studio Slice') &&
+    externalProofReport.includes('https://github.com/end3r/Gamedev-Canvas-workshop') &&
+    externalProofReport.includes('5164ee67c7a85898bb7138502d9b9cec70061100') &&
+    externalProofReport.includes('Patch apply check | `Passed`') &&
+    externalProofReport.includes('Smoke test | `Passed`') &&
+    externalProofReport.includes('Visual QA | `Blocked`') &&
+    externalProofReport.includes('Accepted as v0.9 proof evidence'),
+  'External real-project proof report records source, implementation evidence, tests, visual QA status, and acceptance',
+  'validation/proof-gamedev-canvas-workshop-v1.0.0.md must record the external proof source, implementation evidence, tests, visual QA status, and acceptance'
+);
+assert(
   finalGoalCoverage.includes('## Requirement Coverage') &&
     finalGoalCoverage.includes('Real end-to-end use on a game repo') &&
     finalGoalCoverage.includes('Partially proven') &&
@@ -395,11 +408,11 @@ try {
   });
   assert(
     proofValidatorOutput.includes('v1.0 proof package validation'),
-    'v1.0 proof package validator runs without a proof package',
+    'v1.0 proof package validator runs in default mode',
     'v1.0 proof package validator did not produce expected output'
   );
 } catch (error) {
-  fail(`v1.0 proof package validator failed without proof package: ${error.message}`);
+  fail(`v1.0 proof package validator failed in default mode: ${error.message}`);
 }
 
 try {
@@ -410,14 +423,9 @@ try {
     cwd: root,
     encoding: 'utf8'
   });
-  fail('v1.0 proof package validator --require should fail when no proof package exists');
+  pass('v1.0 proof package validator --require passes when a proof package exists');
 } catch (error) {
-  const output = `${error.stdout ?? ''}${error.stderr ?? ''}`;
-  assert(
-    output.includes('no proof packages found'),
-    'v1.0 proof package validator --require fails when no proof package exists',
-    'v1.0 proof package validator --require failed without the expected no-proof message'
-  );
+  fail(`v1.0 proof package validator --require failed despite the external proof package: ${error.message}`);
 }
 
 try {

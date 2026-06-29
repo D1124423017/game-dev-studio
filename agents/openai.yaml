@@ -1,7 +1,7 @@
 name: "game-dev-studio"
 display_name: "Game Dev Studio"
 description: "A token-conscious Codex skill that works like a full game development studio team for client briefs, game design, programming, UI/UX, game UI visual design, visual target selection, style bibles, UI motion, gameplay VFX, technical VFX, art direction, QA, playtesting, implementation delivery, production milestone gates, production architecture, and roadmap strategy."
-version: "0.8.0"
+version: "0.9.0"
 author: "Health Body"
 tags:
   - "game-development"
