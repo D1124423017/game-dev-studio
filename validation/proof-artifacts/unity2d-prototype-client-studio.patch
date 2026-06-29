@@ -1,0 +1,280 @@
+diff --git a/Assets/Scripts/TitleMenu.cs b/Assets/Scripts/TitleMenu.cs
+index 682073a..f402ac6 100644
+--- a/Assets/Scripts/TitleMenu.cs
++++ b/Assets/Scripts/TitleMenu.cs
+@@ -1,47 +1,85 @@
+-using System.Collections;
+-using System.Collections.Generic;
+-using TMPro;
+-using UnityEngine;
+-using UnityEngine.SceneManagement;
+-using UnityEngine.UI;
+-
+-public class TitleMenu : MonoBehaviour
+-{
+-    [Header("UI")]
+-    public TextMeshProUGUI StartGameText;
+-    [Header("Audio")]
+-    public AudioPlayer BackgroundMusic;
+-    public AudioPlayer AmbientSoundFX;
+-    public AudioPlayer VoiceSoundFX;
+-    public AudioPlayer CursorSoundFX;
+-    public AudioPlayer ConfirmSoundFX;
+-
+-    private bool _pendingStartGame;
+-
+-    private void Awake()
+-    {
+-        BackgroundMusic.Play();
+-        AmbientSoundFX.Play();
+-        VoiceSoundFX.Play();
+-    }
+-
+-    void Update()
+-    {
+-        if (Input.anyKeyDown && !Input.GetMouseButton(0) && !Input.GetMouseButton(1) && !Input.GetMouseButton(3))
+-            StartCoroutine(StartGame());
+-    }
+-
+-    private IEnumerator StartGame()
+-    {
+-        if (_pendingStartGame) yield break;
+-        _pendingStartGame = true;
+-        StartGameText.enabled = false;
+-        BackgroundMusic.Stop();
+-        AmbientSoundFX.Stop();
+-        VoiceSoundFX.Stop();
+-        ConfirmSoundFX.Play();
+-        yield return new WaitWhile(() => ConfirmSoundFX.IsPlaying);
+-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+-        _pendingStartGame = false;
+-    }
+-}
++using System.Collections;
++using System.Collections.Generic;
++using TMPro;
++using UnityEngine;
++using UnityEngine.SceneManagement;
++using UnityEngine.UI;
++
++public class TitleMenu : MonoBehaviour
++{
++    [Header("UI")]
++    public TextMeshProUGUI StartGameText;
++    [Header("Audio")]
++    public AudioPlayer BackgroundMusic;
++    public AudioPlayer AmbientSoundFX;
++    public AudioPlayer VoiceSoundFX;
++    public AudioPlayer CursorSoundFX;
++    public AudioPlayer ConfirmSoundFX;
++    [Header("Motion")]
++    public bool ReducedMotion;
++    [Min(0f)] public float PromptPulseSpeed = 2.8f;
++    [Range(0f, 1f)] public float PromptMinAlpha = 0.55f;
++
++    private bool _pendingStartGame;
++    private Color _startGameTextBaseColor;
++
++    private void Awake()
++    {
++        if (StartGameText != null)
++            _startGameTextBaseColor = StartGameText.color;
++        BackgroundMusic.Play();
++        AmbientSoundFX.Play();
++        VoiceSoundFX.Play();
++    }
++
++    void Update()
++    {
++        UpdateStartPrompt();
++        if (ShouldStartGame())
++            StartCoroutine(StartGame());
++    }
++
++    private bool ShouldStartGame()
++    {
++        if (_pendingStartGame || !Input.anyKeyDown)
++            return false;
++        return !Input.GetMouseButton(0) && !Input.GetMouseButton(1) && !Input.GetMouseButton(2);
++    }
++
++    private void UpdateStartPrompt()
++    {
++        if (StartGameText == null || _pendingStartGame)
++            return;
++        if (ReducedMotion)
++        {
++            SetStartTextAlpha(_startGameTextBaseColor.a);
++            return;
++        }
++        float pulse = (Mathf.Sin(Time.unscaledTime * PromptPulseSpeed) + 1f) * 0.5f;
++        float alpha = Mathf.Lerp(PromptMinAlpha, _startGameTextBaseColor.a, pulse);
++        SetStartTextAlpha(alpha);
++    }
++
++    private void SetStartTextAlpha(float alpha)
++    {
++        Color color = _startGameTextBaseColor;
++        color.a = alpha;
++        StartGameText.color = color;
++    }
++
++    private IEnumerator StartGame()
++    {
++        if (_pendingStartGame) yield break;
++        _pendingStartGame = true;
++        if (StartGameText != null)
++            SetStartTextAlpha(_startGameTextBaseColor.a);
++        StartGameText.enabled = false;
++        BackgroundMusic.Stop();
++        AmbientSoundFX.Stop();
++        VoiceSoundFX.Stop();
++        ConfirmSoundFX.Play();
++        yield return new WaitWhile(() => ConfirmSoundFX.IsPlaying);
++        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
++        _pendingStartGame = false;
++    }
++}
+diff --git a/Proof/client_studio_acceptance.md b/Proof/client_studio_acceptance.md
+new file mode 100644
+index 0000000..2e15693
+--- /dev/null
++++ b/Proof/client_studio_acceptance.md
+@@ -0,0 +1,50 @@
++# Unity 2D Prototype Client Studio Proof Checklist
++
++## Client Goal
++
++Turn the existing Unity 2D prototype title screen into a small portfolio proof slice with more intentional player-facing feedback while preserving the platformer gameplay sample.
++
++## Scope Lock
++
++- Keep the original platformer, actor damage, collection, door, switch, and projectile behavior.
++- Add title prompt polish only.
++- Preserve the existing `TitleMenu` scene entry flow and audio transition.
++- Do not add new art, paid assets, scene rewiring, or broad manager refactors.
++
++## Formal Art Direction
++
++- Keep the existing pixel-platformer / learning-prototype visual identity.
++- Treat the title prompt as a player-facing UI moment, not a debug label.
++- Use TextMeshPro color motion rather than canvas placeholders or temporary OnGUI.
++- Keep motion subtle enough that the title remains readable.
++
++## Architecture Boundary
++
++- `TitleMenu.cs` owns title-screen UI prompt motion and start input gating.
++- `GameManager.cs` remains global scene restart and escape behavior only.
++- `Platformer2DController.cs` remains player input translation.
++- `Actor.cs` remains health, damage feedback, and death response.
++- `AudioManager` scripts remain audio playback services.
++
++## QA Checklist
++
++| Check | Expected |
++|---|---|
++| Prompt pulse | Start prompt alpha pulses when reduced motion is disabled. |
++| Reduced motion | Prompt returns to base alpha when `ReducedMotion` is enabled. |
++| Start input | Keyboard input can start the game when no mouse button is pressed. |
++| Mouse guard | Left, right, and middle mouse buttons do not accidentally start the game. |
++| Start flow | Start text hides, title audio stops, confirmation audio plays, and the next scene loads. |
++| Architecture | Gameplay, actor, and manager scripts do not own title UI prompt animation. |
++
++## Acceptance Criteria
++
++- Player-facing title UI has intentional non-blocking feedback.
++- UI motion is separated from gameplay and scene management.
++- Reduced-motion behavior exists for the prompt effect.
++- Static smoke passes.
++- Runtime Unity play mode is required before final client acceptance.
++
++## Ruthless Playtester Note
++
++The title screen now feels less dead, but the project still needs a real HUD and a clearer first-level objective before it can feel like more than a learning sample.
+diff --git a/Proof/static_smoke.mjs b/Proof/static_smoke.mjs
+new file mode 100644
+index 0000000..305fdd2
+--- /dev/null
++++ b/Proof/static_smoke.mjs
+@@ -0,0 +1,81 @@
++import { existsSync, readFileSync } from 'node:fs';
++import { join, resolve } from 'node:path';
++
++const projectRoot = resolve(process.cwd());
++const failures = [];
++
++function assert(condition, message) {
++  if (!condition) {
++    failures.push(message);
++  }
++}
++
++function read(relativePath) {
++  return readFileSync(join(projectRoot, relativePath), 'utf8');
++}
++
++const requiredFiles = [
++  'README.md',
++  'LICENSE',
++  'Assets/Scripts/TitleMenu.cs',
++  'Assets/Scripts/Managers/GameManager.cs',
++  'Assets/Scripts/Actor.cs',
++  'Assets/Scripts/Collectable.cs',
++  'Assets/Scripts/Platformer/Platformer2DController.cs',
++  'Assets/Scenes/TitleScreen.unity',
++  'Assets/Scenes/SampleLevel.unity',
++  'Proof/client_studio_acceptance.md'
++];
++
++for (const file of requiredFiles) {
++  assert(existsSync(join(projectRoot, file)), `Missing ${file}`);
++}
++
++const readme = read('README.md');
++const license = read('LICENSE');
++const titleMenu = read('Assets/Scripts/TitleMenu.cs');
++const gameManager = read('Assets/Scripts/Managers/GameManager.cs');
++const actor = read('Assets/Scripts/Actor.cs');
++const controller = read('Assets/Scripts/Platformer/Platformer2DController.cs');
++const collectable = read('Assets/Scripts/Collectable.cs');
++const checklist = read('Proof/client_studio_acceptance.md');
++
++assert(readme.includes('2D Platformer Game'), 'README should identify the Unity 2D platformer sample');
++assert(readme.includes('User Interface (UI)'), 'README should record existing UI as an unfinished area');
++assert(license.includes('MIT License'), 'Project should keep MIT license evidence');
++assert(titleMenu.includes('[Header("Motion")]'), 'TitleMenu should expose motion settings');
++assert(titleMenu.includes('public bool ReducedMotion'), 'TitleMenu should expose reduced-motion control');
++assert(titleMenu.includes('PromptPulseSpeed'), 'TitleMenu should expose prompt pulse speed');
++assert(titleMenu.includes('PromptMinAlpha'), 'TitleMenu should expose prompt minimum alpha');
++assert(titleMenu.includes('UpdateStartPrompt()'), 'TitleMenu should isolate prompt motion from Update');
++assert(titleMenu.includes('ShouldStartGame()'), 'TitleMenu should isolate start input gating');
++assert(titleMenu.includes('SetStartTextAlpha'), 'TitleMenu should isolate TextMeshPro alpha updates');
++assert(titleMenu.includes('!Input.GetMouseButton(2)'), 'TitleMenu should guard middle mouse input');
++assert(titleMenu.includes('Time.unscaledTime'), 'Prompt motion should not depend on gameplay time scale');
++assert(!gameManager.includes('PromptPulseSpeed'), 'GameManager should not own title UI motion');
++assert(!gameManager.includes('SetStartTextAlpha'), 'GameManager should not own TextMeshPro prompt styling');
++assert(!actor.includes('PromptPulseSpeed'), 'Actor gameplay should not own title UI motion');
++assert(!controller.includes('PromptPulseSpeed'), 'Platformer input should not own title UI motion');
++assert(!collectable.includes('PromptPulseSpeed'), 'Collectables should not own title UI motion');
++assert(checklist.includes('Formal Art Direction'), 'Checklist should document the art direction gate');
++assert(checklist.includes('Architecture Boundary'), 'Checklist should document architecture boundaries');
++assert(checklist.includes('Runtime Unity play mode is required'), 'Checklist should not pretend runtime play mode passed');
++
++const lineCounts = {
++  titleMenu: titleMenu.split(/\r?\n/).filter(Boolean).length,
++  gameManager: gameManager.split(/\r?\n/).filter(Boolean).length,
++  actor: actor.split(/\r?\n/).filter(Boolean).length,
++  controller: controller.split(/\r?\n/).filter(Boolean).length
++};
++
++assert(lineCounts.titleMenu < 80, `TitleMenu proof slice should stay small: ${lineCounts.titleMenu} lines`);
++assert(lineCounts.gameManager < 40, `GameManager should remain focused: ${lineCounts.gameManager} lines`);
++assert(lineCounts.actor < 60, `Actor should remain focused: ${lineCounts.actor} lines`);
++assert(lineCounts.controller < 40, `Controller should remain focused: ${lineCounts.controller} lines`);
++
++if (failures.length > 0) {
++  console.error(failures.map((failure) => `[FAIL] ${failure}`).join('\n'));
++  process.exit(1);
++}
++
++console.log('unity2d prototype proof static smoke: passed');

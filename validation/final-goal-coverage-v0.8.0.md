@@ -28,7 +28,7 @@ Turn Game Dev Studio into a client-commissioned AI game development studio opera
 | Applies to Unity, Unreal, Godot, Web Game, HTML Canvas, 2D, 3D | `SKILL.md`, README, Architecture Guide, metadata tags | Covered |
 | Does not become one-game-specific | Contribution rules, Roadmap Strategy Audit risk checks, example case study rules | Covered |
 | Implementation preserves studio gates through delivery | Studio Implementation Delivery Workflow, prompt test 14, validation/test-results-v0.8.0.md | Covered in prompt behavior |
-| Real end-to-end use on a game repo | Local web first-playable runtime fixture now includes implementation files, smoke test, QA evidence, Ruthless Playtester note, client acceptance status, and captured visual QA screenshot evidence. External real-project proofs exist for `end3r/Gamedev-Canvas-workshop` and Godot `dodge_the_creeps`, but both external proofs still have runtime visual QA blocked. | Partially proven |
+| Real end-to-end use on a game repo | Local web first-playable runtime fixture now includes implementation files, smoke test, QA evidence, Ruthless Playtester note, client acceptance status, and captured visual QA screenshot evidence. External real-project proofs exist for `end3r/Gamedev-Canvas-workshop`, Godot `dodge_the_creeps`, and Unity `unity2d-prototype`, but all external proofs still have runtime visual QA blocked. | Partially proven |
 
 ## Current Evidence Strength
 
@@ -42,20 +42,20 @@ Strong evidence:
 
 Weak or missing evidence:
 
-- No full run against an external real game repository from client brief to implementation delivery.
+- No external real game repository proof currently has full runtime visual QA from client brief to interactive acceptance.
 - Screenshot-based visual QA is now captured for the local runtime fixture, but external proof visual QA is still `Blocked` when Playwright or a browser runtime is unavailable.
-- Runtime proof now includes one independent public Web / HTML Canvas proof and one independent public Godot proof. Unity and Unreal proof are still missing.
+- Runtime proof now includes one independent public Web / HTML Canvas proof, one independent public Godot proof, and one independent public Unity proof. Unreal proof is still missing.
 - Validation records are mostly prompt-behavior checks, with one executable web fixture smoke test.
 - The v1.0 acceptance proof protocol now defines the missing external proof package, but that package has not been produced yet.
 - The v0.9 real-project proof plan defines how to produce and validate the missing proof package.
 
 ## Decision
 
-The repo is materially aligned with the final objective as a Skill specification and public documentation package, and it now includes a local runtime fixture with screenshot evidence plus external Web / HTML Canvas and Godot proof reports.
+The repo is materially aligned with the final objective as a Skill specification and public documentation package, and it now includes a local runtime fixture with screenshot evidence plus external Web / HTML Canvas, Godot, and Unity proof reports.
 
 The long-term goal should not be marked complete until the proof base also includes broader engine coverage and visual QA that is not blocked on the external proof:
 
-1. A third independent proof for Unity, Unreal, or a user-owned prototype
+1. A fourth independent proof for Unreal or a user-owned prototype with runtime visual QA
 2. Visual target or style bible evidence
 3. Production architecture gate
 4. Implementation delivery plan
@@ -67,7 +67,7 @@ The long-term goal should not be marked complete until the proof base also inclu
 
 ## Recommended Next Proof
 
-Create or select a Unity, Unreal, or user-owned prototype and run a bounded first-playable slice through the full workflow.
+Create or select an Unreal or user-owned prototype and run a bounded first-playable slice through the full workflow with runtime visual evidence when possible.
 
 Minimum acceptable proof:
 
@@ -92,5 +92,6 @@ Current partial proof:
 - Delivery evidence: `validation/runtime-fixtures/web-first-playable-slice/delivery-report.md`
 - External proof report: `validation/proof-gamedev-canvas-workshop-v1.0.0.md`
 - External Godot proof report: `validation/proof-godot-dodge-the-creeps-v1.0.0.md`
+- External Unity proof report: `validation/proof-unity2d-prototype-v1.0.0.md`
 
 Use `validation/v0.9-real-project-proof-plan.md` to produce the missing proof package, then use `validation/v1.0-acceptance-proof-protocol.md` as the release gate before claiming the long-term goal is complete or recommending `v1.0.0`.

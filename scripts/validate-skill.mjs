@@ -77,6 +77,7 @@ const requiredFiles = [
   'validation/test-results-v0.8.0.md',
   'validation/proof-gamedev-canvas-workshop-v1.0.0.md',
   'validation/proof-godot-dodge-the-creeps-v1.0.0.md',
+  'validation/proof-unity2d-prototype-v1.0.0.md',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/v0.9-real-project-proof-plan.md',
   'validation/v1.0-acceptance-proof-protocol.md'
@@ -98,6 +99,7 @@ const validationResultsV070 = read('validation/test-results-v0.7.0.md');
 const validationResultsV080 = read('validation/test-results-v0.8.0.md');
 const externalProofReport = read('validation/proof-gamedev-canvas-workshop-v1.0.0.md');
 const godotProofReport = read('validation/proof-godot-dodge-the-creeps-v1.0.0.md');
+const unityProofReport = read('validation/proof-unity2d-prototype-v1.0.0.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const v090ProofPlan = read('validation/v0.9-real-project-proof-plan.md');
 const v100ProofProtocol = read('validation/v1.0-acceptance-proof-protocol.md');
@@ -352,6 +354,18 @@ assert(
     godotProofReport.includes('Accepted as a second cross-engine proof'),
   'Godot real-project proof report records source, implementation evidence, tests, blocked runtime QA, and acceptance',
   'validation/proof-godot-dodge-the-creeps-v1.0.0.md must record the Godot proof source, implementation evidence, tests, blocked runtime QA, and acceptance'
+);
+assert(
+  unityProofReport.includes('# v1.0 Proof Report: Unity 2D Prototype Title Menu Proof Slice') &&
+    unityProofReport.includes('https://github.com/practical-works/unity2d-prototype') &&
+    unityProofReport.includes('88505c7d62339922be7d8af7a2d6b5ac7adc9f9b') &&
+    unityProofReport.includes('Static smoke test | `Passed`') &&
+    unityProofReport.includes('Unity editor compile | `Blocked`') &&
+    unityProofReport.includes('Unity Play Mode | `Blocked`') &&
+    unityProofReport.includes('Visual QA | `Blocked`') &&
+    unityProofReport.includes('Accepted as a third cross-engine proof'),
+  'Unity real-project proof report records source, implementation evidence, tests, blocked runtime QA, and acceptance',
+  'validation/proof-unity2d-prototype-v1.0.0.md must record the Unity proof source, implementation evidence, tests, blocked runtime QA, and acceptance'
 );
 assert(
   finalGoalCoverage.includes('## Requirement Coverage') &&
