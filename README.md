@@ -322,6 +322,7 @@ game-dev-studio/
 │   └── validate-skill.mjs
 ├── validation/
 │   ├── engine-runtime-environment-report.md
+│   ├── final-objective-operating-system-audit.md
 │   ├── runtime-visual-qa-gate.md
 │   ├── proof-*.md
 │   ├── proof-artifacts/
@@ -344,6 +345,8 @@ node scripts/validate-skill.mjs
 It checks Skill frontmatter, lazy reference routes, public version consistency, bilingual README links, test and case-study coverage, deprecated naming, multiline Markdown/YAML, and committed `.skill` packages. GitHub Actions runs the same check on pushes and pull requests.
 
 See [examples/](examples/) for the three public-project case studies and the client-studio workflow trace. See [validation/](validation/) for recorded prompt test results, final-goal coverage notes, the v0.9 external proof report, the v1.0 acceptance proof protocol, and the local web first-playable runtime fixture with smoke and visual QA checks.
+
+For the long-term "AI game development studio operating system" objective, use [validation/final-objective-operating-system-audit.md](validation/final-objective-operating-system-audit.md). It records which requirements are covered, which are only partially proven, and why `v1.0.0` should not be claimed from documentation alone.
 
 For non-Web engine runtime readiness, run:
 

@@ -53,6 +53,7 @@ Weak or missing evidence:
 - The v0.9 real-project proof plan defines how to produce and validate the missing proof package.
 - `validation/engine-runtime-environment-report.md` records Godot / Unity / Unreal runtime availability.
 - `validation/runtime-visual-qa-gate.md` records the closed Web screenshot blocker and the remaining non-Web engine project-specific capture blockers.
+- `validation/final-objective-operating-system-audit.md` maps the user's final AI game studio operating-system objective to current evidence, partial status, and remaining proof gaps.
 
 ## Decision
 
@@ -108,3 +109,5 @@ Current partial proof:
 - Engine runtime environment report: `validation/engine-runtime-environment-report.md`
 
 Use `validation/v0.9-real-project-proof-plan.md` to produce the missing proof package, then use `validation/v1.0-acceptance-proof-protocol.md` as the release gate before claiming the long-term goal is complete or recommending `v1.0.0`.
+
+Use `validation/final-objective-operating-system-audit.md` during roadmap or completion audits to keep the final objective tied to evidence rather than adding uncontrolled features.

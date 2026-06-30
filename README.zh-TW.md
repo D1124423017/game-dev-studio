@@ -318,6 +318,7 @@ game-dev-studio/
 │   └── validate-skill.mjs
 ├── validation/
 │   ├── engine-runtime-environment-report.md
+│   ├── final-objective-operating-system-audit.md
 │   ├── runtime-visual-qa-gate.md
 │   ├── proof-*.md
 │   ├── proof-artifacts/
@@ -340,6 +341,8 @@ node scripts/validate-skill.mjs
 它會檢查 Skill frontmatter、lazy reference 路由、公開版本一致性、中英文 README 連結、測試與案例覆蓋、舊名稱、多行 Markdown/YAML，以及是否誤提交 `.skill`。GitHub Actions 會在 push 與 pull request 執行相同檢查。
 
 三個公開專案案例與 client-studio workflow trace 請看 [examples/](examples/)，測試紀錄、final-goal coverage notes、v0.9 external proof report、v1.0 acceptance proof protocol，以及含 smoke / visual QA 檢查的本地 web first-playable runtime fixture 請看 [validation/](validation/)。
+
+若要追蹤長期「AI 遊戲開發工作室作業系統」目標，請看 [validation/final-objective-operating-system-audit.md](validation/final-objective-operating-system-audit.md)。它會記錄哪些要求已覆蓋、哪些只是部分證明，以及為什麼不能只靠文件完整就宣稱 `v1.0.0`。
 
 若要檢查非 Web 引擎 runtime 是否可用，執行：
 

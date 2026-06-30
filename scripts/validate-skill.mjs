@@ -87,6 +87,7 @@ const requiredFiles = [
   'validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md',
   'validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md',
   'validation/final-goal-coverage-v0.8.0.md',
+  'validation/final-objective-operating-system-audit.md',
   'validation/v0.9-real-project-proof-plan.md',
   'validation/v1.0-acceptance-proof-protocol.md',
   'validation/engine-runtime-environment-report.md',
@@ -115,6 +116,7 @@ const externalVisualQaReport = read('validation/proof-artifacts/gamedev-canvas-w
 const unityBatchSummary = read('validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md');
 const unrealEditorOpenSummary = read('validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
+const finalObjectiveOperatingSystemAudit = read('validation/final-objective-operating-system-audit.md');
 const v090ProofPlan = read('validation/v0.9-real-project-proof-plan.md');
 const v100ProofProtocol = read('validation/v1.0-acceptance-proof-protocol.md');
 const engineRuntimeEnvironmentReport = read('validation/engine-runtime-environment-report.md');
@@ -485,6 +487,17 @@ assert(
     finalGoalCoverage.includes('validation/runtime-visual-qa-gate.md'),
   'Final goal coverage audit records partial runtime proof and remaining external proof gap',
   'validation/final-goal-coverage-v0.8.0.md must map requirements and clearly state the partial runtime proof plus remaining external proof gap and v1.0 proof protocol'
+);
+assert(
+  finalObjectiveOperatingSystemAudit.includes('# Final Objective Operating System Audit') &&
+    finalObjectiveOperatingSystemAudit.includes('client-commissioned AI game development studio operating system') &&
+    finalObjectiveOperatingSystemAudit.includes('Current verdict: `Partially proven`') &&
+    finalObjectiveOperatingSystemAudit.includes('Cross-engine runtime proof exists for Unity / Unreal / Godot') &&
+    finalObjectiveOperatingSystemAudit.includes('Not fully proven') &&
+    finalObjectiveOperatingSystemAudit.includes('Do not claim the final objective is fully complete') &&
+    finalObjectiveOperatingSystemAudit.includes('Do not turn every small question into a full studio audit'),
+  'Final objective operating system audit records the real target, partial status, cross-engine proof gap, and non-goals',
+  'validation/final-objective-operating-system-audit.md must map the final objective to evidence and keep the v1.0 claim honest'
 );
 assert(
   v100ProofProtocol.includes('# v1.0 Acceptance Proof Protocol') &&
