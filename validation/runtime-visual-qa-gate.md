@@ -47,6 +47,37 @@ Interpretation:
 - This is useful non-Web engine runtime evidence because Unity rendered the visual artifact through a camera rather than a browser or HTML Canvas.
 - This is not a replacement for the external Unity project proof. `validation/proof-unity2d-prototype-v1.0.0.md` remains `Blocked` for project-specific Play Mode / screenshot acceptance because the proof source uses Unity `2022.1.10f1`.
 
+## 2026-06-30 External Unity Candidate Retry
+
+Target proof:
+
+- Repository: `https://github.com/keijiro/LowLevelDigger`
+- Commit tested: `a56d4ec2827998ae6417d51f0d01cc7715e866a3`
+- License: Unlicense
+- Project version: Unity `6000.3.5f1`
+- Installed editor used: Unity `6000.2.9f1`
+- Scene target: `Assets/Main.unity`
+
+Results:
+
+| Check | Result | Evidence |
+|---|---|---|
+| Candidate repository exists | `Passed` | `git ls-remote` returned `a56d4ec2827998ae6417d51f0d01cc7715e866a3` |
+| Scene target exists | `Passed` | `Assets/Main.unity` exists in the temp clone |
+| Unity editor launch | `Passed` | Unity `6000.2.9f1` launched the project in batchmode |
+| Script compilation | `Failed` | Unity 6000.2 failed compiling 6000.3 project package code |
+| Visual QA | `Blocked` | no project-specific screenshot was produced |
+
+Artifact:
+
+- Attempt summary: `validation/proof-artifacts/lowleveldigger-unity-scene-capture-summary.md`
+
+Interpretation:
+
+- The attempt improved the external Unity proof search by finding a small, licensed, real Unity 6 candidate.
+- It did not close external Unity project-specific visual QA because the installed editor is older than the project and failed on package API differences.
+- The smallest next action is to install or select Unity `6000.3.5f1`, or find a Unity `6000.2.x` public project.
+
 ## 2026-06-30 External Web Proof Retry
 
 Target proof:
@@ -105,6 +136,7 @@ Unity attempt summary:
 
 - `validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md`
 - `validation/proof-artifacts/unity-runtime-visual-smoke-report.md`
+- `validation/proof-artifacts/lowleveldigger-unity-scene-capture-summary.md`
 
 Unreal attempt summary:
 

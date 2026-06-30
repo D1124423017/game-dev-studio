@@ -44,6 +44,7 @@ Weak or missing evidence:
 
 - The external Web / HTML Canvas proof now has runtime visual QA screenshots from a runnable public project.
 - The local Unity runtime visual smoke now has a camera-rendered screenshot artifact from Unity `6000.2.9f1`.
+- A small external Unity 6 candidate, `keijiro/LowLevelDigger`, was identified and tested; it is blocked by Unity `6000.3.5f1` versus installed Unity `6000.2.9f1` package API incompatibility.
 - Godot runtime is unavailable in this environment.
 - Unity and Unreal runtimes are detectable, but the current proof projects still lack compatible project-specific screenshot captures.
 - The Unity batch attempt shows the installed Unity `6000.2.9f1` can open far enough to create runtime folders, but it is not a clean acceptance run for the Unity `2022.1.10f1` proof source.
@@ -56,6 +57,7 @@ Weak or missing evidence:
 - `validation/runtime-visual-qa-gate.md` records the closed Web screenshot blocker and the remaining non-Web engine project-specific capture blockers.
 - `validation/final-objective-operating-system-audit.md` maps the user's final AI game studio operating-system objective to current evidence, partial status, and remaining proof gaps.
 - `validation/proof-artifacts/unity-runtime-visual-smoke-report.md` records local Unity runtime visual smoke evidence, while keeping external Unity project-specific visual QA blocked.
+- `validation/proof-artifacts/lowleveldigger-unity-scene-capture-summary.md` records the external Unity candidate attempt and the precise version/package blocker.
 
 ## Decision
 
@@ -107,6 +109,7 @@ Current partial proof:
 - Unity batch attempt summary: `validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md`
 - Local Unity runtime visual smoke report: `validation/proof-artifacts/unity-runtime-visual-smoke-report.md`
 - Local Unity runtime visual smoke screenshot: `validation/proof-artifacts/unity-runtime-visual-smoke.png`
+- External Unity candidate attempt: `validation/proof-artifacts/lowleveldigger-unity-scene-capture-summary.md`
 - External Unreal proof report: `validation/proof-unreal-pixelperfect2d-v1.0.0.md`
 - Unreal editor open attempt summary: `validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md`
 - Runtime visual QA gate: `validation/runtime-visual-qa-gate.md`

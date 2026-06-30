@@ -88,6 +88,7 @@ const requiredFiles = [
   'validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md',
   'validation/proof-artifacts/unity-runtime-visual-smoke-report.md',
   'validation/proof-artifacts/unity-runtime-visual-smoke.png',
+  'validation/proof-artifacts/lowleveldigger-unity-scene-capture-summary.md',
   'validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/final-objective-operating-system-audit.md',
@@ -118,6 +119,7 @@ const unrealProofReport = read('validation/proof-unreal-pixelperfect2d-v1.0.0.md
 const externalVisualQaReport = read('validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md');
 const unityBatchSummary = read('validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md');
 const unityRuntimeVisualSmokeReport = read('validation/proof-artifacts/unity-runtime-visual-smoke-report.md');
+const lowLevelDiggerUnitySceneCaptureSummary = read('validation/proof-artifacts/lowleveldigger-unity-scene-capture-summary.md');
 const unrealEditorOpenSummary = read('validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const finalObjectiveOperatingSystemAudit = read('validation/final-objective-operating-system-audit.md');
@@ -498,6 +500,7 @@ assert(
     finalObjectiveOperatingSystemAudit.includes('Current verdict: `Partially proven`') &&
     finalObjectiveOperatingSystemAudit.includes('Cross-engine runtime proof exists for Unity / Unreal / Godot') &&
     finalObjectiveOperatingSystemAudit.includes('Local Unity runtime visual smoke passed') &&
+    finalObjectiveOperatingSystemAudit.includes('keijiro/LowLevelDigger') &&
     finalObjectiveOperatingSystemAudit.includes('Partially proven') &&
     finalObjectiveOperatingSystemAudit.includes('Do not claim the final objective is fully complete') &&
     finalObjectiveOperatingSystemAudit.includes('Do not turn every small question into a full studio audit'),
@@ -523,6 +526,8 @@ assert(
     runtimeVisualQaGate.includes('2026-06-30 Local Unity Runtime Visual Smoke') &&
     runtimeVisualQaGate.includes('unity-runtime-visual-smoke-report.md') &&
     runtimeVisualQaGate.includes('unity-runtime-visual-smoke.png') &&
+    runtimeVisualQaGate.includes('External Unity Candidate Retry') &&
+    runtimeVisualQaGate.includes('lowleveldigger-unity-scene-capture-summary.md') &&
     runtimeVisualQaGate.includes('2026-06-30 External Web Proof Retry') &&
     runtimeVisualQaGate.includes('External Web proof runtime visual QA: `Passed`') &&
     runtimeVisualQaGate.includes('Local HTTP boot | `Passed`') &&
@@ -549,6 +554,18 @@ assert(
     statSync(join(root, 'validation/proof-artifacts/unity-runtime-visual-smoke.png')).size > 50000,
   'Unity runtime visual smoke report and screenshot record passed non-Web engine render evidence',
   'Unity runtime visual smoke evidence must include a passed report, runtime marker, screenshot path, and non-empty PNG'
+);
+assert(
+  lowLevelDiggerUnitySceneCaptureSummary.includes('# LowLevelDigger Unity Scene Capture Attempt Summary') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('https://github.com/keijiro/LowLevelDigger') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('a56d4ec2827998ae6417d51f0d01cc7715e866a3') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('Project version: Unity `6000.3.5f1`') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('Installed editor used: `C:\\Program Files\\Unity\\Hub\\Editor\\6000.2.9f1\\Editor\\Unity.exe`') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('Visual QA: `Blocked`') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('Scripts have compiler errors.') &&
+    lowLevelDiggerUnitySceneCaptureSummary.includes('not a passed runtime visual QA artifact'),
+  'LowLevelDigger external Unity candidate report records source, version mismatch, compiler blocker, and blocked visual QA',
+  'LowLevelDigger external Unity candidate report must record source, commit, versions, compile blocker, and blocked visual QA'
 );
 assert(
   engineRuntimeEnvironmentReport.includes('# Engine Runtime Environment Report') &&

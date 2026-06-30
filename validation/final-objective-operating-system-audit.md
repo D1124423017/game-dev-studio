@@ -49,6 +49,7 @@ Weak evidence:
 
 - Godot runtime visual QA is blocked because no Godot executable is available in the current environment.
 - Unity runtime visual smoke is now passed for a temporary Unity `6000.2.9f1` project, but the external Unity `2022.1.10f1` proof source still has no clean Play Mode screenshot.
+- An external Unity 6 candidate, `keijiro/LowLevelDigger`, was identified and tested, but its Unity `6000.3.5f1` package code failed to compile under the installed Unity `6000.2.9f1`, so project-specific screenshot capture remains blocked.
 - Unreal runtime visual QA is blocked because the available UE `5.6` editor does not match the UE `5.2` proof source and the unattended open attempt timed out before PIE or screenshot evidence.
 - The strongest external runtime screenshot proof is still Web / HTML Canvas. The Unity smoke is valid local non-Web runtime evidence, but it does not independently prove project-specific visual QA behavior for external Unity, Unreal, or Godot proof projects.
 
@@ -61,10 +62,11 @@ Weak evidence:
 ## Highest-Value Remaining Work
 
 1. Capture one non-Web external engine runtime screenshot or visual comparison from a compatible Godot, Unity, or Unreal proof project.
-2. Run a user-owned or independently scoped first-playable request from client brief through implementation delivery and acceptance.
-3. Add before / after visual comparison evidence tied to a formal visual target or style bible.
-4. Keep proof reports project-specific; do not move proof-project rules into the general Skill.
-5. Re-run `node scripts/validate-skill.mjs`, `node scripts/validate-proof-package.mjs --require`, and `git diff --check` after proof updates.
+2. Find or install a compatible external engine runtime, such as Unity `6000.3.5f1` for `keijiro/LowLevelDigger` or a public Unity `6000.2.x` project for the installed editor.
+3. Run a user-owned or independently scoped first-playable request from client brief through implementation delivery and acceptance.
+4. Add before / after visual comparison evidence tied to a formal visual target or style bible.
+5. Keep proof reports project-specific; do not move proof-project rules into the general Skill.
+6. Re-run `node scripts/validate-skill.mjs`, `node scripts/validate-proof-package.mjs --require`, and `git diff --check` after proof updates.
 
 ## Non-Goals
 

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added an external Unity 6 proof-candidate attempt report for `keijiro/LowLevelDigger`, documenting that project-specific visual QA is blocked by Unity 6000.3 versus installed Unity 6000.2 package API incompatibility.
 - Added a reproducible local Unity runtime visual smoke script, screenshot artifact, and sanitized report to strengthen non-Web engine runtime visual QA evidence without claiming external Unity project proof is complete.
 - Added a final objective operating-system audit that maps the client-commissioned AI game studio goal to current evidence, partial proof status, non-goals, and remaining cross-engine runtime visual QA gaps.
 - Captured local runtime fixture visual QA screenshot evidence and preserved existing passed visual evidence when a later environment cannot rerun browser capture.
