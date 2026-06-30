@@ -59,8 +59,9 @@ I am a client commissioning this studio to make a 2D action game. Start with cli
 - UI motion and game feel review, including HUD feedback, menu transitions, GSAP, React Bits-style patterns, engine-native UI animation, and feedback timing
 - Gameplay VFX and technical effects guidance for hit sparks, particles, sprite flipbooks, shaders, post-processing, screen shake, Unity VFX Graph, Unreal Niagara, and Godot particles
 - Helps route effects by runtime job instead of forcing everything into canvas drawing
+- Runtime visual QA guidance for screenshots, visual comparison evidence, engine capture blockers, and Web / Godot / Unity / Unreal acceptance status
 - Token-conscious modes: Quick Check, Focused Review, Full Studio Audit, Client Studio Production Workflow, and Roadmap Strategy Audit so routine tasks stay lightweight
-- Evidence-based public case studies across Phaser, Godot, and Unity
+- Evidence-based public case studies and proof reports across Phaser, Web / HTML Canvas, Godot, Unity, and Unreal
 - A zero-dependency validation script and GitHub Actions check for Skill structure, references, versions, and public documentation
 - Built-in ruthless playtester that actively points out what's not fun, unclear, or could be improved
 
@@ -306,6 +307,7 @@ game-dev-studio/
 │   ├── production-milestone-gates.md
 │   ├── studio-implementation-delivery-workflow.md
 │   ├── roadmap-strategy-audit.md
+│   ├── runtime-visual-qa-guide.md
 │   ├── template-index.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
@@ -315,8 +317,14 @@ game-dev-studio/
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
 ├── scripts/
+│   ├── check-engine-runtime-visual-qa.mjs
+│   ├── validate-proof-package.mjs
 │   └── validate-skill.mjs
 ├── validation/
+│   ├── engine-runtime-environment-report.md
+│   ├── runtime-visual-qa-gate.md
+│   ├── proof-*.md
+│   ├── proof-artifacts/
 │   ├── test-results-v0.5.0.md
 │   ├── test-results-v0.6.0.md
 │   ├── test-results-v0.7.0.md
@@ -336,6 +344,20 @@ node scripts/validate-skill.mjs
 It checks Skill frontmatter, lazy reference routes, public version consistency, bilingual README links, test and case-study coverage, deprecated naming, multiline Markdown/YAML, and committed `.skill` packages. GitHub Actions runs the same check on pushes and pull requests.
 
 See [examples/](examples/) for the three public-project case studies and the client-studio workflow trace. See [validation/](validation/) for recorded prompt test results, final-goal coverage notes, the v0.9 external proof report, the v1.0 acceptance proof protocol, and the local web first-playable runtime fixture with smoke and visual QA checks.
+
+For non-Web engine runtime readiness, run:
+
+```bash
+node scripts/check-engine-runtime-visual-qa.mjs
+```
+
+To refresh the committed environment report:
+
+```bash
+node scripts/check-engine-runtime-visual-qa.mjs --write validation/engine-runtime-environment-report.md
+```
+
+Engine availability is not the same as visual QA. Unity, Unreal, or Godot visual QA still needs project-specific screenshots, logs, or equivalent visual comparison evidence before it can be marked `Passed`.
 
 The repo should not be treated as `v1.0.0` ready until the proof protocol has been satisfied by at least one independently scoped game project with client brief, proposal, scope lock, formal art direction, architecture gate, implementation delivery, QA evidence, visual evidence when relevant, Ruthless Playtester feedback, and client acceptance reporting.
 

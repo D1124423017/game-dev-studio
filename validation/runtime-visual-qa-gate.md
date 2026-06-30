@@ -13,6 +13,7 @@ The Skill already has external proof reports for Web / HTML Canvas, Godot, Unity
 - External Godot proof runtime visual QA: `Blocked`
 - External Unity proof runtime visual QA: `Blocked`
 - External Unreal proof runtime visual QA: `Blocked`
+- Engine runtime environment check: `Blocked`
 
 The local fixture screenshot is useful smoke evidence, and the external Web proof now closes the minimum external screenshot requirement. Non-Web engine captures remain useful follow-up proof because the Skill claims cross-engine applicability.
 
@@ -56,6 +57,26 @@ At least one external proof must include:
 
 The Web / HTML Canvas proof now satisfies this minimum external screenshot requirement. The gate remains useful as a tracker for stronger cross-engine runtime proof.
 
+## 2026-06-30 Engine Runtime Environment Check
+
+Environment report:
+
+- `validation/engine-runtime-environment-report.md`
+
+Results:
+
+| Engine | Runtime Status | Project-Specific Visual QA Status | Evidence |
+|---|---|---|---|
+| Godot | `Blocked` | `Blocked` | no PATH command, environment variable, or common install path found |
+| Unity | `Available` | `Blocked` | Unity `6000.2.9f1` was detected, but the proof source is Unity `2022.1.10f1`; the batch attempt summary records package upgrade risk, headless entitlement messages, and no screenshot artifact |
+| Unreal | `Available` | `Blocked` | UE `5.6` was detected, but the proof source declares `EngineAssociation` `5.2`; no clean compile, PIE, or screenshot artifact exists |
+
+Unity attempt summary:
+
+- `validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md`
+
+Do not count runtime availability as visual QA. A runtime is only a prerequisite; project-specific screenshot or visual comparison evidence is still required.
+
 ## Acceptable Capture Routes
 
 - Browser screenshot from Playwright, Chrome, Edge, or another approved browser tool
@@ -71,4 +92,4 @@ The Web / HTML Canvas proof now satisfies this minimum external screenshot requi
 
 ## Release Decision
 
-The original external Web screenshot blocker is closed. Do not treat that as proof that every engine runtime has been visually tested; Godot, Unity, and Unreal screenshots remain blocked until those runtimes are available.
+The original external Web screenshot blocker is closed. Do not treat that as proof that every engine runtime has been visually tested; Godot is unavailable, while Unity and Unreal still need compatible project-specific screenshot captures.

@@ -7,6 +7,8 @@
 - Added a third real-project proof report for a Unity 2D prototype, including a title-menu UI motion patch artifact, static smoke test, QA status, Ruthless Playtester note, and client acceptance status.
 - Added a fourth real-project proof report for an Unreal Paper2D sample, including a pixel-perfect viewport policy patch artifact, static smoke test, QA status, Ruthless Playtester note, and client acceptance status.
 - Added a Runtime Visual QA Gate that records the external Web screenshot proof, Playwright visual QA report, and remaining non-Web engine runtime capture blockers.
+- Added a Runtime Visual QA Guide plus a zero-dependency engine runtime environment checker for Godot, Unity, and Unreal visual QA readiness.
+- Recorded Unity and Unreal runtime availability separately from project-specific screenshot acceptance so engine detection is not mistaken for passed visual QA.
 
 ## v0.9.0 - 2026-06-29
 

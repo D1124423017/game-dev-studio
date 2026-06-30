@@ -8,3 +8,4 @@ desktop.ini
 
 # 本地驗證產物
 validation/runtime-fixtures/**/artifacts/browser-profile*/
+validation/proof-artifacts/*-editor-*.log

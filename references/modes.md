@@ -43,6 +43,7 @@ Best for:
 - UI motion / game feel review
 - Studio art direction or visual target review
 - Gameplay VFX review
+- Runtime visual QA or screenshot evidence review
 - Visual asset planning
 - QA pass
 - Ruthless playtest pass
@@ -111,6 +112,7 @@ Reference loading:
 - Add `references/studio-art-direction-pipeline.md` when the client work needs a formal visual target, style bible, polished UI, Product Design plugin coordination, or design QA.
 - Add `references/production-milestone-gates.md` when the client work spans prototype, vertical slice, alpha, beta, release candidate, delivery, or acceptance.
 - Add `references/studio-implementation-delivery-workflow.md` when the approved work moves into implementation, integration, QA, playtest, acceptance, or final delivery reporting.
+- Add `references/runtime-visual-qa-guide.md` when player-facing implementation needs screenshot evidence, visual comparison, engine capture, or a blocked runtime explanation.
 - Add architecture, UI visual, visual asset, motion, VFX, QA, or playtesting references only when that stage is active.
 - Read `references/output-templates.md` only for formal proposal packages or complete deliverables.
 

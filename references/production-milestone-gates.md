@@ -83,6 +83,7 @@ Exit evidence:
 - Gameplay VFX, UI motion, and audio feedback support the loop.
 - Save/settings and restart behavior are covered if relevant.
 - QA pass includes boot, main flow, input, UI readability, asset loading, console/runtime errors, and known risks.
+- Runtime visual QA includes screenshot or visual comparison evidence for player-facing UI, art, motion, or VFX changes.
 
 Not accepted:
 
@@ -141,6 +142,7 @@ Exit evidence:
 - Main player flow passes.
 - No known blocker or unaccepted high-severity bugs.
 - Store/demo/portfolio screenshots do not show placeholder UI or assets unless intentionally labeled.
+- Runtime screenshots or visual comparison evidence exist for the accepted player-facing screens.
 - Final report lists tests, risks, remaining work, and client decisions.
 
 Not accepted:
@@ -222,6 +224,7 @@ A delivery report should cite concrete evidence:
 - Files changed:
 - Build/test commands:
 - Screenshots or visual comparison when relevant:
+- Runtime visual QA status and blockers:
 - QA results:
 - Playtest notes:
 - Known risks:

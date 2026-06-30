@@ -63,8 +63,10 @@ const requiredFiles = [
   'references/production-milestone-gates.md',
   'references/studio-implementation-delivery-workflow.md',
   'references/roadmap-strategy-audit.md',
+  'references/runtime-visual-qa-guide.md',
   'examples/README.md',
   'examples/client-studio-end-to-end-trace.md',
+  'scripts/check-engine-runtime-visual-qa.mjs',
   'scripts/validate-proof-package.mjs',
   'validation/runtime-fixtures/web-first-playable-slice/README.md',
   'validation/runtime-fixtures/web-first-playable-slice/index.html',
@@ -82,9 +84,11 @@ const requiredFiles = [
   'validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md',
   'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png',
   'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png',
+  'validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/v0.9-real-project-proof-plan.md',
   'validation/v1.0-acceptance-proof-protocol.md',
+  'validation/engine-runtime-environment-report.md',
   'validation/runtime-visual-qa-gate.md'
 ];
 
@@ -107,11 +111,14 @@ const godotProofReport = read('validation/proof-godot-dodge-the-creeps-v1.0.0.md
 const unityProofReport = read('validation/proof-unity2d-prototype-v1.0.0.md');
 const unrealProofReport = read('validation/proof-unreal-pixelperfect2d-v1.0.0.md');
 const externalVisualQaReport = read('validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md');
+const unityBatchSummary = read('validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const v090ProofPlan = read('validation/v0.9-real-project-proof-plan.md');
 const v100ProofProtocol = read('validation/v1.0-acceptance-proof-protocol.md');
+const engineRuntimeEnvironmentReport = read('validation/engine-runtime-environment-report.md');
 const runtimeVisualQaGate = read('validation/runtime-visual-qa-gate.md');
 const endToEndTrace = read('examples/client-studio-end-to-end-trace.md');
+const runtimeVisualQaGuide = read('references/runtime-visual-qa-guide.md');
 
 const skillLines = skill.split(/\r?\n/);
 const closingFrontmatter = skillLines.indexOf('---', 1);
@@ -191,6 +198,13 @@ assert(
   'Studio Implementation Delivery Workflow is routed by SKILL.md',
   'SKILL.md must route implementation, QA, acceptance, and delivery reporting to the lazy-loaded reference'
 );
+assert(
+  skill.includes('references/runtime-visual-qa-guide.md') &&
+    skill.includes('runtime screenshots') &&
+    skill.includes('visual QA evidence'),
+  'Runtime Visual QA Guide is routed by SKILL.md',
+  'SKILL.md must route runtime screenshots and visual QA evidence to the lazy-loaded reference'
+);
 
 assert(
   readme.includes('[繁體中文](README.zh-TW.md)'),
@@ -228,6 +242,13 @@ assert(
   'README.md must describe the Studio Implementation Delivery Workflow, QA evidence, playtest notes, and client-facing delivery reports'
 );
 assert(
+  readme.includes('Runtime visual QA') &&
+    readme.includes('check-engine-runtime-visual-qa.mjs') &&
+    readme.includes('visual comparison evidence'),
+  'English README documents runtime visual QA and engine readiness checks',
+  'README.md must document runtime visual QA and the engine runtime readiness checker'
+);
+assert(
   readme.includes('client-studio workflow trace') &&
     readme.includes('final-goal coverage'),
   'English README points to workflow trace and final-goal coverage',
@@ -257,6 +278,13 @@ assert(
     readmeZh.includes('client-facing delivery report'),
   'Traditional Chinese README documents implementation delivery',
   'README.zh-TW.md must describe the Studio Implementation Delivery Workflow, QA evidence, playtest notes, and client-facing delivery reports'
+);
+assert(
+  readmeZh.includes('Runtime visual QA') &&
+    readmeZh.includes('check-engine-runtime-visual-qa.mjs') &&
+    readmeZh.includes('visual comparison'),
+  'Traditional Chinese README documents runtime visual QA and engine readiness checks',
+  'README.zh-TW.md must document runtime visual QA and the engine runtime readiness checker'
 );
 assert(
   readmeZh.includes('client-studio workflow trace') &&
@@ -371,6 +399,17 @@ assert(
   'External Web visual QA screenshots must be committed and non-empty'
 );
 assert(
+  runtimeVisualQaGuide.includes('# Runtime Visual QA Guide') &&
+    runtimeVisualQaGuide.includes('Visual QA Status Rules') &&
+    runtimeVisualQaGuide.includes('Web / HTML Canvas / Web Game') &&
+    runtimeVisualQaGuide.includes('Godot') &&
+    runtimeVisualQaGuide.includes('Unity') &&
+    runtimeVisualQaGuide.includes('Unreal') &&
+    runtimeVisualQaGuide.includes('Do not mark `Visual QA` as `Passed` without a screenshot'),
+  'Runtime Visual QA Guide covers status rules and Web/Godot/Unity/Unreal capture routes',
+  'references/runtime-visual-qa-guide.md must define visual QA status rules and capture routes for Web, Godot, Unity, and Unreal'
+);
+assert(
   godotProofReport.includes('# v1.0 Proof Report: Godot Dodge the Creeps HUD Proof Slice') &&
     godotProofReport.includes('https://github.com/godotengine/godot-demo-projects') &&
     godotProofReport.includes('8ea3cc244709760592c42baf0c852eea6cc764e8') &&
@@ -386,6 +425,8 @@ assert(
     unityProofReport.includes('https://github.com/practical-works/unity2d-prototype') &&
     unityProofReport.includes('88505c7d62339922be7d8af7a2d6b5ac7adc9f9b') &&
     unityProofReport.includes('Static smoke test | `Passed`') &&
+    unityProofReport.includes('Unity runtime availability | `Passed`') &&
+    unityProofReport.includes('unity2d-prototype-editor-batch-summary.md') &&
     unityProofReport.includes('Unity editor compile | `Blocked`') &&
     unityProofReport.includes('Unity Play Mode | `Blocked`') &&
     unityProofReport.includes('Visual QA | `Blocked`') &&
@@ -394,10 +435,22 @@ assert(
   'validation/proof-unity2d-prototype-v1.0.0.md must record the Unity proof source, implementation evidence, tests, blocked runtime QA, and acceptance'
 );
 assert(
+  unityBatchSummary.includes('# Unity 2D Prototype Editor Batch Attempt Summary') &&
+    unityBatchSummary.includes('Unity project version: `2022.1.10f1`') &&
+    unityBatchSummary.includes('Installed editor used: `C:\\Program Files\\Unity\\Hub\\Editor\\6000.2.9f1\\Editor\\Unity.exe`') &&
+    unityBatchSummary.includes('Runtime availability: `Passed`') &&
+    unityBatchSummary.includes('Visual QA: `Blocked`') &&
+    unityBatchSummary.includes('raw editor log is intentionally not committed'),
+  'Unity editor batch summary records sanitized availability evidence and blocked visual QA',
+  'validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md must record sanitized Unity runtime evidence without raw local editor logs'
+);
+assert(
   unrealProofReport.includes('# v1.0 Proof Report: Unreal Pixel Perfect 2D Viewport Proof Slice') &&
     unrealProofReport.includes('https://github.com/Nauja/ue4-pixelperfect2d-sample') &&
     unrealProofReport.includes('72dd12111eaa202ab519afcf5585e76668a8abdd') &&
     unrealProofReport.includes('Static smoke test | `Passed`') &&
+    unrealProofReport.includes('Unreal runtime availability | `Passed`') &&
+    unrealProofReport.includes('UE `5.6`') &&
     unrealProofReport.includes('Unreal editor compile | `Blocked`') &&
     unrealProofReport.includes('PIE smoke | `Blocked`') &&
     unrealProofReport.includes('Visual QA | `Blocked`') &&
@@ -410,6 +463,7 @@ assert(
     finalGoalCoverage.includes('Real end-to-end use on a game repo') &&
     finalGoalCoverage.includes('Partially proven') &&
     finalGoalCoverage.includes('external Web / HTML Canvas proof now has runtime visual QA screenshots') &&
+    finalGoalCoverage.includes('validation/engine-runtime-environment-report.md') &&
     finalGoalCoverage.includes('Recommended Next Proof') &&
     finalGoalCoverage.includes('validation/v1.0-acceptance-proof-protocol.md') &&
     finalGoalCoverage.includes('validation/runtime-visual-qa-gate.md'),
@@ -422,13 +476,15 @@ assert(
     v100ProofProtocol.includes('Minimum External Proof') &&
     v100ProofProtocol.includes('Screenshot or visual QA evidence') &&
     v100ProofProtocol.includes('Do not count a screenshot requirement as passed') &&
+    v100ProofProtocol.includes('Do not count engine availability as visual QA') &&
+    v100ProofProtocol.includes('scripts/check-engine-runtime-visual-qa.mjs') &&
     v100ProofProtocol.includes('v1.0 Release Gate') &&
     v100ProofProtocol.includes('validation/runtime-visual-qa-gate.md'),
   'v1.0 acceptance proof protocol defines external proof, visual evidence, and release gates',
   'validation/v1.0-acceptance-proof-protocol.md must define the external proof package, visual evidence rules, and v1.0 release gate'
 );
 assert(
-    runtimeVisualQaGate.includes('# Runtime Visual QA Gate') &&
+  runtimeVisualQaGate.includes('# Runtime Visual QA Gate') &&
     runtimeVisualQaGate.includes('2026-06-30 External Web Proof Retry') &&
     runtimeVisualQaGate.includes('External Web proof runtime visual QA: `Passed`') &&
     runtimeVisualQaGate.includes('Local HTTP boot | `Passed`') &&
@@ -436,10 +492,23 @@ assert(
     runtimeVisualQaGate.includes('Edge headless screenshot | `Blocked`') &&
     runtimeVisualQaGate.includes('Existing Node REPL Playwright capture | `Passed`') &&
     runtimeVisualQaGate.includes('gamedev-canvas-workshop-visual-qa-report.md') &&
+    runtimeVisualQaGate.includes('Engine Runtime Environment Check') &&
+    runtimeVisualQaGate.includes('validation/engine-runtime-environment-report.md') &&
+    runtimeVisualQaGate.includes('unity2d-prototype-editor-batch-summary.md') &&
     runtimeVisualQaGate.includes('Required Evidence To Close This Gate') &&
-    runtimeVisualQaGate.includes('Godot, Unity, and Unreal screenshots remain blocked'),
+    runtimeVisualQaGate.includes('Unity and Unreal still need compatible project-specific screenshot captures'),
   'Runtime visual QA gate records passed external Web screenshots and remaining engine blockers',
   'validation/runtime-visual-qa-gate.md must record the external Web runtime screenshots and remaining non-Web engine blockers'
+);
+assert(
+  engineRuntimeEnvironmentReport.includes('# Engine Runtime Environment Report') &&
+    engineRuntimeEnvironmentReport.includes('| Godot |') &&
+    engineRuntimeEnvironmentReport.includes('| Unity |') &&
+    engineRuntimeEnvironmentReport.includes('| Unreal |') &&
+    engineRuntimeEnvironmentReport.includes('Overall status: `Blocked`') &&
+    engineRuntimeEnvironmentReport.includes('Web / HTML Canvas visual QA is tracked separately'),
+  'Engine runtime environment report records Godot, Unity, Unreal, and overall status',
+  'validation/engine-runtime-environment-report.md must record Godot, Unity, Unreal, and the overall engine runtime status'
 );
 assert(
   v090ProofPlan.includes('# v0.9 Real Project Proof Plan') &&
@@ -466,6 +535,38 @@ assert(
   'Runtime fixture delivery report records acceptance, playtest note, and architecture boundaries',
   'Runtime fixture delivery report must include client acceptance status, ruthless playtester note, and architecture boundaries'
 );
+
+try {
+  execFileSync(process.execPath, [
+    '--check',
+    'scripts/check-engine-runtime-visual-qa.mjs'
+  ], {
+    cwd: root,
+    encoding: 'utf8'
+  });
+  pass('Engine runtime environment checker has valid JavaScript syntax');
+} catch (error) {
+  fail(`Engine runtime environment checker syntax check failed: ${error.message}`);
+}
+
+try {
+  const engineRuntimeOutput = execFileSync(process.execPath, [
+    'scripts/check-engine-runtime-visual-qa.mjs'
+  ], {
+    cwd: root,
+    encoding: 'utf8'
+  });
+  assert(
+    engineRuntimeOutput.includes('# Engine Runtime Environment Report') &&
+      engineRuntimeOutput.includes('| Godot |') &&
+      engineRuntimeOutput.includes('| Unity |') &&
+      engineRuntimeOutput.includes('| Unreal |'),
+    'Engine runtime environment checker runs and reports Godot, Unity, and Unreal',
+    'Engine runtime environment checker must run and report Godot, Unity, and Unreal'
+  );
+} catch (error) {
+  fail(`Engine runtime environment checker failed: ${error.message}`);
+}
 
 try {
   execFileSync(process.execPath, [

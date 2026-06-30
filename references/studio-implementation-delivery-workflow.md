@@ -14,6 +14,7 @@ This guide keeps implementation from collapsing into "just write code." It prese
 - Implementation Loop
 - Player-Facing Quality Checks
 - Cross-Engine Verification
+- Runtime Visual QA
 - QA / Playtest / Acceptance
 - Delivery Report
 - Anti-Patterns
@@ -175,6 +176,21 @@ Choose the checks that fit the project.
 - Save/settings:
 
 If a check cannot run, mark it `Not run` or `Blocked` with the reason.
+
+## Runtime Visual QA
+
+When implementation affects player-facing presentation, read `references/runtime-visual-qa-guide.md` before claiming final acceptance.
+
+Minimum evidence:
+
+- Runtime or engine used:
+- Screenshot / capture path:
+- Captured screen state:
+- Console, browser, or engine error status:
+- Visual target / style bible comparison:
+- `Passed`, `Failed`, `Not run`, or `Blocked` decision:
+
+Do not count build success, static smoke tests, or engine availability as visual QA. Engine availability only proves that a capture may be possible; the project still needs a screenshot, video frame, or equivalent visual comparison artifact.
 
 ## QA / Playtest / Acceptance
 

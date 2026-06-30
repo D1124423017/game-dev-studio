@@ -8,8 +8,8 @@ description: >
   playtesting, MVP planning, client briefs, stakeholder requests, studio
   proposals, formal art direction, style bibles, Product Design plugin
   coordination, production milestone gates, implementation delivery, QA
-  evidence, acceptance reports, production architecture, or full game project
-  review. Do not use for tiny typo fixes, simple Git commands, one-line
+  evidence, runtime visual QA, acceptance reports, production architecture, or
+  full game project review. Do not use for tiny typo fixes, simple Git commands, one-line
   non-design bugs, or non-game chores.
 ---
 
@@ -43,6 +43,7 @@ Do not load all references. Load the smallest useful set.
 - Read `references/ui-visual-design-guide.md` for polished HUDs, menus, shop, upgrade, card, result, settings, dialog, visual hierarchy, component states, or avoiding canvas-drawn placeholder UI.
 - Read `references/ui-motion-guide.md` for UI motion, HUD feedback, reward toasts, combo feedback, menu transitions, GSAP, React Bits-style patterns, or engine-native UI animation.
 - Read `references/game-vfx-guide.md` for gameplay VFX, particles, hit sparks, slash trails, explosions, projectiles, magic effects, screen shake, shaders, post-processing, flipbooks, Unity VFX Graph, Unreal Niagara, Godot particles, or effect optimization.
+- Read `references/runtime-visual-qa-guide.md` for runtime screenshots, visual QA evidence, engine capture readiness, screenshot blockers, or deciding whether player-facing UI/art/VFX changes can be accepted.
 - Read `references/ruthless-playtester.md` for harsh player-centered critique of concepts, prototypes, levels, UI flows, reward loops, or completed features.
 - Read `references/production-milestone-gates.md` for prototype, vertical slice, alpha, beta, release candidate, public release, demo readiness, or client acceptance milestones.
 - Read `references/studio-implementation-delivery-workflow.md` when an approved or assumed client/studio task moves into build, implementation, integration, QA, playtest, acceptance, or final delivery reporting.

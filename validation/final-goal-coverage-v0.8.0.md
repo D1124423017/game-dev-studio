@@ -28,7 +28,7 @@ Turn Game Dev Studio into a client-commissioned AI game development studio opera
 | Applies to Unity, Unreal, Godot, Web Game, HTML Canvas, 2D, 3D | `SKILL.md`, README, Architecture Guide, metadata tags | Covered |
 | Does not become one-game-specific | Contribution rules, Roadmap Strategy Audit risk checks, example case study rules | Covered |
 | Implementation preserves studio gates through delivery | Studio Implementation Delivery Workflow, prompt test 14, validation/test-results-v0.8.0.md | Covered in prompt behavior |
-| Real end-to-end use on a game repo | Local web first-playable runtime fixture now includes implementation files, smoke test, QA evidence, Ruthless Playtester note, client acceptance status, and captured visual QA screenshot evidence. External real-project proofs exist for `end3r/Gamedev-Canvas-workshop`, Godot `dodge_the_creeps`, Unity `unity2d-prototype`, and Unreal `ue4-pixelperfect2d-sample`; the Web proof now has runtime visual QA screenshots, while Godot / Unity / Unreal runtime captures remain blocked. | Partially proven |
+| Real end-to-end use on a game repo | Local web first-playable runtime fixture now includes implementation files, smoke test, QA evidence, Ruthless Playtester note, client acceptance status, and captured visual QA screenshot evidence. External real-project proofs exist for `end3r/Gamedev-Canvas-workshop`, Godot `dodge_the_creeps`, Unity `unity2d-prototype`, and Unreal `ue4-pixelperfect2d-sample`; the Web proof now has runtime visual QA screenshots. Unity and Unreal runtimes are detectable, but project-specific captures remain blocked by version/capture risk; Godot runtime is not available. | Partially proven |
 
 ## Current Evidence Strength
 
@@ -43,18 +43,21 @@ Strong evidence:
 Weak or missing evidence:
 
 - The external Web / HTML Canvas proof now has runtime visual QA screenshots from a runnable public project.
-- Godot, Unity, and Unreal proof reports still have runtime visual QA blocked because those engine runtimes are unavailable in this environment.
+- Godot runtime is unavailable in this environment.
+- Unity and Unreal runtimes are detectable, but the current proof projects still lack compatible project-specific screenshot captures.
+- The Unity batch attempt shows the installed Unity `6000.2.9f1` can open far enough to create runtime folders, but it is not a clean acceptance run for the Unity `2022.1.10f1` proof source.
 - Runtime proof now includes one independent public Web / HTML Canvas proof, one independent public Godot proof, one independent public Unity proof, and one independent public Unreal proof.
 - Validation records are mostly prompt-behavior checks, with one executable web fixture smoke test.
 - The v1.0 acceptance proof protocol now has at least one external Web proof package with visual evidence, but broader cross-engine runtime capture is still incomplete.
 - The v0.9 real-project proof plan defines how to produce and validate the missing proof package.
-- `validation/runtime-visual-qa-gate.md` records the closed Web screenshot blocker and the remaining non-Web engine runtime capture blockers.
+- `validation/engine-runtime-environment-report.md` records Godot / Unity / Unreal runtime availability.
+- `validation/runtime-visual-qa-gate.md` records the closed Web screenshot blocker and the remaining non-Web engine project-specific capture blockers.
 
 ## Decision
 
 The repo is materially aligned with the final objective as a Skill specification and public documentation package, and it now includes a local runtime fixture with screenshot evidence plus external Web / HTML Canvas, Godot, Unity, and Unreal proof reports. The Web proof now includes runtime screenshot evidence from a public project.
 
-The long-term goal should not be marked complete until the proof base also includes stronger cross-engine runtime evidence or a deliberate client decision to accept Web runtime proof plus static non-Web proof as sufficient:
+The long-term goal should not be marked complete until the proof base also includes stronger cross-engine runtime evidence or a deliberate client decision to accept Web runtime proof plus static / availability-only non-Web proof as sufficient:
 
 1. A user-owned or independently runnable prototype proof with runtime visual QA
 2. Visual target or style bible evidence
@@ -97,7 +100,9 @@ Current partial proof:
 - External Web screenshots: `validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png`, `validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png`
 - External Godot proof report: `validation/proof-godot-dodge-the-creeps-v1.0.0.md`
 - External Unity proof report: `validation/proof-unity2d-prototype-v1.0.0.md`
+- Unity batch attempt summary: `validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md`
 - External Unreal proof report: `validation/proof-unreal-pixelperfect2d-v1.0.0.md`
 - Runtime visual QA gate: `validation/runtime-visual-qa-gate.md`
+- Engine runtime environment report: `validation/engine-runtime-environment-report.md`
 
 Use `validation/v0.9-real-project-proof-plan.md` to produce the missing proof package, then use `validation/v1.0-acceptance-proof-protocol.md` as the release gate before claiming the long-term goal is complete or recommending `v1.0.0`.

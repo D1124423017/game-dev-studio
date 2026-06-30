@@ -55,8 +55,9 @@ $game-dev-studio
 - UI 動效與遊戲爽感檢查，包含 HUD 回饋、選單轉場、GSAP、React Bits 風格動效、引擎原生 UI 動畫與回饋節奏
 - Gameplay VFX 與技術特效指引，包含打擊火花、粒子、sprite flipbook、shader、post-processing、screen shake、Unity VFX Graph、Unreal Niagara 與 Godot particles
 - 會依照 runtime job 判斷特效該用 sprite、particle、shader、後製、camera impulse 或 UI FX，而不是全部硬塞進 canvas 繪製
+- Runtime visual QA 指引，要求截圖、visual comparison 證據、engine capture blocker 與 Web / Godot / Unity / Unreal 驗收狀態
 - 省 token 模式：Quick Check、Focused Review、Full Studio Audit、Client Studio Production Workflow、Roadmap Strategy Audit，讓日常任務保持輕量
-- 包含 Phaser、Godot、Unity 三種技術棧的公開專案實證案例
+- 包含 Phaser、Web / HTML Canvas、Godot、Unity、Unreal 的公開案例與 proof report
 - 提供零相依驗證工具與 GitHub Actions，檢查 Skill 結構、references、版本與公開文件
 - 內建犀利測試玩家，主動指出不好玩、不清楚、可改善的地方
 
@@ -302,6 +303,7 @@ game-dev-studio/
 │   ├── production-milestone-gates.md
 │   ├── studio-implementation-delivery-workflow.md
 │   ├── roadmap-strategy-audit.md
+│   ├── runtime-visual-qa-guide.md
 │   ├── template-index.md
 │   ├── architecture-guide.md
 │   ├── visual-asset-policy.md
@@ -311,8 +313,14 @@ game-dev-studio/
 │   ├── ruthless-playtester.md
 │   └── output-templates.md
 ├── scripts/
+│   ├── check-engine-runtime-visual-qa.mjs
+│   ├── validate-proof-package.mjs
 │   └── validate-skill.mjs
 ├── validation/
+│   ├── engine-runtime-environment-report.md
+│   ├── runtime-visual-qa-gate.md
+│   ├── proof-*.md
+│   ├── proof-artifacts/
 │   ├── test-results-v0.5.0.md
 │   ├── test-results-v0.6.0.md
 │   ├── test-results-v0.7.0.md
@@ -332,6 +340,20 @@ node scripts/validate-skill.mjs
 它會檢查 Skill frontmatter、lazy reference 路由、公開版本一致性、中英文 README 連結、測試與案例覆蓋、舊名稱、多行 Markdown/YAML，以及是否誤提交 `.skill`。GitHub Actions 會在 push 與 pull request 執行相同檢查。
 
 三個公開專案案例與 client-studio workflow trace 請看 [examples/](examples/)，測試紀錄、final-goal coverage notes、v0.9 external proof report、v1.0 acceptance proof protocol，以及含 smoke / visual QA 檢查的本地 web first-playable runtime fixture 請看 [validation/](validation/)。
+
+若要檢查非 Web 引擎 runtime 是否可用，執行：
+
+```bash
+node scripts/check-engine-runtime-visual-qa.mjs
+```
+
+若要更新已提交的環境報告：
+
+```bash
+node scripts/check-engine-runtime-visual-qa.mjs --write validation/engine-runtime-environment-report.md
+```
+
+引擎可被偵測不等於 visual QA 通過。Unity、Unreal 或 Godot 仍需要專案特定截圖、log 或等效 visual comparison 證據，才能標記為 `Passed`。
 
 在至少一個獨立遊戲專案完成 proof protocol 前，不應把這個 repo 視為 `v1.0.0` ready。該證據需要包含甲方 brief、方向提案、scope lock、正式美術方向、architecture gate、implementation delivery、QA 證據、必要時的 visual evidence、犀利測試玩家回饋與 client acceptance report。
 
