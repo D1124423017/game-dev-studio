@@ -28,7 +28,7 @@ Turn Game Dev Studio into a client-commissioned AI game development studio opera
 | Applies to Unity, Unreal, Godot, Web Game, HTML Canvas, 2D, 3D | `SKILL.md`, README, Architecture Guide, metadata tags | Covered |
 | Does not become one-game-specific | Contribution rules, Roadmap Strategy Audit risk checks, example case study rules | Covered |
 | Implementation preserves studio gates through delivery | Studio Implementation Delivery Workflow, prompt test 14, validation/test-results-v0.8.0.md | Covered in prompt behavior |
-| Real end-to-end use on a game repo | Local web first-playable runtime fixture now includes implementation files, smoke test, QA evidence, Ruthless Playtester note, client acceptance status, and captured visual QA screenshot evidence. External real-project proofs exist for `end3r/Gamedev-Canvas-workshop`, Godot `dodge_the_creeps`, Unity `unity2d-prototype`, and Unreal `ue4-pixelperfect2d-sample`; the Web proof now has runtime visual QA screenshots. Unity and Unreal runtimes are detectable, but project-specific captures remain blocked by version/capture risk; Godot runtime is not available. | Partially proven |
+| Real end-to-end use on a game repo | Local web first-playable runtime fixture now includes implementation files, smoke test, QA evidence, Ruthless Playtester note, client acceptance status, and captured visual QA screenshot evidence. External real-project proofs exist for `end3r/Gamedev-Canvas-workshop`, Godot `dodge_the_creeps`, Unity `unity2d-prototype`, and Unreal `ue4-pixelperfect2d-sample`; the Web proof now has runtime visual QA screenshots. Unity and Unreal runtimes are detectable, Unreal has a project-specific open attempt, but non-Web project-specific screenshots remain blocked by version/capture risk; Godot runtime is not available. | Partially proven |
 
 ## Current Evidence Strength
 
@@ -46,6 +46,7 @@ Weak or missing evidence:
 - Godot runtime is unavailable in this environment.
 - Unity and Unreal runtimes are detectable, but the current proof projects still lack compatible project-specific screenshot captures.
 - The Unity batch attempt shows the installed Unity `6000.2.9f1` can open far enough to create runtime folders, but it is not a clean acceptance run for the Unity `2022.1.10f1` proof source.
+- The Unreal unattended open attempt shows UE `5.6.1` can begin opening the UE `5.2` proof source and mount Paper2D, but it times out before a clean compile, PIE, or screenshot artifact.
 - Runtime proof now includes one independent public Web / HTML Canvas proof, one independent public Godot proof, one independent public Unity proof, and one independent public Unreal proof.
 - Validation records are mostly prompt-behavior checks, with one executable web fixture smoke test.
 - The v1.0 acceptance proof protocol now has at least one external Web proof package with visual evidence, but broader cross-engine runtime capture is still incomplete.
@@ -102,6 +103,7 @@ Current partial proof:
 - External Unity proof report: `validation/proof-unity2d-prototype-v1.0.0.md`
 - Unity batch attempt summary: `validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md`
 - External Unreal proof report: `validation/proof-unreal-pixelperfect2d-v1.0.0.md`
+- Unreal editor open attempt summary: `validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md`
 - Runtime visual QA gate: `validation/runtime-visual-qa-gate.md`
 - Engine runtime environment report: `validation/engine-runtime-environment-report.md`
 

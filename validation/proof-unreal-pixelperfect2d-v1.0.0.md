@@ -36,7 +36,7 @@ I am a client commissioning this studio to turn this Unreal Paper2D pixel-perfec
 - Architecture gate: keep `SampleGameViewportClient` responsible for viewport show flags; keep `SampleCharacter`, `SampleGameMode`, config, and content assets in their existing responsibility lanes.
 - Task breakdown: patch only `Source/Sample/SampleGameViewportClient.h`, `Source/Sample/SampleGameViewportClient.cpp`, and add `Proof/client_studio_acceptance.md` plus `Proof/static_smoke.mjs`.
 - Implementation delivery: patch artifact applied to a temporary clone and committed locally as `72dd12111eaa202ab519afcf5585e76668a8abdd`.
-- QA / playtest: static smoke checks passed; Unreal runtime availability was confirmed, but editor compile, PIE, and screenshot capture remain blocked by project/editor version mismatch risk and lack of a clean capture path.
+- QA / playtest: static smoke checks passed; Unreal runtime availability was confirmed, and UE 5.6 started opening the UE 5.2 proof source, but editor compile, PIE, and screenshot capture remain blocked by project/editor version mismatch risk, editor initialization timeout, and lack of a clean capture artifact.
 - Acceptance report: accepted as a fourth cross-engine proof of the studio workflow; runtime Unreal acceptance remains blocked.
 
 ## Implementation Evidence
@@ -57,6 +57,7 @@ I am a client commissioning this studio to turn this Unreal Paper2D pixel-perfec
 | Patch whitespace | `Passed` | `git diff --check` reported no errors in the temporary clone |
 | Local proof commit | `Passed` | temporary clone commit `72dd12111eaa202ab519afcf5585e76668a8abdd` contains four proof files and 142 insertions |
 | Unreal runtime availability | `Passed` | `scripts/check-engine-runtime-visual-qa.mjs` found `C:\Program Files\Epic Games\UE_5.6\Engine\Binaries\Win64\UnrealEditor.exe` |
+| Unreal editor open attempt | `Blocked` | `validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md` records that UE `5.6.1` launched, mounted Paper2D, entered WindowsEditor setup with `NullRHI`, started DDC / shader work, but did not complete within the 90-second unattended window |
 | Unreal editor compile | `Blocked` | the source project declares `EngineAssociation` `5.2`, while the available editor is UE `5.6`; no clean compile artifact was produced |
 | PIE smoke | `Blocked` | no clean PIE run or packaged build was captured |
 | Visual QA | `Blocked` | runtime screenshot still requires a compatible Unreal editor, packaged build, or project-specific capture command |
@@ -69,5 +70,5 @@ I am a client commissioning this studio to turn this Unreal Paper2D pixel-perfec
 ## Client Acceptance Status
 
 - Verdict: Accepted as a fourth cross-engine proof of the client-studio workflow; not accepted as final v1.0 completion.
-- Remaining risks: Unreal compile and PIE are blocked, visual QA is blocked, and the available UE 5.6 editor may require a project upgrade for this UE 5.2 proof source.
-- Client decisions: provide matching UE 5.2 editor access for compile/PIE/screenshot verification, approve a project-specific capture command, or choose a user-owned prototype with executable runtime access.
+- Remaining risks: Unreal compile and PIE are blocked, visual QA is blocked, and the available UE 5.6 editor may require a project upgrade or longer first-import window for this UE 5.2 proof source.
+- Client decisions: provide matching UE 5.2 editor access for compile/PIE/screenshot verification, approve a disposable UE 5.6 upgrade/import pass with screenshot capture, or choose a user-owned prototype with executable runtime access.

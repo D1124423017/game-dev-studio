@@ -85,6 +85,7 @@ const requiredFiles = [
   'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png',
   'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png',
   'validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md',
+  'validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/v0.9-real-project-proof-plan.md',
   'validation/v1.0-acceptance-proof-protocol.md',
@@ -112,6 +113,7 @@ const unityProofReport = read('validation/proof-unity2d-prototype-v1.0.0.md');
 const unrealProofReport = read('validation/proof-unreal-pixelperfect2d-v1.0.0.md');
 const externalVisualQaReport = read('validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md');
 const unityBatchSummary = read('validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md');
+const unrealEditorOpenSummary = read('validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const v090ProofPlan = read('validation/v0.9-real-project-proof-plan.md');
 const v100ProofProtocol = read('validation/v1.0-acceptance-proof-protocol.md');
@@ -450,6 +452,8 @@ assert(
     unrealProofReport.includes('72dd12111eaa202ab519afcf5585e76668a8abdd') &&
     unrealProofReport.includes('Static smoke test | `Passed`') &&
     unrealProofReport.includes('Unreal runtime availability | `Passed`') &&
+    unrealProofReport.includes('Unreal editor open attempt | `Blocked`') &&
+    unrealProofReport.includes('unreal-pixelperfect2d-editor-open-summary.md') &&
     unrealProofReport.includes('UE `5.6`') &&
     unrealProofReport.includes('Unreal editor compile | `Blocked`') &&
     unrealProofReport.includes('PIE smoke | `Blocked`') &&
@@ -457,6 +461,18 @@ assert(
     unrealProofReport.includes('Accepted as a fourth cross-engine proof'),
   'Unreal real-project proof report records source, implementation evidence, tests, blocked runtime QA, and acceptance',
   'validation/proof-unreal-pixelperfect2d-v1.0.0.md must record the Unreal proof source, implementation evidence, tests, blocked runtime QA, and acceptance'
+);
+assert(
+  unrealEditorOpenSummary.includes('# Unreal Pixel Perfect 2D Editor Open Attempt Summary') &&
+    unrealEditorOpenSummary.includes('Unreal project engine association: `5.2`') &&
+    unrealEditorOpenSummary.includes('Installed editor used: `C:\\Program Files\\Epic Games\\UE_5.6\\Engine\\Binaries\\Win64\\UnrealEditor.exe`') &&
+    unrealEditorOpenSummary.includes('Runtime availability: `Passed`') &&
+    unrealEditorOpenSummary.includes('Editor open attempt: `Blocked`') &&
+    unrealEditorOpenSummary.includes('Visual QA: `Blocked`') &&
+    unrealEditorOpenSummary.includes('Paper2D') &&
+    unrealEditorOpenSummary.includes('raw editor log is intentionally not committed'),
+  'Unreal editor open summary records sanitized availability evidence and blocked visual QA',
+  'validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md must record sanitized Unreal runtime evidence without raw local editor logs'
 );
 assert(
   finalGoalCoverage.includes('## Requirement Coverage') &&
@@ -495,6 +511,7 @@ assert(
     runtimeVisualQaGate.includes('Engine Runtime Environment Check') &&
     runtimeVisualQaGate.includes('validation/engine-runtime-environment-report.md') &&
     runtimeVisualQaGate.includes('unity2d-prototype-editor-batch-summary.md') &&
+    runtimeVisualQaGate.includes('unreal-pixelperfect2d-editor-open-summary.md') &&
     runtimeVisualQaGate.includes('Required Evidence To Close This Gate') &&
     runtimeVisualQaGate.includes('Unity and Unreal still need compatible project-specific screenshot captures'),
   'Runtime visual QA gate records passed external Web screenshots and remaining engine blockers',
