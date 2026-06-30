@@ -12,7 +12,7 @@ It is a validation artifact. Do not load it during routine Skill use. Use it for
 
 Current verdict: `Partially proven`
 
-The Skill specification, references, templates, README, prompts, and validation scripts strongly support the target behavior. The remaining gap is proof quality, especially cross-engine runtime visual QA beyond Web / HTML Canvas.
+The Skill specification, references, templates, README, prompts, and validation scripts strongly support the target behavior. The remaining gap is proof quality, especially external project-specific cross-engine runtime visual QA beyond Web / HTML Canvas and the local Unity smoke.
 
 Do not claim the final objective is fully complete or recommend `v1.0.0` until the missing proof is resolved or explicitly accepted as a scoped release risk.
 
@@ -32,7 +32,7 @@ Do not claim the final objective is fully complete or recommend `v1.0.0` until t
 | Skill remains general-purpose, not one-game-specific | Contribution rules, roadmap audit rules, proof plan rules, public case studies | Covered |
 | Implementation delivery is bounded and evidence-based | Studio Implementation Delivery Workflow, local fixture, external proof reports | Covered in documentation and Web proof |
 | Runtime visual QA is required for player-facing acceptance | Runtime Visual QA Guide, runtime visual QA gate, visual QA fixture and Web screenshots | Partially proven |
-| Cross-engine runtime proof exists for Unity / Unreal / Godot | Static and blocked proof reports exist; Unity and Unreal runtimes are detected; Godot runtime unavailable | Not fully proven |
+| Cross-engine runtime proof exists for Unity / Unreal / Godot | Local Unity runtime visual smoke passed; static and blocked proof reports exist for Godot, Unity, and Unreal external projects; Godot runtime is unavailable | Partially proven |
 
 ## Evidence Strength
 
@@ -41,25 +41,26 @@ Strong evidence:
 - The Skill routes client/studio production, art direction, architecture, UI motion, VFX, QA, playtesting, implementation delivery, runtime visual QA, and roadmap audits through lazy references.
 - The validation script checks required files, reference routing, public versions, README language links, deprecated names, multiline Markdown/YAML, proof artifacts, and `.skill` package hygiene.
 - The local Web first-playable fixture demonstrates modular architecture, DOM/CSS game UI, Canvas gameplay rendering, QA, playtest notes, client acceptance status, and visual QA.
+- The local Unity runtime visual smoke demonstrates a non-Web engine camera render, screenshot artifact, sanitized command report, and formal client-studio UI composition.
 - The external Web / HTML Canvas proof has runtime screenshots, clean console status, clean page error status, static smoke evidence, and client acceptance notes.
 - Godot, Unity, and Unreal proof reports show that the workflow can be applied across engine families without turning the Skill into a single-project rulebook.
 
 Weak evidence:
 
 - Godot runtime visual QA is blocked because no Godot executable is available in the current environment.
-- Unity runtime visual QA is blocked because the available Unity `6000.2.9f1` editor does not match the Unity `2022.1.10f1` proof source and no clean Play Mode screenshot was captured.
+- Unity runtime visual smoke is now passed for a temporary Unity `6000.2.9f1` project, but the external Unity `2022.1.10f1` proof source still has no clean Play Mode screenshot.
 - Unreal runtime visual QA is blocked because the available UE `5.6` editor does not match the UE `5.2` proof source and the unattended open attempt timed out before PIE or screenshot evidence.
-- The strongest runtime screenshot proof is still Web / HTML Canvas. This is valid proof, but it does not independently prove engine-level visual QA behavior for Unity, Unreal, or Godot.
+- The strongest external runtime screenshot proof is still Web / HTML Canvas. The Unity smoke is valid local non-Web runtime evidence, but it does not independently prove project-specific visual QA behavior for external Unity, Unreal, or Godot proof projects.
 
 ## Current Release Interpretation
 
 `v0.9.0` is appropriate as a real-project proof gate version.
 
-`v1.0.0` is not yet proven because the final objective requires stronger evidence that the Skill can preserve studio workflow, formal visual quality, architecture boundaries, QA, and acceptance across real production contexts, not only through documentation and one Web runtime proof.
+`v1.0.0` is not yet proven because the final objective requires stronger evidence that the Skill can preserve studio workflow, formal visual quality, architecture boundaries, QA, and acceptance across real production contexts, not only through documentation, one external Web runtime proof, and one local Unity smoke proof.
 
 ## Highest-Value Remaining Work
 
-1. Capture one non-Web engine runtime screenshot or visual comparison from a compatible Godot, Unity, or Unreal proof project.
+1. Capture one non-Web external engine runtime screenshot or visual comparison from a compatible Godot, Unity, or Unreal proof project.
 2. Run a user-owned or independently scoped first-playable request from client brief through implementation delivery and acceptance.
 3. Add before / after visual comparison evidence tied to a formal visual target or style bible.
 4. Keep proof reports project-specific; do not move proof-project rules into the general Skill.

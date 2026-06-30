@@ -67,6 +67,7 @@ const requiredFiles = [
   'examples/README.md',
   'examples/client-studio-end-to-end-trace.md',
   'scripts/check-engine-runtime-visual-qa.mjs',
+  'scripts/run-unity-runtime-visual-smoke.mjs',
   'scripts/validate-proof-package.mjs',
   'validation/runtime-fixtures/web-first-playable-slice/README.md',
   'validation/runtime-fixtures/web-first-playable-slice/index.html',
@@ -85,6 +86,8 @@ const requiredFiles = [
   'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-main-menu.png',
   'validation/proof-artifacts/gamedev-canvas-workshop-studio-slice-play-state.png',
   'validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md',
+  'validation/proof-artifacts/unity-runtime-visual-smoke-report.md',
+  'validation/proof-artifacts/unity-runtime-visual-smoke.png',
   'validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md',
   'validation/final-goal-coverage-v0.8.0.md',
   'validation/final-objective-operating-system-audit.md',
@@ -114,6 +117,7 @@ const unityProofReport = read('validation/proof-unity2d-prototype-v1.0.0.md');
 const unrealProofReport = read('validation/proof-unreal-pixelperfect2d-v1.0.0.md');
 const externalVisualQaReport = read('validation/proof-artifacts/gamedev-canvas-workshop-visual-qa-report.md');
 const unityBatchSummary = read('validation/proof-artifacts/unity2d-prototype-editor-batch-summary.md');
+const unityRuntimeVisualSmokeReport = read('validation/proof-artifacts/unity-runtime-visual-smoke-report.md');
 const unrealEditorOpenSummary = read('validation/proof-artifacts/unreal-pixelperfect2d-editor-open-summary.md');
 const finalGoalCoverage = read('validation/final-goal-coverage-v0.8.0.md');
 const finalObjectiveOperatingSystemAudit = read('validation/final-objective-operating-system-audit.md');
@@ -493,7 +497,8 @@ assert(
     finalObjectiveOperatingSystemAudit.includes('client-commissioned AI game development studio operating system') &&
     finalObjectiveOperatingSystemAudit.includes('Current verdict: `Partially proven`') &&
     finalObjectiveOperatingSystemAudit.includes('Cross-engine runtime proof exists for Unity / Unreal / Godot') &&
-    finalObjectiveOperatingSystemAudit.includes('Not fully proven') &&
+    finalObjectiveOperatingSystemAudit.includes('Local Unity runtime visual smoke passed') &&
+    finalObjectiveOperatingSystemAudit.includes('Partially proven') &&
     finalObjectiveOperatingSystemAudit.includes('Do not claim the final objective is fully complete') &&
     finalObjectiveOperatingSystemAudit.includes('Do not turn every small question into a full studio audit'),
   'Final objective operating system audit records the real target, partial status, cross-engine proof gap, and non-goals',
@@ -514,6 +519,10 @@ assert(
 );
 assert(
   runtimeVisualQaGate.includes('# Runtime Visual QA Gate') &&
+    runtimeVisualQaGate.includes('Local Unity runtime visual smoke: `Passed`') &&
+    runtimeVisualQaGate.includes('2026-06-30 Local Unity Runtime Visual Smoke') &&
+    runtimeVisualQaGate.includes('unity-runtime-visual-smoke-report.md') &&
+    runtimeVisualQaGate.includes('unity-runtime-visual-smoke.png') &&
     runtimeVisualQaGate.includes('2026-06-30 External Web Proof Retry') &&
     runtimeVisualQaGate.includes('External Web proof runtime visual QA: `Passed`') &&
     runtimeVisualQaGate.includes('Local HTTP boot | `Passed`') &&
@@ -526,9 +535,20 @@ assert(
     runtimeVisualQaGate.includes('unity2d-prototype-editor-batch-summary.md') &&
     runtimeVisualQaGate.includes('unreal-pixelperfect2d-editor-open-summary.md') &&
     runtimeVisualQaGate.includes('Required Evidence To Close This Gate') &&
-    runtimeVisualQaGate.includes('Unity and Unreal still need compatible project-specific screenshot captures'),
+    runtimeVisualQaGate.includes('external Unity and Unreal proof projects still need compatible project-specific screenshot captures'),
   'Runtime visual QA gate records passed external Web screenshots and remaining engine blockers',
   'validation/runtime-visual-qa-gate.md must record the external Web runtime screenshots and remaining non-Web engine blockers'
+);
+assert(
+  unityRuntimeVisualSmokeReport.includes('# Unity Runtime Visual Smoke Report') &&
+    unityRuntimeVisualSmokeReport.includes('Status: `Passed`') &&
+    unityRuntimeVisualSmokeReport.includes('rendered through Unity camera') &&
+    unityRuntimeVisualSmokeReport.includes('unity-runtime-visual-smoke.png') &&
+    unityRuntimeVisualSmokeReport.includes('Runtime marker found: `yes`') &&
+    unityRuntimeVisualSmokeReport.includes('not a replacement for external Unity project proof') &&
+    statSync(join(root, 'validation/proof-artifacts/unity-runtime-visual-smoke.png')).size > 50000,
+  'Unity runtime visual smoke report and screenshot record passed non-Web engine render evidence',
+  'Unity runtime visual smoke evidence must include a passed report, runtime marker, screenshot path, and non-empty PNG'
 );
 assert(
   engineRuntimeEnvironmentReport.includes('# Engine Runtime Environment Report') &&
@@ -577,6 +597,19 @@ try {
   pass('Engine runtime environment checker has valid JavaScript syntax');
 } catch (error) {
   fail(`Engine runtime environment checker syntax check failed: ${error.message}`);
+}
+
+try {
+  execFileSync(process.execPath, [
+    '--check',
+    'scripts/run-unity-runtime-visual-smoke.mjs'
+  ], {
+    cwd: root,
+    encoding: 'utf8'
+  });
+  pass('Unity runtime visual smoke script has valid JavaScript syntax');
+} catch (error) {
+  fail(`Unity runtime visual smoke script syntax check failed: ${error.message}`);
 }
 
 try {

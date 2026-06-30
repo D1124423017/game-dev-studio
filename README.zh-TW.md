@@ -314,6 +314,7 @@ game-dev-studio/
 │   └── output-templates.md
 ├── scripts/
 │   ├── check-engine-runtime-visual-qa.mjs
+│   ├── run-unity-runtime-visual-smoke.mjs
 │   ├── validate-proof-package.mjs
 │   └── validate-skill.mjs
 ├── validation/
@@ -349,6 +350,14 @@ node scripts/validate-skill.mjs
 ```bash
 node scripts/check-engine-runtime-visual-qa.mjs
 ```
+
+若要重跑本機 Unity runtime visual smoke proof，執行：
+
+```bash
+node scripts/run-unity-runtime-visual-smoke.mjs
+```
+
+這會建立暫時 Unity 專案，透過 Unity camera render 正式 client-studio visual QA 場景，並寫出 `validation/proof-artifacts/unity-runtime-visual-smoke.png` 與 `validation/proof-artifacts/unity-runtime-visual-smoke-report.md`。這是有用的非 Web runtime 證據，但不能取代外部 Unity 專案特定 proof。
 
 若要更新已提交的環境報告：
 

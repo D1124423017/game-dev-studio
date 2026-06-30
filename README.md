@@ -318,6 +318,7 @@ game-dev-studio/
 │   └── output-templates.md
 ├── scripts/
 │   ├── check-engine-runtime-visual-qa.mjs
+│   ├── run-unity-runtime-visual-smoke.mjs
 │   ├── validate-proof-package.mjs
 │   └── validate-skill.mjs
 ├── validation/
@@ -353,6 +354,14 @@ For non-Web engine runtime readiness, run:
 ```bash
 node scripts/check-engine-runtime-visual-qa.mjs
 ```
+
+For the local Unity runtime visual smoke proof, run:
+
+```bash
+node scripts/run-unity-runtime-visual-smoke.mjs
+```
+
+This creates a temporary Unity project, renders a formal client-studio visual QA scene through a Unity camera, and writes `validation/proof-artifacts/unity-runtime-visual-smoke.png` plus `validation/proof-artifacts/unity-runtime-visual-smoke-report.md`. This is useful non-Web runtime evidence, but it does not replace an external Unity project-specific proof.
 
 To refresh the committed environment report:
 
